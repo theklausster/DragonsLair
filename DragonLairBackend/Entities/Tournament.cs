@@ -17,11 +17,11 @@ namespace Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
-
+        [Required]
         public virtual TournamentType TournamentType { get; set; }
-
+        [Required]
         public virtual Game Game { get; set; }
-
+        [Required]
         public virtual List<Group> Groups { get; set; }
 
 
