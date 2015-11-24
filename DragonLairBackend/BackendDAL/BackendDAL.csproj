@@ -40,13 +40,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facade\Facade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GameRepository.cs" />
+    <Compile Include="Repositories\GenreRepository.cs" />
+    <Compile Include="Repositories\GroupRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\PlayerRepository.cs" />
+    <Compile Include="Repositories\TeamRepository.cs" />
+    <Compile Include="Repositories\TournamentRepository.cs" />
+    <Compile Include="Repositories\TournamentTypeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Context\" />
-    <Folder Include="Facade\" />
     <Folder Include="Initializer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{2736e730-c275-496e-a89b-416758f4dbaa}</Project>
+      <Name>Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
