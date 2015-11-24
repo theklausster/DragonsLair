@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace BackendDAL.Repositories
 {
-    interface IRepository<T>
+    public interface IRepository<T>
     {
-
+        IEnumerable<T> Get();
+        T Get(int id);
+        T Post(T entity);
+        bool Put(T entity);
+        void Delete(int id);
     }
 }
