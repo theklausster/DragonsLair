@@ -12,6 +12,6 @@ namespace Entities
         [Required(ErrorMessage = "Please Enter a Name")]
         public string Name { get; set; }
 
-        public virtual Genre genre { get; set; }
+        public virtual Genre Genre { get; set; }
     }
 }
