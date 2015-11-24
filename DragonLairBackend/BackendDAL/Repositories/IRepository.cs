@@ -8,10 +8,10 @@ namespace BackendDAL.Repositories
 {
     public interface IRepository<T>
     {
-        IEnumerable<T> Get();
-        T Get(int id);
-        T Post(T entity);
-        bool Put(T entity);
+        IEnumerable<T> ReadAll();
+        T Read(int id);
+        T Create(T entity);
+        bool Update(T entity);
         void Delete(int id);
     }
 }
