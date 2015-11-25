@@ -5,8 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Web.Http.Hosting;
+using System.Web.Http.Routing;
 using BackendDAL.Initializer;
-using DragonLairBackend;
 using DragonLairBackend.Controllers;
 using DTOConverter.DTOModel;
 using Entities;
@@ -22,9 +25,19 @@ namespace BackEndIntegrationTest.IntegrationTest
         [SetUp]
         public void SetUp()
         {
-            player = new Player() {Name = "Peter", Teams = null};
-            DbInitializer.Initialize();
+            var config = new HttpConfiguration();
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/player");
+            var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
+            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "player" } });
+
+
             playerController = new PlayerController();
+            playerController.ControllerContext = new HttpControllerContext(config, routeData, request);
+            playerController.Request = request;
+            playerController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+
+            player = new Player() {Name = "Peter"};
+            DbInitializer.Initialize();
         }
 
         [TearDown]
@@ -44,21 +57,20 @@ namespace BackEndIntegrationTest.IntegrationTest
         [Test]
         public void Test_You_Can_Create_A_Player_On_DataBase()
         {
-
-            //NEED TO CREATE A REQUEST IT CAN SEND.
             var response = playerController.Post(player);
-            response.Content.ReadAsAsync<object>().ContinueWith(task =>
-            {
+            response.Content.ReadAsAsync<object>().ContinueWith(task => {
                 // The Task.Result property holds the whole deserialized object
-                player = ((dynamic)task.Result).Token;
-                Assert.Greater(player.Id, 0);
+                //string returnedToken = ((dynamic)task.Result).Token;
+                Player testPlayer = ((dynamic)task.Result);
+                Assert.Greater(testPlayer.Id, 0);
+
             });
 
         }
         [Test]
         public void Test_You_Can_Find_A_Single_Player_On_Database()
         {
-
+            
         }
     }
 }
