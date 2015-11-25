@@ -46,10 +46,12 @@
     <Compile Include="Converter\DTOPlayerConverter.cs" />
     <Compile Include="Converter\DTOTeamConverter.cs" />
     <Compile Include="Converter\DTOTournamentConverter.cs" />
+    <Compile Include="Converter\DTOTournamentTypeConverter.cs" />
     <Compile Include="DTOModel\DTOGroup.cs" />
     <Compile Include="DTOModel\DTOPlayer.cs" />
     <Compile Include="DTOModel\DTOTeam.cs" />
     <Compile Include="DTOModel\DTOTournament.cs" />
+    <Compile Include="DTOModel\DTOTournamentType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
