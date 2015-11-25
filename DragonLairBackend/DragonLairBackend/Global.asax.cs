@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using BackendDAL.Initializer;
 
 namespace DragonLairBackend
 {
@@ -13,6 +14,7 @@ namespace DragonLairBackend
     {
         protected void Application_Start()
         {
+            DbInitializer.Initialize();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

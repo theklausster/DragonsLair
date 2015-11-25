@@ -11,7 +11,7 @@ namespace DTOConverter
     public abstract class DTOAbstract <T, TD>
     {
 
-        public IEnumerable<TD> Convet(IEnumerable<T> listWithEntities)
+        public IEnumerable<TD> Convert(IEnumerable<T> listWithEntities)
         {
             List<TD> ConvertedList = new List<TD>();
             foreach (var item in listWithEntities)

@@ -2,6 +2,7 @@
 using Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,10 @@ namespace BackendDAL.Facade
 {
     public class Facade
     {
+        ////Hacks to ensure DLL is copies to the database!
+        private SqlProviderServices ensureDLLIsInUse = SqlProviderServices.Instance;
+        private string Ensure = MySql.Data.Entity.MySqlProviderInvariantName.ProviderName;
+
         public IRepository<Player> GetPlayerRepository()
         {
             return new PlayerRepository();

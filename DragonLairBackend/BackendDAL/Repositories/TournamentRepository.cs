@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BackendDAL.Context;
 
 namespace BackendDAL.Repositories
 {
@@ -11,27 +12,53 @@ namespace BackendDAL.Repositories
     {
         public Tournament Create(Tournament entity)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                context.Tournaments.Add(entity);
+                context.SaveChanges();
+            }
+            return entity;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                Tournament tournament = context.Tournaments.Find(id);
+                context.Tournaments.Remove(tournament);
+            }
         }
 
         public Tournament Read(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                return context.Tournaments.Find(id);
+            }
         }
 
         public IEnumerable<Tournament> ReadAll()
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                return context.Tournaments.ToList();
+            }
         }
 
         public bool Update(Tournament entity)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                Tournament tournament = context.Tournaments.Find(entity.Id);
+                if ((tournament == null)) return false;
+                tournament.TournamentType = entity.TournamentType;
+                tournament.Game = entity.Game;
+                tournament.Groups = entity.Groups;
+                tournament.Name = entity.Name;
+                tournament.StartDate = entity.StartDate;
+                context.SaveChanges();
+                return true;
+            }
         }
     }
 }

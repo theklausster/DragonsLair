@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BackendDAL.Context;
 
 namespace BackendDAL.Repositories
 {
@@ -11,27 +12,51 @@ namespace BackendDAL.Repositories
     {
         public Game Create(Game entity)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                context.Games.Add(entity);
+                context.SaveChanges();
+            }
+            return entity;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                Game game = context.Games.Find(id);
+                context.Games.Remove(game);
+            }
         }
 
         public Game Read(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                return context.Games.Find(id);
+            }
         }
 
         public IEnumerable<Game> ReadAll()
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                return context.Games.ToList();
+            }
         }
 
         public bool Update(Game entity)
         {
-            throw new NotImplementedException();
+            using (var context = new DragonLairContext())
+            {
+                Game game = context.Games.Find(entity.Id);
+                if ((game == null)) return false;
+                game.Name = entity.Name;
+                game.Genre = entity.Genre;
+                game.Tournaments = entity.Tournaments;
+                context.SaveChanges();
+                return true;
+            }
         }
     }
 }

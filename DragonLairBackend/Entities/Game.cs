@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
 
 namespace Entities
 {
@@ -13,5 +15,7 @@ namespace Entities
         public string Name { get; set; }
 
         public virtual Genre Genre { get; set; }
+
+        public virtual List<Tournament> Tournaments { get; set; }
     }
 }
