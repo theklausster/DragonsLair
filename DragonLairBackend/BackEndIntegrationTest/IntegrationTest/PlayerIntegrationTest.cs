@@ -44,14 +44,15 @@ namespace BackEndIntegrationTest.IntegrationTest
         [Test]
         public void Test_You_Can_Create_A_Player_On_DataBase()
         {
-            
-            ////NEED TO CREATE A REQUEST IT CAN SEND.
-            //var response = playerController.Post(player);
-            //response.Content.ReadAsAsync<object>().ContinueWith(task => {
-            //    // The Task.Result property holds the whole deserialized object
-            //    player = ((dynamic)task.Result).Token;
-            //    Assert.Greater(player.Id, 0);
-            //});
+
+            //NEED TO CREATE A REQUEST IT CAN SEND.
+            var response = playerController.Post(player);
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
+                // The Task.Result property holds the whole deserialized object
+                player = ((dynamic)task.Result).Token;
+                Assert.Greater(player.Id, 0);
+            });
 
         }
         [Test]
