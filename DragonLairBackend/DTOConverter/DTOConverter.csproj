@@ -42,12 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converter\DTOAbstract.cs" />
+    <Compile Include="Converter\DTOGameConverter.cs" />
     <Compile Include="Converter\DTOGroupConverter.cs" />
     <Compile Include="Converter\DTOPlayerConverter.cs" />
     <Compile Include="Converter\DTOTeamConverter.cs" />
     <Compile Include="Converter\DTOTournamentConverter.cs" />
     <Compile Include="Converter\DTOTournamentTypeConverter.cs" />
-    <Compile Include="Conveter\DTOGenreConverter.cs" />
+    <Compile Include="Converter\DTOGenreConverter.cs" />
+    <Compile Include="DTOModel\DTOGame.cs" />
     <Compile Include="DTOModel\DTOGenre.cs" />
     <Compile Include="DTOModel\DTOGroup.cs" />
     <Compile Include="DTOModel\DTOPlayer.cs" />
