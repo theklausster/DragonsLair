@@ -1,4 +1,4 @@
-﻿using DTOConverter.Conveter;
+﻿using DTOConverter.Converter;
 using DTOConverter.DTOModel;
 using Entities;
 using NUnit.Framework;

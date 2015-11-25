@@ -2,7 +2,7 @@
 using DTOConverter.DTOModel;
 using Entities;
 
-namespace DTOConverter.Conveter
+namespace DTOConverter.Converter
 {
     public class DTOGenreConverter : DTOAbstract<Genre, DTOGenre>
     {
