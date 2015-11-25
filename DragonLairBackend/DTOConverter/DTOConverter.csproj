@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="Converter\DTOAbstract.cs" />
     <Compile Include="Converter\DTOPlayerConverter.cs" />
+    <Compile Include="Converter\DTOTeamConverter.cs" />
     <Compile Include="DTOModel\DTOPlayer.cs" />
+    <Compile Include="DTOModel\DTOTeam.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

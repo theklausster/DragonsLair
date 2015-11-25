@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BackendTest.TestDTOConverter
 {
     [TestFixture]
-    class TestDTOPlayer
+    class TestDTOPlayerConverter
     {
         [Test]
         public void Test_if_Player_can_be_converted_to_DTO()
