@@ -9,6 +9,7 @@ using Entities;
 
 namespace BackendDAL.Context
 {
+    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
     public class DragonLairContext : DbContext
     {
         public DragonLairContext() : base("DragonLair")
