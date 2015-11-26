@@ -31,12 +31,15 @@ namespace BackEndIntegrationTest.IntegrationTest
             var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/player");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "player" } });
-
+    
 
             playerController = new PlayerController();
+            UrlHelper urlHelper = new UrlHelper(request);
             playerController.ControllerContext = new HttpControllerContext(config, routeData, request);
             playerController.Request = request;
             playerController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+            playerController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
+            playerController.Url = urlHelper;
 
             player = new Player() {Name = "Peter"};
             DbInitializer.Initialize();
