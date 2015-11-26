@@ -24,8 +24,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Group group = context.Groups.Find(id);
-                context.Groups.Remove(group);
+                context.Groups.Remove(context.Groups.Find(id));
+                context.SaveChanges();
             }
         }
 

@@ -24,8 +24,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Team team = context.Teams.Find(id);
-                context.Teams.Remove(team);
+                context.Teams.Remove(context.Teams.Find(id));
+                context.SaveChanges();
             }
         }
 

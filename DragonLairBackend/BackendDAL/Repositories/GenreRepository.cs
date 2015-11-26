@@ -24,8 +24,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Genre genre = context.Genres.Find(id);
-                context.Genres.Remove(genre);
+                context.Genres.Remove(context.Genres.Find(id));
+                context.SaveChanges();
             }
         }
 
