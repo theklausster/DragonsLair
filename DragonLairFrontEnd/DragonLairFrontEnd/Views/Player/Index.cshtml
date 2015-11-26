@@ -1,8 +1,13 @@
-﻿@model string[]
+﻿@using Entities
+@model IEnumerable<Entities.Player>
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
+@foreach (var player in Model)
+{
+    @Html.DisplayFor(model => player.Name)
+}
 

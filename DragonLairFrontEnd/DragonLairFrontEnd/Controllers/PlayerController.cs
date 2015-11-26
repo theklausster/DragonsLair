@@ -18,7 +18,7 @@ namespace DragonLairFrontEnd.Controllers
 
             //var players = apiService.GetAsync<Player>("api/player/");
 
-            var players = await apiService.GetAsync<string[]>("api/player/");
+            List<Player> players = await apiService.GetAsync<List<Player>>("api/player/");
             return View(players);
         }
 
