@@ -391,7 +391,7 @@ $.extend($.validator, {
 		form: function() {
 			/// <summary>
 			/// Validates the form, returns true if it is valid, false otherwise.
-			/// This behaves as a normal submit event, but returns the result.
+			/// This behaves as a normal submit event, but returns the ApiException.
 			/// </summary>
 			/// <returns type="Boolean" />
 
@@ -416,7 +416,7 @@ $.extend($.validator, {
 		element: function( element ) {
 			/// <summary>
 			/// Validates a single element, returns true if it is valid, false otherwise.
-			/// This behaves as validation on blur or keyup, but returns the result.
+			/// This behaves as validation on blur or keyup, but returns the ApiException.
 			/// </summary>
 			/// <param name="element" type="Selector">
 			/// An element to validate, must be inside the validated form.

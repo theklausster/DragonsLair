@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragonLairFrontEnd", "Drago
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceGateway", "ServiceGateway\ServiceGateway.csproj", "{EFC02D39-693E-4B94-98B2-AA5D12CAEE5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{B3C9C2DB-C824-4CEF-95CF-FE0C99CA1C4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{2736E730-C275-496E-A89B-416758F4DBAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{EFC02D39-693E-4B94-98B2-AA5D12CAEE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFC02D39-693E-4B94-98B2-AA5D12CAEE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFC02D39-693E-4B94-98B2-AA5D12CAEE5F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3C9C2DB-C824-4CEF-95CF-FE0C99CA1C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3C9C2DB-C824-4CEF-95CF-FE0C99CA1C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3C9C2DB-C824-4CEF-95CF-FE0C99CA1C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3C9C2DB-C824-4CEF-95CF-FE0C99CA1C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2736E730-C275-496E-A89B-416758F4DBAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2736E730-C275-496E-A89B-416758F4DBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2736E730-C275-496E-A89B-416758F4DBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2736E730-C275-496E-A89B-416758F4DBAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
