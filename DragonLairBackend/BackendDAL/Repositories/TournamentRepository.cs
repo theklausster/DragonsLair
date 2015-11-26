@@ -24,8 +24,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Tournament tournament = context.Tournaments.Find(id);
-                context.Tournaments.Remove(tournament);
+                context.Tournaments.Remove(context.Tournaments.Find(id));
+                context.SaveChanges();
             }
         }
 
