@@ -20,8 +20,7 @@ namespace DragonLairBackend.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DragonLair", false)
+        public ApplicationDbContext() : base("DragonLair", false)
         {
         }
         

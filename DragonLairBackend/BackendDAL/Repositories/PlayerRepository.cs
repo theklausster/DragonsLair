@@ -28,6 +28,7 @@ namespace BackendDAL.Repositories
             {
                 Player player = context.Players.Find(id);
                 context.Players.Remove(player);
+                context.SaveChanges();
             }
         }
 

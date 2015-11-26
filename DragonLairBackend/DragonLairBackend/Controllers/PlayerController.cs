@@ -44,8 +44,8 @@ namespace DragonLairBackend.Controllers
         {
             player = playerRepository.Create(player);
             var response = Request.CreateResponse<Player>(HttpStatusCode.Created, player);
-            //string uri = Url.Link("DefaultApi", new {id = player.Id});
-            //response.Headers.Location = new Uri(uri);
+            string uri = Url.Link("DefaultApi", new { id = player.Id });
+            response.Headers.Location = new Uri(uri);
             return response;
         }
 
