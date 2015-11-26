@@ -27,8 +27,7 @@ namespace DragonLairBackend.Controllers
         // GET: api/TournamentType
         public IEnumerable<DTOTournamentType> Get()
         {
-            var tournamentType = tournamentTypeRepository.ReadAll();
-            return new List<DTOTournamentType>(DtoTournamentTypeConverter.Convert(tournamentType));
+            return new List<DTOTournamentType>(DtoTournamentTypeConverter.Convert(tournamentTypeRepository.ReadAll()));
         }
 
         // GET: api/TournamentType/5
@@ -55,12 +54,10 @@ namespace DragonLairBackend.Controllers
             tournamentType.Id = id;
             if (!tournamentTypeRepository.Update(tournamentType)) throw new HttpResponseException(HttpStatusCode.NotFound);
         }
-
         // DELETE: api/TournamentType/5
         public void Delete(int id)
         {
-            TournamentType tournamentType = tournamentTypeRepository.Read(id);
-            if (tournamentType == null) throw new HttpResponseException(HttpStatusCode.NotFound);
+            if (tournamentTypeRepository.Read(id) == null) throw new HttpResponseException(HttpStatusCode.NotFound);
             tournamentTypeRepository.Delete(id);
         }
     }

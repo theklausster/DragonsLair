@@ -27,8 +27,7 @@ namespace DragonLairBackend.Controllers
         // GET: api/Player
         public List<DTOPlayer> Get()
         {
-            var players = playerRepository.ReadAll();
-            return new List<DTOPlayer>(DtoPlayerConverter.Convert(players));
+            return new List<DTOPlayer>(DtoPlayerConverter.Convert(playerRepository.ReadAll()));
         }
 
         // GET: api/Player/5
@@ -59,8 +58,7 @@ namespace DragonLairBackend.Controllers
         // DELETE: api/Player/5
         public void Delete(int id)
         {
-            Player player = playerRepository.Read(id);
-            if (player == null) throw new HttpResponseException(HttpStatusCode.NotFound);
+            if (playerRepository.Read(id) == null) throw new HttpResponseException(HttpStatusCode.NotFound);
             playerRepository.Delete(id);
         }
     }

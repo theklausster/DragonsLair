@@ -28,8 +28,7 @@ namespace DragonLairBackend.Controllers
 
         public List<DTOTeam> Get()
         {
-            var teams = teamRepository.ReadAll();
-            return new List<DTOTeam>(DtoTeamConverter.Convert(teams));
+            return new List<DTOTeam>(DtoTeamConverter.Convert(teamRepository.ReadAll()));
         }
 
         // GET: api/Team/5
@@ -60,8 +59,7 @@ namespace DragonLairBackend.Controllers
         // DELETE: api/Team/5
         public void Delete(int id)
         {
-            Team team = teamRepository.Read(id);
-            if (team == null) throw new HttpResponseException(HttpStatusCode.NotFound);
+            if (teamRepository.Read(id) == null) throw new HttpResponseException(HttpStatusCode.NotFound);
             teamRepository.Delete(id);
         }
     }

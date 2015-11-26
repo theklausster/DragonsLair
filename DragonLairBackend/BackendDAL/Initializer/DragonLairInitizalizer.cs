@@ -14,9 +14,9 @@ namespace BackendDAL.Initializer
         private Player player1;
         private Player player2;
         private Player player3;
-        private TournamentType tournamentType;
-        private Genre genre;
-        private Game game;
+        //private TournamentType tournamentType;
+        //private Genre genre;
+        //private Game game;
         public DragonLairInitizalizer()
         {
             player1 = new Player() { Name = "Søren"};

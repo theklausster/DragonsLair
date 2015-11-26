@@ -25,8 +25,9 @@ namespace BackendDAL.Repositories
         public void Delete(int id)
         {
             using (var context = new DragonLairContext())
+
             {                
-                context.Players.Remove(context.Players.Find(id));
+                context.Players.Remove(context.Players.Find(id));         
                 context.SaveChanges();
             }
         }

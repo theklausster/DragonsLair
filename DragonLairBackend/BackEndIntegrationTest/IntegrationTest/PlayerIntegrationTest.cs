@@ -14,6 +14,7 @@ using DragonLairBackend.Controllers;
 using DTOConverter.DTOModel;
 using Entities;
 using NUnit.Framework;
+using BackendDAL.Context;
 
 namespace BackEndIntegrationTest.IntegrationTest
 {
@@ -25,6 +26,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         [SetUp]
         public void SetUp()
         {
+         
             var config = new HttpConfiguration();
             var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/player");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
@@ -38,12 +40,13 @@ namespace BackEndIntegrationTest.IntegrationTest
 
             player = new Player() {Name = "Peter"};
             DbInitializer.Initialize();
+
         }
 
         [TearDown]
         public void TearDown()
         {
-            
+           
         }
 
         [Test]
@@ -72,5 +75,8 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             
         }
+
+
+      
     }
 }
