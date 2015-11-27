@@ -16,13 +16,11 @@ namespace ServiceGateway.Http
 
         public async Task<T> PostAsync<T>(string action, T data)
         {
-            StackTrace stack = new StackTrace();
             return await ManageData<T>(action, data, "PostAsync");
         }
 
         public async Task<T> PutAsync<T>(string action, T data)
         {
-            StackTrace stack = new StackTrace();
             return await ManageData<T>(action, data, "PutAsync");
         }
 
