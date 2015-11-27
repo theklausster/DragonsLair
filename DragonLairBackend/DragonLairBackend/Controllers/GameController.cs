@@ -15,7 +15,7 @@ namespace DragonLairBackend.Controllers
 {
     public class GameController : ApiController
     {
-        private readonly AbstractRepository<Game> gameRepository;
+        private readonly IRepository<Game> gameRepository;
         private DTOGameConverter dtoGameConverter;
 
         public GameController()
