@@ -11,14 +11,14 @@ namespace DragonLairFrontEnd.Controllers
 {
     public class PlayerController : Controller
     {
+        private string baseRoute = "api/player/";
+
         // GET: Player
         public async Task<ActionResult> Index()
         {
             WebApiService apiService = new WebApiService();
 
-            //var players = apiService.GetAsync<Player>("api/player/");
-
-            List<Player> players = await apiService.GetAsync<List<Player>>("api/player/");
+            List<Player> players = await apiService.GetAsync<List<Player>>(baseRoute);
             return View(players);
         }
 
