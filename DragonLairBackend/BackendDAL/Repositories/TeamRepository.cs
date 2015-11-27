@@ -51,6 +51,9 @@ namespace BackendDAL.Repositories
             {
                 Team team = context.Teams.Find(entity.Id);
                 if ((team == null)) return false;
+                team.Draw = entity.Draw;
+                team.Loss = entity.Loss;
+                team.Win = entity.Win;
                 team.Name = entity.Name;
                 team.Group = entity.Group;
                 team.Players = entity.Players;

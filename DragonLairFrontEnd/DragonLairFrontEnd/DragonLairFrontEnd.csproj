@@ -247,6 +247,8 @@
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Team\Delete.cshtml" />
     <Content Include="Views\TournamentType\Index.cshtml" />
     <Content Include="Views\TournamentType\Details.cshtml" />
     <Content Include="Views\TournamentType\Create.cshtml" />

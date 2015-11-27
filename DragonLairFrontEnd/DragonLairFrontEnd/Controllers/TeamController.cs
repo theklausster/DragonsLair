@@ -51,18 +51,19 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Team/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Team team = await apiService.GetAsync<Team>(baseRoute + id);
+            return View(team);
         }
 
         // POST: Team/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Win, Loss, Draw")] Team team)
         {
             try
             {
-                // TODO: Add update logic here
+                await apiService.PutAsync<Team>(baseRoute + team.Id, team);
 
                 return RedirectToAction("Index");
             }
@@ -73,19 +74,19 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Team/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            Team team = await apiService.GetAsync<Team>(baseRoute + id);
+            return View(team);
         }
 
         // POST: Team/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                await apiService.DeleteAsync<Team>(baseRoute + id);
                 return RedirectToAction("Index");
             }
             catch
