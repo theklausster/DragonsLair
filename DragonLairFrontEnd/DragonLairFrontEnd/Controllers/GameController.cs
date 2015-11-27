@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Entities;
+using ServiceGateway.Http;
 
 namespace DragonLairFrontEnd.Controllers
 {
     public class GameController : Controller
     {
+        private string baseRoute = "api/game/";
+        private WebApiService apiService = new WebApiService();
         // GET: Game
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            List<Game> games = await apiService.GetAsync<List<Game>>(baseRoute);
+            return View(games);
         }
 
         // GET: Game/Details/5
