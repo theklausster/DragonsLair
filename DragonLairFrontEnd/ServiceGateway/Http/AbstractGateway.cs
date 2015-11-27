@@ -34,10 +34,10 @@ namespace ServiceGateway.Http
             HttpResponseMessage response = null;
             switch(type)
             {
-                case "Post":
+                case "PostAsync":
                  response = await Client().PostAsJsonAsync(action, t);
                 break;
-                case "Put":
+                case "PutAsync":
                  response = await Client().PutAsJsonAsync(action, t);
                 break;
             }
