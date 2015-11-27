@@ -20,20 +20,20 @@ namespace DragonLairFrontEnd.Controllers
             return View(tournamentTypes);
         }
 
-        // GET: Player/Details/5
+        // GET: TournamentType/Details/5
         public async Task<ActionResult> Details(int id)
         {
             TournamentType tournamentType = await apiService.GetAsync<TournamentType>(baseRoute + id);
             return View(tournamentType);
         }
 
-        // GET: Player/Create
+        // GET: TournamentType/Create
         public ActionResult Create()
         {
             return View(new TournamentType());
         }
 
-        // POST: Player/Create
+        // POST: TournamentType/Create
         [HttpPost]
         public async Task<ActionResult> Create([Bind(Include = "Id, Type")] TournamentType tournamentType)
         {
@@ -49,14 +49,14 @@ namespace DragonLairFrontEnd.Controllers
             }
         }
 
-        // GET: Player/Edit/5
+        // GET: TournamentType/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
             TournamentType tournamentType = await apiService.GetAsync<TournamentType>(baseRoute + id);
             return View(tournamentType);
         }
 
-        // POST: Player/Edit/5
+        // POST: TournamentType/Edit/5
         [HttpPost]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Type")] TournamentType tournamentType)
         {
@@ -72,14 +72,14 @@ namespace DragonLairFrontEnd.Controllers
             }
         }
 
-        // GET: Player/Delete/5
+        // GET: TournamentType/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
             TournamentType tournamentType = await apiService.GetAsync<TournamentType>(baseRoute + id);
             return View(tournamentType);
         }
 
-        // POST: Player/Delete/5
+        // POST: TournamentType/Delete/5
         [HttpPost, ActionName("Delete")]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
