@@ -13,32 +13,33 @@ namespace DragonLairFrontEnd.Controllers
     {
         private string baseRoute = "api/game/";
         private WebApiService apiService = new WebApiService();
-        // GET: Game
+        // GET: game
         public async Task<ActionResult> Index()
         {
-            List<Game> games = await apiService.GetAsync<List<Game>>(baseRoute);
-            return View(games);
+            List<Game> game = await apiService.GetAsync<List<Game>>(baseRoute);
+            return View(game);
         }
 
-        // GET: Game/Details/5
-        public ActionResult Details(int id)
+        // GET: game/Details/5
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            Game game = await apiService.GetAsync<Game>(baseRoute + id);
+            return View(game);
         }
 
-        // GET: Game/Create
+        // GET: game/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Game());
         }
 
-        // POST: Game/Create
+        // POST: game/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Game game)
         {
             try
             {
-                // TODO: Add insert logic here
+                await apiService.PostAsync<Game>(baseRoute + game.Id, game);
 
                 return RedirectToAction("Index");
             }
@@ -48,19 +49,20 @@ namespace DragonLairFrontEnd.Controllers
             }
         }
 
-        // GET: Game/Edit/5
-        public ActionResult Edit(int id)
+        // GET: game/Edit/5
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            Game game = await apiService.GetAsync<Game>(baseRoute + id);
+            return View(game);
         }
 
-        // POST: Game/Edit/5
+        // POST: game/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Game game)
         {
             try
             {
-                // TODO: Add update logic here
+                await apiService.PutAsync<Game>(baseRoute + game.Id, game);
 
                 return RedirectToAction("Index");
             }
@@ -70,19 +72,20 @@ namespace DragonLairFrontEnd.Controllers
             }
         }
 
-        // GET: Game/Delete/5
-        public ActionResult Delete(int id)
+        // GET: game/Delete/5
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            Game game = await apiService.GetAsync<Game>(baseRoute + id);
+            return View(game);
         }
 
-        // POST: Game/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: game/Delete/5
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                await apiService.DeleteAsync<Game>(baseRoute + id);
 
                 return RedirectToAction("Index");
             }
