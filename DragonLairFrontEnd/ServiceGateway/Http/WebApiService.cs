@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace ServiceGateway.Http
 {
@@ -7,13 +8,29 @@ namespace ServiceGateway.Http
     {
         public async Task<T> GetAsync<T>(string action)
         {
-            var response = await Client().GetAsync(action);
-            string json = await response.Content.ReadAsStringAsync();
-            if (response.IsSuccessStatusCode)
-            {
-                return JsonConvert.DeserializeObject<T>(json);
-            }
-            throw new ApiException(response.StatusCode, json);
+            return await ManageData<T>(action);
         }
-    }
+
+        public async Task<T> PostAsync<T>(string action, T data)
+        {
+            return await ManageData<T>(action, data, "Post");
+        }
+
+        public async Task<T> PutAsync<T>(string action, T data)
+        {
+            return await ManageData<T>(action, data, "Put");
+        }
+
+        public async Task<HttpResponseMessage> DeleteAsync<T>(string action)
+        {
+            HttpResponseMessage response = await Client().DeleteAsync(action);
+            return response.EnsureSuccessStatusCode();
+        }
+
+
+
+    
+}
+
+    
 }
