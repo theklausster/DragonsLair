@@ -8,12 +8,7 @@ namespace ServiceGateway.Http
 {
     public class WebApiService : AbstractGateway
     {
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public string GetCurrentMethod(StackTrace stack)
-        {           
-            StackFrame sf = stack.GetFrame(0);
-            return sf.GetMethod().Name;
-        }
+
         public async Task<T> GetAsync<T>(string action)
         {
             return await ManageData<T>(action);
@@ -22,13 +17,13 @@ namespace ServiceGateway.Http
         public async Task<T> PostAsync<T>(string action, T data)
         {
             StackTrace stack = new StackTrace();
-            return await ManageData<T>(action, data, GetCurrentMethod(stack));
+            return await ManageData<T>(action, data, "PostAsync");
         }
 
         public async Task<T> PutAsync<T>(string action, T data)
         {
             StackTrace stack = new StackTrace();
-            return await ManageData<T>(action, data, GetCurrentMethod(stack));
+            return await ManageData<T>(action, data, "PutAsync");
         }
 
         public async Task<HttpResponseMessage> DeleteAsync<T>(string action)

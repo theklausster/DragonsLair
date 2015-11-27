@@ -173,6 +173,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Controllers\TournamentTypeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,6 +247,11 @@
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\TournamentType\Index.cshtml" />
+    <Content Include="Views\TournamentType\Details.cshtml" />
+    <Content Include="Views\TournamentType\Create.cshtml" />
+    <Content Include="Views\TournamentType\Edit.cshtml" />
+    <Content Include="Views\TournamentType\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
