@@ -16,12 +16,15 @@ namespace BackendDAL.Initializer
         private Player player3;
         //private TournamentType tournamentType;
         //private Genre genre;
-        //private Game game;
+        private Game game;
         public DragonLairInitizalizer()
         {
             player1 = new Player() { Name = "Søren"};
             player2 = new Player() { Name = "Mark"};
             player3 = new Player() { Name = "René"};
+            game = new Game() { Name = "Game one" };
+            game = new Game() { Name = "Game Two" };
+            game = new Game() { Name = "Game Three" };
         }
 
         protected override void Seed(DragonLairContext context)

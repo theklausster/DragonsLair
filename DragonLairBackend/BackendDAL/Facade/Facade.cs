@@ -40,7 +40,7 @@ namespace BackendDAL.Facade
             return new TournamentTypeRepository();
         }
 
-        public IRepository<Game> GetGameRepository()
+        public GameRepository GetGameRepository()
         {
             return new GameRepository();
         }
