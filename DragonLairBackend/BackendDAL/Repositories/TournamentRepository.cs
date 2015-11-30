@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BackendDAL.Context;
+using System.Data.Entity;
 
 namespace BackendDAL.Repositories
 {
@@ -33,7 +34,11 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Tournaments.Find(id);
+                return
+                    context.Tournaments.Include(a => a.Game)
+                        .Include(b => b.Groups)
+                        .Include(c => c.TournamentType)
+                        .FirstOrDefault(d => d.Id == id);
             }
         }
 
@@ -41,7 +46,9 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Tournaments.ToList();
+                return context.Tournaments.Include(a => a.Game)
+                        .Include(b => b.Groups)
+                        .Include(c => c.TournamentType).ToList();
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace DTOConverter.DTOModel
 {
@@ -15,5 +16,7 @@ namespace DTOConverter.DTOModel
 
         [DataMember]
         public string Type { get; set; }
+        [DataMember]
+        public ICollection<DTOTournament> DtoTournaments { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Entities;
 
 namespace DTOConverter.DTOModel
 {
@@ -19,6 +21,8 @@ namespace DTOConverter.DTOModel
         [DataMember]
         public DateTime StartDate { get; set; }
 
-
+        public DTOTournamentType DTOTournamentType { get; set; }
+        public ICollection<DTOGroup> DtoGroups { get; set; }
+        public DTOGame DtoGame { get; set; }
     }
 }
