@@ -35,11 +35,11 @@ namespace DTOConverter.Converter
                     DTOTeam dtoTeam = new DTOTeam() {Id = team.Id, Name = team.Name, Win = team.Win, Loss = team.Loss, Draw = team.Draw, DtoPlayers = dtoPlayers};
                     dtoTeams.Add(dtoTeam);
                 }
-                DTOGroup dtoGroup = new DTOGroup() {Id = group.Id, Name = group.Name, };
+                DTOGroup dtoGroup = new DTOGroup() {Id = group.Id, Name = group.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament};
                 dtoGroups.Add(dtoGroup);
             }
             dtoTournament.DtoGroups = dtoGroups;
-            dtoTournament.DtoGame = new DTOGame() {Id = t.Game.Id, Name = t.Game.Name};
+            dtoTournament.DtoGame = new DTOGame() {Id = t.Game.Id, Name = t.Game.Name, DtoGenre = new DTOGenre() {Id = t.Game.Genre.Id, Name = t.Game.Genre.Name} };
             return dtoTournament;
         }
     }

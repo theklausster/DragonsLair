@@ -71,6 +71,7 @@ namespace BackendTest.TestDTOConverter
         {
             DTOTournament dtoTournament = new DTOTournament();
             TournamentType tournamentType = new TournamentType() { Id = 1, Type = "2vs2" };
+            Genre genre = new Genre() { Id = 1, Name = "wars"};
             Player player1 = new Player() { Id = 1, Name = "Hans"};
             Player player2 = new Player() {Id = 2, Name = "Ole"};
             Player player3 = new Player() { Id = 3, Name = "Lars" };
@@ -91,7 +92,7 @@ namespace BackendTest.TestDTOConverter
             Group group2 = new Group() { Id = 1, Name = "Lars og Peter", Teams = teams1};
             groups.Add(group1);
             groups.Add(group2);
-            Game game = new Game() { Id = 1, Name = "Warhammer" };
+            Game game = new Game() { Id = 1, Name = "Warhammer", Genre = genre};
             DTOTournamentConverter dtoTournamentConverter = new DTOTournamentConverter();
             Tournament tournament = new Tournament()
             {
