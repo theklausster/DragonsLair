@@ -57,8 +57,6 @@ namespace BackendTest.TestEntitity
             Assert.AreEqual(player, team2.Players[0]);
 
 
-
-
         }
 
     }
