@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Players.Find(id);
+                return context.Players.Include(a => a.Teams).FirstOrDefault(v => v.Id == id);
             }
         }
 
@@ -44,7 +45,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Players.ToList();
+                return context.Players.Include(a => a.Teams).ToList();
             }
         }
 
