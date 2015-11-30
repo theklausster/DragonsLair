@@ -17,6 +17,6 @@ namespace DTOConverter.DTOModel
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public ICollection<DTOTeam> Teams { get; set; }
+        public ICollection<DTOTeam> DtoTeams { get; set; }
     }
 }

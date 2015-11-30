@@ -23,7 +23,7 @@ namespace DTOConverter
                 dtoTeams.Add(new DTOTeam() {Id = team.Id, Name = team.Name, Draw = team.Draw, Loss = team.Loss, Win = team.Win});
 
             }
-            dtoPlayer.Teams = dtoTeams;
+            dtoPlayer.DtoTeams = dtoTeams;
             return dtoPlayer;
 
         }
