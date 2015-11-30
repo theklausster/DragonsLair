@@ -58,10 +58,6 @@ namespace BackendTest.TestDTOConverter
                     new Player() { Id = 2, Name = "Ulla" }
                 }
         };
-
-               
-        
-            
             DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
             dtoTeam = dtoTeamConverter.Convert(team);
             Assert.AreEqual(team.Id, dtoTeam.Id);
