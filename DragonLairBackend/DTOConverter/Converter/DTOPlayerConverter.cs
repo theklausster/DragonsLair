@@ -13,6 +13,7 @@ namespace DTOConverter
 
         public override DTOPlayer Convert(Player t)
         {
+            if(t == null) throw new ArgumentException("No player to convert");
             List<DTOTeam> dtoTeams = new List<DTOTeam>();
             DTOPlayer dtoPlayer = new DTOPlayer();
             dtoPlayer.Id = t.Id;
