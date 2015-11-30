@@ -76,22 +76,14 @@ namespace BackendTest.TestDTOConverter
             Player player2 = new Player() {Id = 2, Name = "Ole"};
             Player player3 = new Player() { Id = 3, Name = "Lars" };
             Player player4 = new Player() { Id = 4, Name = "Peter" };
-            List<Player> players1 = new List<Player>();
-            List<Player> players2 = new List<Player>();
-            players1.Add(player1);
-            players1.Add(player2);
-            players2.Add(player3);
-            players2.Add(player4);
+            List<Player> players1 = new List<Player>() {player1, player2};
+            List<Player> players2 = new List<Player>() { player3, player4 };
             Team team1 = new Team() {Id = 1, Name = "team1", Players = players1, Win = 2, Draw = 2, Loss = 1};
             Team team2 = new Team() { Id = 1, Name = "team2", Players = players2, Win = 3, Draw = 0, Loss = 1 };
-            List<Team> teams1 = new List<Team>();
-            teams1.Add(team1);
-            teams1.Add(team2);
-            List<Group> groups = new List<Group>();
+            List<Team> teams1 = new List<Team>() {team1, team2};
             Group group1 = new Group() { Id = 1, Name = "Hans og Ole", Teams = teams1};
             Group group2 = new Group() { Id = 1, Name = "Lars og Peter", Teams = teams1};
-            groups.Add(group1);
-            groups.Add(group2);
+            List<Group> groups = new List<Group>() {group1, group2};
             Game game = new Game() { Id = 1, Name = "Warhammer", Genre = genre};
             DTOTournamentConverter dtoTournamentConverter = new DTOTournamentConverter();
             Tournament tournament = new Tournament()

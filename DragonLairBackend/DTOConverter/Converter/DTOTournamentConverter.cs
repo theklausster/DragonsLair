@@ -15,8 +15,6 @@ namespace DTOConverter.Converter
         {
             if(t.Game == null || t.TournamentType == null || t.Groups == null) throw new ArgumentException("Missing some data");
             DTOTournament dtoTournament = new DTOTournament();
-            List<DTOPlayer> dtoPlayers = new List<DTOPlayer>();
-            List<DTOTeam> dtoTeams = new List<DTOTeam>();
             List<DTOGroup> dtoGroups = new List<DTOGroup>();
             dtoTournament.Id = t.Id;
             dtoTournament.Name = t.Name;
@@ -25,18 +23,17 @@ namespace DTOConverter.Converter
             dtoTournament.DTOTournamentType = dtoTournamentType;
             foreach (var group in t.Groups)
             {
+                List<DTOTeam> dtoTeams = new List<DTOTeam>();
                 foreach (var team in group.Teams)
                 {
+                    List<DTOPlayer> dtoPlayers = new List<DTOPlayer>();
                     foreach (var player in team.Players)
                     {
-                        DTOPlayer dtoPlayer = new DTOPlayer() {Id = player.Id, Name = player.Name};
-                        dtoPlayers.Add(dtoPlayer);
+                        dtoPlayers.Add(new DTOPlayer() { Id = player.Id, Name = player.Name });
                     }
-                    DTOTeam dtoTeam = new DTOTeam() {Id = team.Id, Name = team.Name, Win = team.Win, Loss = team.Loss, Draw = team.Draw, DtoPlayers = dtoPlayers};
-                    dtoTeams.Add(dtoTeam);
+                    dtoTeams.Add(new DTOTeam() { Id = team.Id, Name = team.Name, Win = team.Win, Loss = team.Loss, Draw = team.Draw, DtoPlayers = dtoPlayers });
                 }
-                DTOGroup dtoGroup = new DTOGroup() {Id = group.Id, Name = group.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament};
-                dtoGroups.Add(dtoGroup);
+                dtoGroups.Add(new DTOGroup() { Id = group.Id, Name = group.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament });
             }
             dtoTournament.DtoGroups = dtoGroups;
             dtoTournament.DtoGame = new DTOGame() {Id = t.Game.Id, Name = t.Game.Name, DtoGenre = new DTOGenre() {Id = t.Game.Genre.Id, Name = t.Game.Genre.Name} };
