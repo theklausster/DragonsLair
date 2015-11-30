@@ -55,7 +55,7 @@ namespace BackendDAL.Repositories
                 team.Loss = entity.Loss;
                 team.Win = entity.Win;
                 team.Name = entity.Name;
-                team.Group = entity.Group;
+                team.Groups = entity.Groups;
                 team.Players = entity.Players;
                 context.SaveChanges();
                 return true;

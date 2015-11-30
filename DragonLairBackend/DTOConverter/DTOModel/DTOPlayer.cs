@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
+using Entities;
 
 
 namespace DTOConverter.DTOModel
@@ -15,7 +16,7 @@ namespace DTOConverter.DTOModel
         public int Id { get; set; }
         [DataMember]
         public string Name { get; set; }
-       
-
+        [DataMember]
+        public ICollection<DTOTeam> DtoTeams { get; set; }
     }
 }

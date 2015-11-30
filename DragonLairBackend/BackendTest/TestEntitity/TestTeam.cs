@@ -70,8 +70,12 @@ namespace BackendTest.TestEntitity
             int id = 1;
             string name = "Grp 1";
             Group group = new Group() { Id = id, Name = name };
-            team.Group = group;
-            Assert.NotNull(team.Group);
+            team.Groups = new List<Group>()
+                {
+                    new Group() { Id = 1, Name = "Team One" },
+                    new Group() { Id = 2, Name = "Team Two" }
+                };
+            Assert.NotNull(team.Groups);
             Assert.AreEqual(team.Id, group.Id);
                
         }

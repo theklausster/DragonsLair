@@ -5,10 +5,7 @@ namespace Entities
 {
     public class Player
     {
-        public Player()
-        {
-        }
-        
+    
         [Required]
         public int Id { get; set; }
 

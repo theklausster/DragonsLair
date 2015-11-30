@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Entities;
 
 namespace DTOConverter.DTOModel
 {
@@ -20,7 +22,11 @@ namespace DTOConverter.DTOModel
         public int Win { get; set; }
         [DataMember]
         public string Name { get; set; }
+        [DataMember]
+        public ICollection<DTOPlayer> DtoPlayers { get; set; }
 
+        [DataMember]
+        public ICollection<DTOGroup> DTOGroup { get; set; }
 
     }
 }

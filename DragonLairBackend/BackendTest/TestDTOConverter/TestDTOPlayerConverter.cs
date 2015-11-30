@@ -23,6 +23,18 @@ namespace BackendTest.TestDTOConverter
             Assert.AreEqual(dtoPlayer.Id, player.Id);
         }
 
+        [Test]
+        public void Test_if_player_can_be_created_without_team()
+        {
+            List<Team> teams = null;
+            Player player = new Player() { Id = 1, Name = "Hans", Teams = teams};
+            DTOPlayerConverter dtoPlayerConverter = new DTOPlayerConverter();
+            DTOPlayer dtoPlayer = dtoPlayerConverter.Convert(player);
+            Assert.IsNull(teams);
+            Assert.NotNull(dtoPlayer);
+            Assert.AreEqual(dtoPlayer.Id, player.Id);
+        }
+
     }
 }
 

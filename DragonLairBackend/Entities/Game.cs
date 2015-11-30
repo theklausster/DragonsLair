@@ -6,10 +6,7 @@ namespace Entities
 {
     public class Game
     {
-        public Game()
-        {
-        }
-        [Required]
+      [Required]
         public int Id { get; set; }
         [Required(ErrorMessage = "Please Enter a Name")]
         public string Name { get; set; }
