@@ -34,11 +34,12 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return
+                Tournament tournament =
                     context.Tournaments.Include(a => a.Game)
                         .Include(b => b.Groups)
                         .Include(c => c.TournamentType)
                         .FirstOrDefault(d => d.Id == id);
+                return tournament;
             }
         }
 
@@ -46,9 +47,10 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Tournaments.Include(a => a.Game)
+                List<Tournament> tournaments = context.Tournaments.Include(a => a.Game)
                         .Include(b => b.Groups)
                         .Include(c => c.TournamentType).ToList();
+                return tournaments;
             }
         }
 

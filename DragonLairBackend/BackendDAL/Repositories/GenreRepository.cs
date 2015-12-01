@@ -34,7 +34,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Genres.Include(a => a.Games).FirstOrDefault(b => b.Id == id);
+                Genre genre = context.Genres.Include(a => a.Games).FirstOrDefault(b => b.Id == id);
+                return genre;
             }
         }
 
@@ -42,7 +43,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Genres.Include(a => a.Games).ToList();
+                List<Genre> genres= context.Genres.Include(a => a.Games).ToList();
+                return genres;
             }
         }
 

@@ -34,7 +34,9 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Groups.Include(a => a.Teams).Include(a => a.Tournament).FirstOrDefault(b => b.Id == id);
+                
+                Group group =context.Groups.Include(a => a.Teams).Include(a => a.Tournament).FirstOrDefault(b => b.Id == id);
+                return group;
             }
         }
 
@@ -42,7 +44,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Groups.Include(a => a.Teams).Include(a => a.Tournament).ToList();
+                List<Group> groups = context.Groups.Include(a => a.Teams).Include(a => a.Tournament).ToList();
+                return groups;
             }
         }
 

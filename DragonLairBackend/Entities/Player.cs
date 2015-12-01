@@ -8,10 +8,8 @@ namespace Entities
     
         [Required]
         public int Id { get; set; }
-
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
-
         public virtual List<Team> Teams { get; set; }
     }
 }

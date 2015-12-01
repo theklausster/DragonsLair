@@ -38,8 +38,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Players.Include(a => a.Teams).FirstOrDefault(v => v.Id == id);
-
+                Player player = context.Players.Include(a => a.Teams).FirstOrDefault(v => v.Id == id);
+                return player;
             }
         }
 
@@ -47,7 +47,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                return context.Players.Include(a => a.Teams).ToList();
+                List<Player> players = context.Players.Include(a => a.Teams).ToList();
+                return players;
             }
         }
 
