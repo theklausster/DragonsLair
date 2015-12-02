@@ -16,6 +16,10 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
+                if (entity.Genre.Games == null)
+                {
+                    entity.Genre.Games = new List<Game>();
+                }
                 context.Genres.Attach(entity.Genre);
                 context.Games.Add(entity);
                 context.SaveChanges();

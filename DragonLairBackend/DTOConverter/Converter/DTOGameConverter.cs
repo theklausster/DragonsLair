@@ -12,12 +12,12 @@ namespace DTOConverter.Converter
         }
 
         public override DTOGame Convert(Game t)
-        {
-            
+        {       
             DTOGenre dtoGenre = null;
             if (t == null) throw new ArgumentException("Game is not allowed to be null");
             if(t.Genre == null) throw new ArgumentException("A game must have a genre attached!");
-            if(t.Tournaments != null)
+            dtoGenre = new DTOGenre() { Id = t.Genre.Id, Name = t.Genre.Name };
+            if (t.Tournaments != null)
             {
                 List<DTOTournament> dtoTournaments = new List<DTOTournament>();
                 foreach (var tournament in t.Tournaments)
@@ -27,7 +27,7 @@ namespace DTOConverter.Converter
                 }
                 return new DTOGame() { Id = t.Id, Name = t.Name, DtoGenre = dtoGenre, DtoTournaments = dtoTournaments };
             }
-            dtoGenre = new DTOGenre() { Id = t.Genre.Id, Name = t.Genre.Name };
+            
             return new DTOGame() { Id = t.Id, Name = t.Name, DtoGenre = dtoGenre};
         }
     }

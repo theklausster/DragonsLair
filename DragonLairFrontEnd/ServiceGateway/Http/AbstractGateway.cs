@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Web.Script.Serialization;
 
 namespace ServiceGateway.Http
 {
@@ -22,9 +23,12 @@ namespace ServiceGateway.Http
         {
             var response = await Client().GetAsync(action);
             string json = await response.Content.ReadAsStringAsync();
+
             if (response.IsSuccessStatusCode)
             {
-                return JsonConvert.DeserializeObject<T>(json);
+
+                dynamic entity = JsonConvert.DeserializeObject<T>(json);
+                return entity;
             }
             throw new ApiException(response.StatusCode, json);
         }
@@ -45,8 +49,9 @@ namespace ServiceGateway.Http
             string json = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
-            {             
-                return JsonConvert.DeserializeObject<T>(json);
+            {
+                dynamic entity = JsonConvert.DeserializeObject<T>(json);
+                return entity;
             }
             
             throw new ApiException(response.StatusCode, json);
