@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DragonLairFrontEnd.Models;
 
 namespace DragonLairFrontEnd.Controllers
 {
@@ -15,11 +16,19 @@ namespace DragonLairFrontEnd.Controllers
         private string baseRoute = "api/Group/";
         private WebApiService apiService = new WebApiService();
 
-
+        private async Task<GroupModel> SetUpGroupModel()
+        {
+            List<Team> teams = await apiService.GetAsync<List<Team>>("api/Team/");
+            List<Tournament> tournaments = await apiService.GetAsync<List<Tournament>>("api/Tournament/");
+            GroupModel groupModel = new GroupModel();
+            groupModel.Teams = teams;
+            groupModel.Tournaments = tournaments;
+            return groupModel;
+        }
         // GET: Group
         public async Task<ActionResult> Index()
         {
-            List<Group> groups = await apiService.GetAsync<List<Group>>(baseRoute);
+            var groups = await apiService.GetAsync<List<Group>>(baseRoute);
             return View(groups);
         }
 
@@ -31,14 +40,15 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Group/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View(new Group());
+            GroupModel groupModel = await SetUpGroupModel();
+            return View(groupModel);
         }
 
         // POST: Group/Create
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Group group)
+        public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Group group, string Teams)
         {
             try
             {

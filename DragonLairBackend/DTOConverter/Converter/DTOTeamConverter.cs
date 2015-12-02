@@ -17,6 +17,7 @@ namespace DTOConverter.Converter
             List<DTOPlayer> dtoPlayers = new List<DTOPlayer>();
             List<DTOGroup> dtoGroup = new List<DTOGroup>();
             DTOTeam dtoTeam = new DTOTeam();
+            dtoTeam.Name = t.Name;
             dtoTeam.Id = t.Id;
             dtoTeam.Win = t.Win;
             dtoTeam.Draw = t.Draw;

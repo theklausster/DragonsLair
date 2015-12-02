@@ -182,7 +182,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\GameGenreViewModel.cs" />
+=======
+    <Compile Include="Models\GroupModel.cs" />
+>>>>>>> 87dae759f55e73a0eaa8c7a8bf798e6854e9b635
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
