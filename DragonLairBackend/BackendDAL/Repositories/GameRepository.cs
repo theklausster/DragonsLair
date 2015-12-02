@@ -16,6 +16,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
+                context.Genres.Attach(entity.Genre);
                 context.Games.Add(entity);
                 context.SaveChanges();
             }

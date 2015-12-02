@@ -43,6 +43,7 @@ namespace DragonLairBackend.Controllers
         // POST: api/Game
         public HttpResponseMessage Post(Game game)
         {
+            
             game = gameRepository.Create(game);
             var response = Request.CreateResponse<Game>(HttpStatusCode.Created, game);
             string uri = Url.Link("DefaultApi", new { id = game.Id });
