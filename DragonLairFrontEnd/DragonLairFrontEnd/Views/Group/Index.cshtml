@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Entities.Group>
+﻿@using Entities
+@model IEnumerable<Entities.Group>
 
 @{
     ViewBag.Title = "Index";
@@ -22,6 +23,13 @@
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
+        <td>
+           @foreach (var team in item.Teams)
+           {
+               Html.DisplayText(team.Name + " ");
+           }
+        </td>
+        
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
