@@ -20,15 +20,21 @@ namespace BackendTest.TestDTOConverter
             Player player2 = new Player() { Id = 2, Name = "Lars" };
             Player player3 = new Player() { Id = 3, Name = "Peter" };
             Player player4 = new Player() { Id = 4, Name = "Poul" };
+
             List<Player> PlayersForTeam1 = new List<Player>() {player, player2};
             List<Player> PlayersForTeam2 = new List<Player>() { player3, player4 };
+
             Team Team1 = new Team() { Id = 1, Name = "Awesome", Players = PlayersForTeam1};
             Team Team2 = new Team() { Id = 1, Name = "More Awesome", Players = PlayersForTeam2 };
+
             Tournament tournament1 = new Tournament() { Id = 1, Name = "Warhammer" };
             List<Team> teams = new List<Team> { Team1, Team2 };
+
             Group group = new Group() { Id = 1, Name = "A", Teams = teams, Tournament = tournament1 };
+
             DTOGroupConverter dtogroupConverter = new DTOGroupConverter();
             DTOGroup dtogroup = dtogroupConverter.Convert(group);
+
             Assert.IsNotNull(teams);
             Assert.AreEqual(dtogroup.Id, 1);
             Assert.AreSame(Team1.Name, dtogroup.DtoTeams[0].Name);

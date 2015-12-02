@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DragonLairFrontEnd.Models;
 using Entities;
 using ServiceGateway.Http;
 
@@ -14,6 +15,13 @@ namespace DragonLairFrontEnd.Controllers
         private string baseRoute = "api/game/";
         private WebApiService apiService = new WebApiService();
         // GET: game
+
+        private async Task<GameGenreViewModel> SetUpGameGenreViewModel()
+        {
+            GameGenreViewModel gameGenreViewModel = new GameGenreViewModel();
+            gameGenreViewModel.Genres = await apiService.GetAsync<List<Genre>>("api/genre/");
+            return gameGenreViewModel;
+        }
         public async Task<ActionResult> Index()
         {
             List<Game> game = await apiService.GetAsync<List<Game>>(baseRoute);
@@ -23,29 +31,36 @@ namespace DragonLairFrontEnd.Controllers
         // GET: game/Details/5
         public async Task<ActionResult> Details(int id)
         {
+            GameGenreViewModel gameGenreViewModel = await SetUpGameGenreViewModel();
             Game game = await apiService.GetAsync<Game>(baseRoute + id);
             return View(game);
         }
 
         // GET: game/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View(new Game());
+            GameGenreViewModel gameGenreViewModel = await SetUpGameGenreViewModel();
+            return View(gameGenreViewModel);
         }
 
         // POST: game/Create
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Game game)
+        public async Task<ActionResult> Create([Bind(Include = "Id, Name, Genre")] Game game, string genreId)
         {
-            try
-            {
-                await apiService.PostAsync<Game>(baseRoute + game.Id, game);
 
-                return RedirectToAction("Index");
-            }
-            catch
+                
+                Genre genre = await apiService.GetAsync<Genre>("api/genre/" + genreId);
+                game.Genre = genre;
+                if (ModelState.IsValid)
+                {
+                    await apiService.PostAsync<Game>(baseRoute, game);
+
+                    return RedirectToAction("Index");
+                }
+            
+            else
             {
-                return View();
+                return View(await SetUpGameGenreViewModel());
             }
         }
 

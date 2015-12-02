@@ -63,8 +63,6 @@ namespace DragonLairFrontEnd.Controllers
         {
             try
             {
-                    
-
                 return RedirectToAction("Index");
             }
             catch
