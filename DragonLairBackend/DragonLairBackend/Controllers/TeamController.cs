@@ -28,7 +28,8 @@ namespace DragonLairBackend.Controllers
 
         public List<DTOTeam> Get()
         {
-            return new List<DTOTeam>(DtoTeamConverter.Convert(teamRepository.ReadAll()));
+           var teams = new List<DTOTeam>(DtoTeamConverter.Convert(teamRepository.ReadAll()));
+            return teams;
         }
 
         // GET: api/Team/5

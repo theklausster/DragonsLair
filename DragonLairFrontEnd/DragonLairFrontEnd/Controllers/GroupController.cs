@@ -18,9 +18,11 @@ namespace DragonLairFrontEnd.Controllers
 
         private async Task<GroupModel> SetUpGroupModel()
         {
+            var groups = await apiService.GetAsync<List<Group>>(baseRoute);
             List<Team> teams = await apiService.GetAsync<List<Team>>("api/Team/");
             List<Tournament> tournaments = await apiService.GetAsync<List<Tournament>>("api/Tournament/");
             GroupModel groupModel = new GroupModel();
+            groupModel.Groups = groups;
             groupModel.Teams = teams;
             groupModel.Tournaments = tournaments;
             return groupModel;
@@ -29,6 +31,7 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Index()
         {
             var groups = await apiService.GetAsync<List<Group>>(baseRoute);
+            //GroupModel groupModel = await SetUpGroupModel();
             return View(groups);
         }
 

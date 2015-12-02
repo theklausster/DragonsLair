@@ -14,8 +14,8 @@ namespace DragonLairFrontEnd.Controllers
         private string baseRoute = "api/player/";
         private WebApiService apiService = new WebApiService();
 
-        // GET: Player
-        public async Task<ActionResult> Index()
+        //GET: Player
+            public async Task<ActionResult> Index()
         {
             List<Player> players = await apiService.GetAsync<List<Player>>(baseRoute);
             return View(players);
@@ -24,7 +24,7 @@ namespace DragonLairFrontEnd.Controllers
         // GET: Player/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            Player player = await apiService.GetAsync<Player>(baseRoute+id);
+            Player player = await apiService.GetAsync<Player>(baseRoute + id);
             return View(player);
         }
 
@@ -86,7 +86,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             try
             {
-                 await apiService.DeleteAsync<Player>(baseRoute + id);
+                await apiService.DeleteAsync<Player>(baseRoute + id);
 
                 return RedirectToAction("Index");
             }

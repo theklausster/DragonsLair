@@ -11,7 +11,7 @@ namespace ServiceGateway.Http
         public HttpClient Client()
         {
             HttpClient client = new HttpClient();
-            string baseAddress = "http://dragonapi.devjakobsen.dk/";
+            string baseAddress = "http://localhost:41257/";
             client.BaseAddress = new Uri(baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -27,7 +27,8 @@ namespace ServiceGateway.Http
                 return JsonConvert.DeserializeObject<T>(json);
             }
             throw new ApiException(response.StatusCode, json);
-        }
+
+            }
 
         public async Task<T> ManageData<T>(string action, T t, string type)
         {

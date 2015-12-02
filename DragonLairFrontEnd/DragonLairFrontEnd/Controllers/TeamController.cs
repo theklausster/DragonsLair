@@ -63,6 +63,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             try
             {
+                await apiService.PutAsync<Team>(baseRoute + team.Id, team);
                 return RedirectToAction("Index");
             }
             catch

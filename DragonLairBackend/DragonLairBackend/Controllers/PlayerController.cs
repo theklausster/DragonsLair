@@ -27,7 +27,8 @@ namespace DragonLairBackend.Controllers
         // GET: api/Player
         public List<DTOPlayer> Get()
         {
-            return new List<DTOPlayer>(DtoPlayerConverter.Convert(playerRepository.ReadAll()));
+            var players = new List<DTOPlayer>(DtoPlayerConverter.Convert(playerRepository.ReadAll()));
+            return players;
         }
 
         // GET: api/Player/5

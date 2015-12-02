@@ -16,6 +16,7 @@ namespace DragonLairBackend.Controllers
     {
         private readonly IRepository<Group> groupRepository;
         private readonly IRepository<Team> teamRepository;
+        private readonly IRepository<Player> playerRepository;
         private DTOGroupConverter dtoGroupConverter;
 
         public GroupController()
@@ -24,6 +25,7 @@ namespace DragonLairBackend.Controllers
             var facade = new Facade();
             groupRepository = facade.GetGroupRepository();
             teamRepository = facade.GetTeamRepository();
+            playerRepository = facade.GetPlayerRepository();
         }
         // GET: api/Group
         public IEnumerable<DTOGroup> Get()
@@ -32,12 +34,19 @@ namespace DragonLairBackend.Controllers
             foreach (var group in groups)
             {
                 List<Team> teams = new List<Team>();
-                foreach (var team in group.Teams)
-                {
-                    var teamFromRepo = teamRepository.Read(team.Id);
-                    teams.Add(teamFromRepo);
-                }
-                group.Teams = teams;
+                //foreach (var team in group.Teams)
+                //{
+                //    List<Player> players = new List<Player>();
+                //    foreach (var player in team.Players)
+                //    {
+                //        var playerFromRepo = playerRepository.Read(player.Id);
+                //        players.Add(playerFromRepo);
+                //    }
+                //    team.Players = players;
+                //    var teamFromRepo = teamRepository.Read(team.Id);
+                //    teams.Add(teamFromRepo);
+                //}
+                //group.Teams = teams;
             }
             return new List<DTOGroup>(dtoGroupConverter.Convert(groups));
         }
