@@ -1,4 +1,4 @@
-﻿@model Entities.Player
+﻿@model DragonLairFrontEnd.Models.PlayerModel
 
 @{
     ViewBag.Title = "Edit";
@@ -10,20 +10,64 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Player</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Player.Id)
+        <div class="container">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Player.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Player.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Player.Name, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
+        <div class="container">
+            <div class="form-group">
+                @Html.Label("In Team at the moment", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <table class="table col-md-6">
+                        @foreach (var team in Model.Player.DtoTeams)
+                        {
+                            <tr>
+                                <td class="col-md-6">
+                                    @Html.DisplayFor(modelItem => team.Name)
+                                </td>
+                                <td class="col-md-6">
+                                    @Html.ActionLink("Remove", "Remove", new { TeamId = team.Id, playerId = Model.Player.Id })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="form-group">
+                @Html.Label("Select Teams", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <table class="table col-md-6">
+                        @foreach (var team in Model.DtoTeams)
+                        {
+                            <tr>
+                                <td class="col-md-6">
+                                    @Html.DisplayFor(modelItem => team.Name)
+                                </td>
+                                <td class="col-md-6">
+                                    @Html.ActionLink("ADD", "ADD", new { TeamId = team.Id, playerId = Model.Player.Id })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

@@ -35,18 +35,19 @@ namespace DragonLairBackend.Controllers
         // GET: api/Game/5
         public IHttpActionResult Get(int id)
         {
-            DTOGame dtoGame = dtoGameConverter.Convert(gameRepository.Read(id));
+            Game game = gameRepository.Read(id);
+            DTOGame dtoGame = dtoGameConverter.Convert(game);
             if (dtoGame == null) return NotFound();
             return Ok(dtoGame);
         }
 
         // POST: api/Game
         public HttpResponseMessage Post(Game game)
-        {
-            
+        {         
             game = gameRepository.Create(game);
-            var response = Request.CreateResponse<Game>(HttpStatusCode.Created, game);
-            string uri = Url.Link("DefaultApi", new { id = game.Id });
+            DTOGame dtoGame = dtoGameConverter.Convert(game);
+            var response = Request.CreateResponse<DTOGame>(HttpStatusCode.Created, dtoGame);
+            string uri = Url.Link("DefaultApi", new { id = dtoGame.Id });
             response.Headers.Location = new Uri(uri);
             return response;
         }

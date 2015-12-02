@@ -12,7 +12,8 @@ namespace Entities
 
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
+        [Required]
         [JsonProperty(PropertyName = "DtoTeams")]
-        public List<Team> Teams { get; set; }
+        public List<Team> DtoTeams { get; set; }
     }
 }

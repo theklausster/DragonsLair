@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DragonLairFrontEnd.Models;
 using Entities;
+using Microsoft.Owin.Security.Provider;
 using ServiceGateway.Http;
 
 namespace DragonLairFrontEnd.Controllers
@@ -53,8 +55,10 @@ namespace DragonLairFrontEnd.Controllers
         // GET: Player/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            Player player = await apiService.GetAsync<Player>(baseRoute + id);
-            return View(player);
+            PlayerModel playerModel = new PlayerModel();
+            playerModel.Player = await apiService.GetAsync<Player>(baseRoute + id);
+            playerModel.DtoTeams = await apiService.GetAsync<List<Team>>("api/team/");
+            return View(playerModel);
         }
 
         // POST: Player/Edit/5
@@ -94,6 +98,28 @@ namespace DragonLairFrontEnd.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<ActionResult> Remove(int teamId,int playerId)
+        {
+            Player player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            Team team = player.DtoTeams.FirstOrDefault(a => a.Id == teamId);
+            player.DtoTeams.Remove(team);
+            await apiService.PutAsync<Player>(baseRoute + player.Id, player);
+            player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            return RedirectToAction("Edit/" + player.Id);
+
+        }
+
+        public async Task<ActionResult> Add(int teamId, int playerId)
+        {
+            Player player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            Team team = await apiService.GetAsync<Team>("api/team/" + teamId);
+            player.DtoTeams.Add(team);
+            string route = baseRoute + player.Id;
+            await apiService.PutAsync<Player>(route, player);
+            player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            return RedirectToAction("Edit/" + player.Id);
         }
     }
 }

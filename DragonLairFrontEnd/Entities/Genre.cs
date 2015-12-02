@@ -13,6 +13,6 @@ namespace Entities
         [Required(ErrorMessage = "Please enter a Name")]
         public string Name { get; set; }
 
-        public virtual List<Game> Games { get; set; }
+        public List<Game> Games { get; set; }
     }
 }
