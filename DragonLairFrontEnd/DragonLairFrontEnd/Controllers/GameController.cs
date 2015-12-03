@@ -31,7 +31,7 @@ namespace DragonLairFrontEnd.Controllers
         // GET: game/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            GameGenreViewModel gameGenreViewModel = await SetUpGameGenreViewModel();
+            
             Game game = await apiService.GetAsync<Game>(baseRoute + id);
             return View(game);
         }
@@ -67,16 +67,23 @@ namespace DragonLairFrontEnd.Controllers
         // GET: game/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            Game game = await apiService.GetAsync<Game>(baseRoute + id);
-            return View(game);
+            GameGenreViewModel gameGenreViewModel = await SetUpGameGenreViewModel();
+            gameGenreViewModel.Game = await apiService.GetAsync<Game>(baseRoute + id);
+            gameGenreViewModel.Game.Genre =
+                await apiService.GetAsync<Genre>("api/genre/" + gameGenreViewModel.Game.Genre.Id);
+            gameGenreViewModel.Genres = await apiService.GetAsync<List<Genre>>("api/genre/");
+            return View(gameGenreViewModel);
         }
 
         // POST: game/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Game game)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Game game, string genreId)
         {
             try
             {
+                Genre genre = await apiService.GetAsync<Genre>("api/genre/" + genreId);
+                
+                game.Genre = genre;
                 await apiService.PutAsync<Game>(baseRoute + game.Id, game);
 
                 return RedirectToAction("Index");
