@@ -14,6 +14,6 @@ namespace Entities
         public string Name { get; set; }
         [Required]
         [JsonProperty(PropertyName = "DtoTeams")]
-        public List<Team> DtoTeams { get; set; }
+        public List<Team> Teams { get; set; }
     }
 }

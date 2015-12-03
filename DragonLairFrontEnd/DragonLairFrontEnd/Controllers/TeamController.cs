@@ -63,6 +63,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             try
             {
+
                 foreach (var player in players)
                 {
                     Player playerFromApi = await apiService.GetAsync<Player>("api/player/" + int.Parse(player));

@@ -10,11 +10,13 @@ using BackendDAL.Repositories;
 using DTOConverter;
 using DTOConverter.DTOModel;
 using Entities;
+using Newtonsoft.Json.Linq;
 
 namespace DragonLairBackend.Controllers
 {
     public class PlayerController : ApiController
     {
+        private readonly IRepository<Team> teamRepository;
         private readonly IRepository<Player> playerRepository;
         private DTOPlayerConverter DtoPlayerConverter;
         public PlayerController()
@@ -22,6 +24,7 @@ namespace DragonLairBackend.Controllers
             DtoPlayerConverter = new DTOPlayerConverter();
             var facade = new Facade();
             playerRepository = facade.GetPlayerRepository();
+            teamRepository = facade.GetTeamRepository();
         }
 
         // GET: api/Player
@@ -52,6 +55,8 @@ namespace DragonLairBackend.Controllers
         // PUT: api/Player/5
         public void Put(int id, Player player)
         {
+            //Player player;
+            //entity.ToString();
             player.Id = id;
             if (!playerRepository.Update(player)) throw new HttpResponseException(HttpStatusCode.NotFound);
         }

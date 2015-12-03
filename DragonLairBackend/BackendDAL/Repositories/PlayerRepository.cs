@@ -61,6 +61,10 @@ namespace BackendDAL.Repositories
                 player.Name = entity.Name;
                 if(entity.Teams == null) entity.Teams = new List<Team>();
                 player.Teams = entity.Teams;
+                foreach (var team in entity.Teams)
+                {
+                    context.Teams.Attach(team);
+                }              
                 context.SaveChanges();
                 return true;
             }

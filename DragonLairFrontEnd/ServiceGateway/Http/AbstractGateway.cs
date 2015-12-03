@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Script.Serialization;
+using Entities;
 
 namespace ServiceGateway.Http
 {
@@ -58,7 +59,11 @@ namespace ServiceGateway.Http
             throw new ApiException(response.StatusCode, json);
         }
 
-
+        public HttpResponseMessage UpdatePlayer(Player player)
+        {
+            HttpResponseMessage response = Client().PutAsJsonAsync("api/player/" + player.Id.ToString(), player).Result;
+            return response;
+        }
 
     }
 }
