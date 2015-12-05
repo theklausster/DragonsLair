@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Lifetime;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -58,13 +60,25 @@ namespace DragonLairFrontEnd.Controllers
             PlayerModel playerModel = new PlayerModel();
             playerModel.Player = await apiService.GetAsync<Player>(baseRoute + id);
             playerModel.Teams = await apiService.GetAsync<List<Team>>("api/team/");
+            playerModel.SetupList(playerModel.Player, playerModel.Teams);
             return View(playerModel);
         }
 
         // POST: Player/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Player player)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Player player, string[] teamId)
         {
+           
+            if (teamId == null) teamId = new string[] {};
+            {
+                player.Teams = new List<Team>();
+                foreach (var id in teamId)
+                {
+                    Team team = await apiService.GetAsync<Team>("api/team/" + id);
+                    player.Teams.Add(team);
+                }
+            }
+
             try
             {
                 await apiService.PutAsync<Player>(baseRoute + player.Id, player);
@@ -122,10 +136,6 @@ namespace DragonLairFrontEnd.Controllers
             return RedirectToAction("Edit/" + player.Id);
         }
 
-        private GroupModel setupGroupModel(GroupModel groupModel = null)
-        {
-            if(groupModel == null)groupModel = new GroupModel();
-            return groupModel;
-        }
+       
     }
 }
