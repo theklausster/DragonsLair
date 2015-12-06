@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Entities
 {
@@ -12,7 +13,7 @@ namespace Entities
         public string Name { get; set; }
 
         public virtual Tournament Tournament { get; set; }
-
+        [JsonProperty(PropertyName = "DtoTeams")]
         public virtual List<Team> Teams { get; set; }
     }
 }

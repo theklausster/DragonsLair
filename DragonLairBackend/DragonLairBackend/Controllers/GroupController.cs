@@ -72,8 +72,8 @@ namespace DragonLairBackend.Controllers
         {
             group = groupRepository.Create(group);
             var response = Request.CreateResponse<Group>(HttpStatusCode.Created, group);
-            string uri = Url.Link("DefaultApi", new { id = group.Id });
-            response.Headers.Location = new Uri(uri);
+            //string uri = Url.Link("DefaultApi", new { id = group.Id });
+            //response.Headers.Location = new Uri(uri);
             return response;
         }
 

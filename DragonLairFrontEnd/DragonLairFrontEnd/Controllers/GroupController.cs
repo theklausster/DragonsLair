@@ -10,7 +10,7 @@ using DragonLairFrontEnd.Models;
 
 namespace DragonLairFrontEnd.Controllers
 {
-  
+
     public class GroupController : Controller
     {
         private string baseRoute = "api/Group/";
@@ -20,18 +20,13 @@ namespace DragonLairFrontEnd.Controllers
         {
             var groups = await apiService.GetAsync<List<Group>>(baseRoute);
             List<Team> teams = await apiService.GetAsync<List<Team>>("api/Team/");
-            List<Tournament> tournaments = await apiService.GetAsync<List<Tournament>>("api/Tournament/");
-            GroupModel groupModel = new GroupModel();
-            groupModel.Groups = groups;
-            groupModel.Teams = teams;
-            groupModel.Tournaments = tournaments;
+            GroupModel groupModel = new GroupModel { Groups = groups, Teams = teams };
             return groupModel;
         }
         // GET: Group
         public async Task<ActionResult> Index()
         {
             var groups = await apiService.GetAsync<List<Group>>(baseRoute);
-            //GroupModel groupModel = await SetUpGroupModel();
             return View(groups);
         }
 
@@ -51,22 +46,29 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Group/Create
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Group group, string Teams)
+        public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Group group, string[] Teams)
         {
+            group.Teams = new List<Team>();
+            foreach (var id in Teams)
+            {
+                Team team = await apiService.GetAsync<Team>("api/team/" + id);
+                group.Teams.Add(team);
+            }
             try
             {
-                await apiService.PostAsync<Group>(baseRoute + group.Id, group);
+
+                await apiService.PostAsync<Group>(baseRoute , group);
 
                 return RedirectToAction("Index");
-            }
+        }
             catch
             {
                 return View();
-            }
-        }
+    }
+}
 
-        // GET: Group/Edit/5
-        public async Task<ActionResult> Edit(int id)
+// GET: Group/Edit/5
+public async Task<ActionResult> Edit(int id)
         {
             Group group = await apiService.GetAsync<Group>(baseRoute + id);
             return View(group);
