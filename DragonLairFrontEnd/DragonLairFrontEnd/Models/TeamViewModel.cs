@@ -31,6 +31,7 @@ namespace DragonLairFrontEnd.Models
 
             if (id != 0 && SelectedPlayers == null)
             {
+                Team.Players.ForEach(a => a.Teams = null); // want teams to be disconnected - else attach in backend will throw error
                 SelectedPlayers = Team.Players;
                 if (SelectedPlayers == null) SelectedPlayers = new List<Player>();
             }
@@ -49,6 +50,7 @@ namespace DragonLairFrontEnd.Models
             var player = AllPlayers.FirstOrDefault(a => a.Id == playerId);
             if (player != null)
             {
+                player.Teams = null; // want teams to be disconnected - else attach in backend will throw error
                 SelectedPlayers.Add(player);
                 AllPlayers.Remove(player);
             }
@@ -59,6 +61,7 @@ namespace DragonLairFrontEnd.Models
             var player = SelectedPlayers.FirstOrDefault(a => a.Id == playerId);
             if (player != null)
             {
+                player.Teams = null; // want teams to be disconnected - else attach in backend will throw error
                 AllPlayers.Add(player);
                 SelectedPlayers.Remove(player);
             }
