@@ -60,7 +60,12 @@ namespace BackendDAL.Repositories
                 if ((player == null)) return false;
                 player.Name = entity.Name;
                 if(entity.Teams == null) entity.Teams = new List<Team>();
-                player.Teams = entity.Teams;
+                player.Teams.Clear();
+                foreach (var team in entity.Teams)
+                {
+                    player.Teams.Add(context.Teams.Find(team.Id));
+                }
+                context.Entry(player).State = EntityState.Modified;           
                 context.SaveChanges();
                 return true;
             }

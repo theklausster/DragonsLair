@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Script.Serialization;
+using Entities;
 
 namespace ServiceGateway.Http
 {
@@ -12,7 +13,8 @@ namespace ServiceGateway.Http
         public HttpClient Client()
         {
             HttpClient client = new HttpClient();
-            string baseAddress = "http://localhost:41257";
+            string baseAddress = "http://dragonapi.devjakobsen.dk/";
+
             client.BaseAddress = new Uri(baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -58,7 +60,11 @@ namespace ServiceGateway.Http
             throw new ApiException(response.StatusCode, json);
         }
 
-
+        public HttpResponseMessage UpdatePlayer(Player player)
+        {
+            HttpResponseMessage response = Client().PutAsJsonAsync("api/player/" + player.Id.ToString(), player).Result;
+            return response;
+        }
 
     }
 }
