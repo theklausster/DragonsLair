@@ -7,6 +7,7 @@ namespace Entities
     {
     
         [Required]
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }

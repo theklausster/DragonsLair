@@ -44,9 +44,9 @@ namespace DragonLairBackend.Controllers
         public HttpResponseMessage Post(Team team)
         {
             team = teamRepository.Create(team);
-            var response = Request.CreateResponse<Team>(HttpStatusCode.Created, team);
-            string uri = Url.Link("DefaultApi", new { id = team.Id });
-            response.Headers.Location = new Uri(uri);
+            var response = Request.CreateResponse<DTOTeam>(HttpStatusCode.Created, DtoTeamConverter.Convert(team));
+            //string uri = Url.Link("DefaultApi", new { id = team.Id });
+            //response.Headers.Location = new Uri(uri);
             return response;
         }
 

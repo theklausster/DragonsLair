@@ -103,8 +103,8 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Remove(int teamId,int playerId)
         {
             Player player = await apiService.GetAsync<Player>(baseRoute + playerId);
-            Team team = player.DtoTeams.FirstOrDefault(a => a.Id == teamId);
-            player.DtoTeams.Remove(team);
+            Team team = player.Teams.FirstOrDefault(a => a.Id == teamId);
+            player.Teams.Remove(team);
             await apiService.PutAsync<Player>(baseRoute + player.Id, player);
             player = await apiService.GetAsync<Player>(baseRoute + playerId);
             return RedirectToAction("Edit/" + player.Id);
@@ -115,7 +115,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             Player player = await apiService.GetAsync<Player>(baseRoute + playerId);
             Team team = await apiService.GetAsync<Team>("api/team/" + teamId);
-            player.DtoTeams.Add(team);
+            player.Teams.Add(team);
             string route = baseRoute + player.Id;
             await apiService.PutAsync<Player>(route, player);
             player = await apiService.GetAsync<Player>(baseRoute + playerId);

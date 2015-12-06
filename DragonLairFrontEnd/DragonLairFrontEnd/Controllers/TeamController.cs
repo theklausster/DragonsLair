@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DragonLairFrontEnd.Models;
+using Entities;
 using ServiceGateway.Http;
 using System;
 using System.Collections.Generic;
@@ -6,82 +7,117 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DragonLairFrontEnd.Controllers
 {
     public class TeamController : Controller
     {
-        private string baseRoute = "api/Team/";
-        private WebApiService apiService = new WebApiService();
+ 
+        private TeamViewModel TeamViewModel;
+        private WebApiService ApiService = new WebApiService();
+        private string BaseRoute = "api/Team/";
+       
+
+
+        protected override void Initialize(RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
+            if (Session["TeamViewModel"] == null)
+            {
+                Session["TeamViewModel"] = new TeamViewModel();
+            }
+            TeamViewModel = (TeamViewModel)Session["TeamViewModel"];
+
+        }
 
         // GET: Team
         public async Task<ActionResult> Index()
         {
-            List<Team> teams = await apiService.GetAsync<List<Team>>(baseRoute);
-            return View(teams);
+            ResetSessions();
+            await TeamViewModel.PopulateData();
+            return View(TeamViewModel.Teams);
         }
 
         // GET: Team/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            Team team = await apiService.GetAsync<Team>(baseRoute + id);
-            return View(team);
+            await TeamViewModel.PopulateData(id);
+            return View(TeamViewModel.Team);
         }
 
         // GET: Team/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View(new Team());
+            TeamViewModel.ActionName = "Create";
+            await TeamViewModel.PopulateData();
+            return View(TeamViewModel);
         }
 
         // POST: Team/Create
         [HttpPost]
-        public async Task<ActionResult> Create([Bind(Include = "Id, Name, Win, Loss, Draw")] Team team)
+        public async Task<ActionResult> Create([Bind(Include = "Name, Win, Loss, Draw")] Team team)
         {
             try
             {
-                await apiService.PostAsync<Team>(baseRoute + team.Id, team);
+                team.Players = TeamViewModel.SelectedPlayers;
+                await ApiService.PostAsync<Team>(BaseRoute, team);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                ResetSessions();
+                return RedirectToAction("Create");
             }
         }
 
         // GET: Team/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            Team team = await apiService.GetAsync<Team>(baseRoute + id);
-            return View(team);
+            TeamViewModel.ActionName = "Edit";
+            await TeamViewModel.PopulateData(id);
+            return View(TeamViewModel);
         }
+
+        public ActionResult Add(int playerId)
+        {
+            TeamViewModel.Add(playerId);
+            if(TeamViewModel.ActionName.Equals("Edit")) return RedirectToAction("Edit", "Team", new { id = TeamViewModel.Team.Id });
+            if(TeamViewModel.ActionName.Equals("Create")) return RedirectToAction("Create", "Team");
+            return null;
+        }
+
+        public ActionResult Remove(int playerId)
+        {
+            TeamViewModel.Remove(playerId);
+            if (TeamViewModel.ActionName.Equals("Edit")) return RedirectToAction("Edit", "Team", new { id = TeamViewModel.Team.Id });
+            if (TeamViewModel.ActionName.Equals("Create")) return RedirectToAction("Create", "Team");
+            return null;
+        }
+
 
         // POST: Team/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Win, Loss, Draw")] Team team, string[] players)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Win, Loss, Draw")] Team team)
         {
             try
             {
-                foreach (var player in players)
-                {
-                    Player playerFromApi = await apiService.GetAsync<Player>("api/player/" + int.Parse(player));
-                    team.Players.Add(playerFromApi);
-                    }
-                await apiService.PutAsync<Team>(baseRoute + team.Id, team);
+                team.Players = TeamViewModel.SelectedPlayers;
+                await  ApiService.PutAsync<Team>(BaseRoute + team.Id, team);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Edit", team.Id);
             }
         }
 
         // GET: Team/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            Team team = await apiService.GetAsync<Team>(baseRoute + id);
-            return View(team);
+            await TeamViewModel.PopulateData(id);
+            return View(TeamViewModel.Team);
         }
 
         // POST: Team/Delete/5
@@ -90,7 +126,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             try
             {
-                await apiService.DeleteAsync<Team>(baseRoute + id);
+                await ApiService.DeleteAsync<Team>(BaseRoute + id);
                 return RedirectToAction("Index");
             }
             catch
@@ -98,5 +134,11 @@ namespace DragonLairFrontEnd.Controllers
                 return View();
             }
         }
+
+        private void ResetSessions()
+        {
+            Session.Clear();
+        }
     }
+
 }

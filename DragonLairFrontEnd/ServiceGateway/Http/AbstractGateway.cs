@@ -12,7 +12,7 @@ namespace ServiceGateway.Http
         public HttpClient Client()
         {
             HttpClient client = new HttpClient();
-            string baseAddress = "http://localhost:41257/";
+            string baseAddress = "http://localhost:41257";
             client.BaseAddress = new Uri(baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -44,7 +44,7 @@ namespace ServiceGateway.Http
                 break;
                 case "PutAsync":
                  response = await Client().PutAsJsonAsync(action, t);
-                break;
+                 break;
             }
 
             string json = await response.Content.ReadAsStringAsync();

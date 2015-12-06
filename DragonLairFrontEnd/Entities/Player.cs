@@ -8,12 +8,13 @@ namespace Entities
     public class Player
     {
         [Required]
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
         [Required]
         [JsonProperty(PropertyName = "DtoTeams")]
-        public List<Team> DtoTeams { get; set; }
+        public List<Team> Teams { get; set; }
     }
 }

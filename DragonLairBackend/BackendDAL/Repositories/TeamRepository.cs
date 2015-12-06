@@ -15,6 +15,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
+                entity.Players.ForEach(a => context.Players.Attach(a));
                 context.Teams.Add(entity);
                 context.SaveChanges();
             }
@@ -52,16 +53,24 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Team team = context.Teams.Find(entity.Id);
+
+                Team team = context.Teams.Include(a => a.Players).FirstOrDefault(b => b.Id == entity.Id);
                 if ((team == null)) return false;
-                team.Draw = entity.Draw;
-                team.Loss = entity.Loss;
-                team.Win = entity.Win;
                 team.Name = entity.Name;
-                team.Groups = entity.Groups;
-                team.Players = entity.Players;
+                team.Win = entity.Win;
+                team.Loss = entity.Loss;
+                team.Draw = entity.Draw;
+
+                if (entity.Players == null) entity.Players = new List<Player>();
+                team.Players.Clear();
+                foreach (var player in entity.Players)
+                {
+                    team.Players.Add(context.Players.Find(player.Id));
+                }
+                context.Entry(team).State = EntityState.Modified;
                 context.SaveChanges();
                 return true;
+
             }
         }
     }
