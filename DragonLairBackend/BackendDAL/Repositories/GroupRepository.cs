@@ -15,6 +15,11 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
+                foreach (var team in entity.Teams)
+                {
+                    context.Teams.Attach(team);
+                }
+               
                 context.Groups.Add(entity);
                 context.SaveChanges();
             }

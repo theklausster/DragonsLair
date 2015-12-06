@@ -22,7 +22,6 @@ namespace Entities
         public string Name { get; set; }
 
         public virtual Group Group { get; set; }
-        [JsonProperty(PropertyName = "DtoPlayer")]
         public virtual List<Player> Players { get; set; }
 
     }
