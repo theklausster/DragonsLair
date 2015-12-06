@@ -29,14 +29,7 @@ namespace DTOConverter.Converter
                 dtoPlayers.Add(new DTOPlayer() { Id = item.Id, Name = item.Name });
             }
 
-            if (t.Groups == null) throw new ArgumentException("Group is null in dtoTeamConverter");
-            foreach (var item in t.Groups)
-            {
-                dtoGroup.Add(new DTOGroup() { Id = item.Id, Name = item.Name });
-            }
-
-            dtoTeam.Groups = dtoGroup;
-            dtoTeam.Players = dtoPlayers;
+                 dtoTeam.Players = dtoPlayers;
 
             return dtoTeam;
         }
