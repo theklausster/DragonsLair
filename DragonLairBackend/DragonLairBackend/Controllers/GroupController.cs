@@ -71,7 +71,7 @@ namespace DragonLairBackend.Controllers
         public HttpResponseMessage Post(Group group)
         {
             group = groupRepository.Create(group);
-            var response = Request.CreateResponse<Group>(HttpStatusCode.Created, group);
+            var response = Request.CreateResponse<DTOGroup>(HttpStatusCode.Created, dtoGroupConverter.Convert(group));
             //string uri = Url.Link("DefaultApi", new { id = group.Id });
             //response.Headers.Location = new Uri(uri);
             return response;

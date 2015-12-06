@@ -14,7 +14,7 @@ namespace ServiceGateway.Http
         {
             HttpClient client = new HttpClient();
 
-            string baseAddress = "http://localhost:41257/";
+            string baseAddress = "http://dragonapi.devjakobsen.dk/";
 
           client.BaseAddress = new Uri(baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
