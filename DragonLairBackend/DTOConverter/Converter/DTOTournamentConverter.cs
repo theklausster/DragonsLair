@@ -40,7 +40,7 @@ namespace DTOConverter.Converter
                             Win = team.Win,
                             Loss = team.Loss,
                             Draw = team.Draw,
-                            DtoPlayers = dtoPlayers
+                            Players = dtoPlayers
                         });
                     }
                     dtoGroups.Add(new DTOGroup()

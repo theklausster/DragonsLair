@@ -9,7 +9,7 @@ using Entities;
 
 namespace BackendDAL.Initializer
 {
-    class DragonLairInitizalizer : DropCreateDatabaseAlways<DragonLairContext>
+    class DragonLairInitizalizer : DropCreateDatabaseIfModelChanges<DragonLairContext>
     {
         private Player player1;
         private Player player2;

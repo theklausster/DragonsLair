@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
+
 namespace Entities
 {
     public class Team
@@ -10,6 +11,7 @@ namespace Entities
         {
         }
         [Required]
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Enter a Number")]
         public int Draw { get; set; }
@@ -22,7 +24,7 @@ namespace Entities
 
         [JsonProperty(PropertyName = "DtoTeams")]
         public virtual List<Group> Groups { get; set; }
-        [JsonProperty(PropertyName = "DtoPlayers")]
+
         public virtual List<Player> Players { get; set; }
 
     }

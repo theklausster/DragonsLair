@@ -33,7 +33,7 @@ namespace BackendTest.TestDTOConverter
             DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
             dtoTeam = dtoTeamConverter.Convert(team);
             Assert.AreEqual(team.Id, dtoTeam.Id);
-            Assert.NotNull(dtoTeam.DtoPlayers); 
+            Assert.NotNull(dtoTeam.Players); 
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace BackendTest.TestDTOConverter
             DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
             dtoTeam = dtoTeamConverter.Convert(team);
             Assert.AreEqual(team.Id, dtoTeam.Id);
-            Assert.NotNull(dtoTeam.DTOGroup);
+            Assert.NotNull(dtoTeam.Groups);
         }
 
         [Test]
