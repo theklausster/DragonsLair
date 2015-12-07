@@ -52,7 +52,6 @@ namespace DragonLairFrontEnd.Controllers
             foreach (var id in Teams)
             {
                 Team team = await apiService.GetAsync<Team>("api/team/" + id);
-                team.Players.ForEach(a => a.Teams = null); // need it to be disconnected due to attach in dalrepo
                 group.Teams.Add(team);
             }
             try
