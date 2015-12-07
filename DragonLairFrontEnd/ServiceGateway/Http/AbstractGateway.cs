@@ -13,6 +13,8 @@ namespace ServiceGateway.Http
         public HttpClient Client()
         {
             HttpClient client = new HttpClient();
+
+            //string baseAddress = "http://dragonapi.devjakobsen.dk/";
             string baseAddress = "http://localhost:41257/";
             client.BaseAddress = new Uri(baseAddress);
             client.DefaultRequestHeaders.Accept.Clear();
@@ -45,7 +47,7 @@ namespace ServiceGateway.Http
                 break;
                 case "PutAsync":
                  response = await Client().PutAsJsonAsync(action, t);
-                break;
+                 break;
             }
 
             string json = await response.Content.ReadAsStringAsync();

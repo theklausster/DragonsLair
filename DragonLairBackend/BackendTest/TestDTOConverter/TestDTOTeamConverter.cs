@@ -23,46 +23,14 @@ namespace BackendTest.TestDTOConverter
                     new Player() { Id = 1, Name = "Ole" },
                     new Player() { Id = 2, Name = "Ulla" }
                 },
-                Groups = new List<Group>()
-                {
-                    new Group() { Id = 1, Name = "Team One" },
-                    new Group() { Id = 2, Name = "Team Two" }
-                },
             };
-            
             DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
             dtoTeam = dtoTeamConverter.Convert(team);
             Assert.AreEqual(team.Id, dtoTeam.Id);
-            Assert.NotNull(dtoTeam.DtoPlayers); 
+            Assert.NotNull(dtoTeam.Players); 
         }
 
-        [Test]
-        public void Test_if_Team_can_be_converted_to_DTO_with_Groups()
-        {
-            DTOTeam dtoTeam = new DTOTeam();
-            Team team = new Team()
-            {
-                Id = 1,
-                Draw = 0,
-                Loss = 0,
-                Win = 1,
-                Name = "Team Awesome",
-                Groups = new List<Group>()
-                {
-                    new Group() { Id = 1, Name = "Team One" },
-                    new Group() { Id = 2, Name = "Team Two" }
-                }, 
-                Players = new List<Player>()
-                {
-                    new Player() { Id = 1, Name = "Ole" },
-                    new Player() { Id = 2, Name = "Ulla" }
-                }
-        };
-            DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
-            dtoTeam = dtoTeamConverter.Convert(team);
-            Assert.AreEqual(team.Id, dtoTeam.Id);
-            Assert.NotNull(dtoTeam.DTOGroup);
-        }
+
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
@@ -79,15 +47,6 @@ namespace BackendTest.TestDTOConverter
             dtoTeam = dtoTeamConverter.Convert(team);
         }
 
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Test_if_argument_exception_if_group_is_null()
-        {
-            Team team = new Team() { Id = 1, Draw = 0, Loss = 0, Win = 1, Name = "Team Awesome" };
-            DTOTeam dtoTeam = new DTOTeam();
-            DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
-            dtoTeam = dtoTeamConverter.Convert(team);
-        }
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]

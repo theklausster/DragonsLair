@@ -4,32 +4,33 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Player Details</h2>
 
-<div>
-    <h4>Player</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Teams)
-        </dt>
-
-        <dd>
-            @foreach (var team in Model.Teams)
-            {
-                <p>@team.Name</p><br/>
-            }
-        </dd>
-    </dl>
+<div class="jumbotron">
+    <div class="container">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                <br/>
+                @Html.DisplayNameFor(model => model.Teams)
+            </dt>
+            <dd>
+                <br/>
+                @foreach (var team in Model.Teams)
+                {
+                    <p>@team.Name</p>
+                }
+            </dd>
+        </dl>
+        <br/>
+        <p class="btn-group-sm">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-info" })
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info" })
+        </p>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

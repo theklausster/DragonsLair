@@ -11,6 +11,7 @@ namespace Entities
         {
         }
         [Required]
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Enter a Number")]
         public int Draw { get; set; }
@@ -22,7 +23,9 @@ namespace Entities
         public string Name { get; set; }
 
         public virtual Group Group { get; set; }
-        [JsonProperty(PropertyName = "DtoPlayer")]
+
+        public virtual List<Group> Groups { get; set; }
+
         public virtual List<Player> Players { get; set; }
 
     }

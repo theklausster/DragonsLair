@@ -5,6 +5,20 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Win)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Win)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.Draw)
         </dt>
 
@@ -19,22 +33,18 @@
         <dd>
             @Html.DisplayFor(model => model.Loss)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Win)
+            @Html.DisplayNameFor(model => model.Players)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Win)
+            @foreach(var item in Model.Players)
+            {
+                <p>@item.Name</p>
+            }
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+
 
     </dl>
 </div>
