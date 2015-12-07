@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DragonLairFrontEnd.Models;
 using Entities;
+using Microsoft.Owin.Security.Provider;
 using ServiceGateway.Http;
 
 namespace DragonLairFrontEnd.Controllers
@@ -14,7 +16,7 @@ namespace DragonLairFrontEnd.Controllers
         private string baseRoute = "api/player/";
         private WebApiService apiService = new WebApiService();
 
-        // GET: Player
+        //GET: Player
         public async Task<ActionResult> Index()
         {
             List<Player> players = await apiService.GetAsync<List<Player>>(baseRoute);
@@ -24,7 +26,7 @@ namespace DragonLairFrontEnd.Controllers
         // GET: Player/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            Player player = await apiService.GetAsync<Player>(baseRoute+id);
+            Player player = await apiService.GetAsync<Player>(baseRoute + id);
             return View(player);
         }
 
@@ -53,8 +55,10 @@ namespace DragonLairFrontEnd.Controllers
         // GET: Player/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            Player player = await apiService.GetAsync<Player>(baseRoute + id);
-            return View(player);
+            PlayerModel playerModel = new PlayerModel();
+            playerModel.Player = await apiService.GetAsync<Player>(baseRoute + id);
+            playerModel.Teams = await apiService.GetAsync<List<Team>>("api/team/");
+            return View(playerModel);
         }
 
         // POST: Player/Edit/5
@@ -86,7 +90,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             try
             {
-                 await apiService.DeleteAsync<Player>(baseRoute + id);
+                await apiService.DeleteAsync<Player>(baseRoute + id);
 
                 return RedirectToAction("Index");
             }
@@ -94,6 +98,34 @@ namespace DragonLairFrontEnd.Controllers
             {
                 return View();
             }
+        }
+
+        public async Task<ActionResult> Remove(int teamId, int playerId)
+        {
+            Player player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            Team team = player.Teams.FirstOrDefault(a => a.Id == teamId);
+            player.Teams.Remove(team);
+            await apiService.PutAsync<Player>(baseRoute + player.Id, player);
+            player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            return RedirectToAction("Edit/" + player.Id);
+
+        }
+
+        public async Task<ActionResult> Add(int teamId, int playerId)
+        {
+            Player player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            Team team = await apiService.GetAsync<Team>("api/team/" + teamId);
+            player.Teams.Add(team);
+            string route = baseRoute + player.Id;
+            await apiService.PutAsync<Player>(route, player);
+            player = await apiService.GetAsync<Player>(baseRoute + playerId);
+            return RedirectToAction("Edit/" + player.Id);
+        }
+
+        private GroupModel setupGroupModel(GroupModel groupModel = null)
+        {
+            if(groupModel == null)groupModel = new GroupModel();
+            return groupModel;
         }
     }
 }

@@ -56,10 +56,15 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Player player = context.Players.Find(entity.Id);
+                Player player = context.Players.Include(a => a.Teams).FirstOrDefault(b => b.Id == entity.Id);
                 if ((player == null)) return false;
                 player.Name = entity.Name;
+                if(entity.Teams == null) entity.Teams = new List<Team>();
                 player.Teams = entity.Teams;
+                foreach (var team in entity.Teams)
+                {
+                    context.Teams.Attach(team);
+                }              
                 context.SaveChanges();
                 return true;
             }

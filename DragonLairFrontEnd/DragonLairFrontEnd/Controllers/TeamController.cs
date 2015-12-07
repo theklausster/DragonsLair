@@ -59,10 +59,17 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Team/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Win, Loss, Draw")] Team team)
+        public async Task<ActionResult> Edit([Bind(Include = "Id, Name, Win, Loss, Draw")] Team team, string[] players)
         {
             try
             {
+
+                foreach (var player in players)
+                {
+                    Player playerFromApi = await apiService.GetAsync<Player>("api/player/" + int.Parse(player));
+                    team.Players.Add(playerFromApi);
+                    }
+                await apiService.PutAsync<Team>(baseRoute + team.Id, team);
                 return RedirectToAction("Index");
             }
             catch

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Script.Serialization;
+using Entities;
 
 namespace ServiceGateway.Http
 {
@@ -31,7 +32,8 @@ namespace ServiceGateway.Http
                 return entity;
             }
             throw new ApiException(response.StatusCode, json);
-        }
+
+            }
 
         public async Task<T> ManageData<T>(string action, T t, string type)
         {
@@ -56,6 +58,5 @@ namespace ServiceGateway.Http
             
             throw new ApiException(response.StatusCode, json);
         }
-
     }
 }

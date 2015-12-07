@@ -21,15 +21,7 @@ namespace DTOConverter.Converter
                 List<DTOTeam> dtoTeams = new List<DTOTeam>();
                 foreach (var teams in t.Teams)
                 {
-                    List<DTOPlayer> dtoplayers = new List<DTOPlayer>();
-                    if (teams.Players != null)
-                    {                     
-                        foreach (var player in teams.Players)
-                        {
-                            dtoplayers.Add(new DTOPlayer() {Name = player.Name, Id = player.Id});
-                        }
-                    }
-                    dtoTeams.Add(new DTOTeam() { Id = teams.Id, Name = teams.Name, Draw = teams.Draw, Win = teams.Win, Loss = teams.Loss, DtoPlayers = dtoplayers });
+                    dtoTeams.Add(new DTOTeam() { Id = teams.Id, Name = teams.Name, Draw = teams.Draw, Win = teams.Win, Loss = teams.Loss });
                 }
                 DTOTournament dtoTournament = new DTOTournament() { Id = t.Tournament.Id, Name = t.Tournament.Name, StartDate = t.Tournament.StartDate};
                 return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament };

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Entities
 {
@@ -20,7 +22,7 @@ namespace Entities
         public string Name { get; set; }
 
         public virtual Group Group { get; set; }
-
+        [JsonProperty(PropertyName = "DtoPlayer")]
         public virtual List<Player> Players { get; set; }
 
     }

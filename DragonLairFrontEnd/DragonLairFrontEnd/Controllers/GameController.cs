@@ -81,8 +81,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             try
             {
-                Genre genre = await apiService.GetAsync<Genre>("api/genre/" + genreId);
-                
+                Genre genre = await apiService.GetAsync<Genre>("api/genre/" + genreId);    
                 game.Genre = genre;
                 await apiService.PutAsync<Game>(baseRoute + game.Id, game);
 
