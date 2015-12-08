@@ -22,9 +22,9 @@ namespace Entities
         [Required(ErrorMessage = "Please enter a Name")]
         public string Name { get; set; }
 
-        [JsonProperty(PropertyName = "DtoTeams")]
+        [JsonProperty(PropertyName = "DtoGroups")]
         public virtual List<Group> Groups { get; set; }
-
+        [JsonProperty(PropertyName = "DtoPlayers")]
         public virtual List<Player> Players { get; set; }
 
     }
