@@ -26,7 +26,9 @@ namespace DragonLairBackend.Controllers
         // GET: api/Tournament
         public IEnumerable<DTOTournament> Get()
         {
-            return new List<DTOTournament>(dtoTournamentConverter.Convert(tournamentRepository.ReadAll()));
+            List<DTOTournament> dtoTournaments = new List<DTOTournament>(dtoTournamentConverter.Convert(tournamentRepository.ReadAll()));
+            return dtoTournaments;
+
         }
 
         // GET: api/Tournament/5

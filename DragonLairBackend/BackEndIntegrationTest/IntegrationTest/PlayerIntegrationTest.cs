@@ -8,6 +8,7 @@ using System.Text;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
+using System.Web.Http.Results;
 using System.Web.Http.Routing;
 using BackendDAL.Initializer;
 using DragonLairBackend.Controllers;
@@ -76,10 +77,50 @@ namespace BackEndIntegrationTest.IntegrationTest
         [Test]
         public void Test_You_Can_Find_A_Single_Player_On_Database()
         {
-            
+            var response = playerController.Get(1);
+            var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
+            DTOPlayer playerfromDb = contentResult.Content;
+
+            Assert.AreEqual(contentResult.Content.Id, 1);
+
+        }
+        [Test]
+        public void Test_You_Can_Update_A_Player_On_DataBase()
+        {
+            player.Id = 1;
+            Player newplayer = player;
+            newplayer.Name = "Magic The Gathering";
+            playerController.Put(player.Id, newplayer);
+            var response = playerController.Get(player.Id);
+            var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
+            DTOPlayer dtoPlayer = contentResult.Content;
+
+
+            Assert.AreEqual(contentResult.Content.Name, newplayer.Name);
+
         }
 
+        [Test]
+        public void Test_You_Can_Delete_A_Player_On_Database()
+        {
+            var response = playerController.Post(player);
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
+                // The Task.Result property holds the whole deserialized object
+                //string returnedToken = ((dynamic)task.Result).Token;
+                DTOPlayer dtoplayer = ((dynamic)task.Result);
+                player.Id = dtoplayer.Id;
+                Assert.Greater(dtoplayer.Id, 0);
 
-      
+            });
+            playerController.Delete(player.Id);
+            //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
+
+
+            //Assert.Throws(<Exception> (() => gameController.Get(game.Id));
+            //Assert.Throws<ArgumentException>(gameController.Get(game.Id));
+
+
+        }
     }
 }
