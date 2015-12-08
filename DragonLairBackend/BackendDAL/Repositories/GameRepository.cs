@@ -63,6 +63,14 @@ namespace BackendDAL.Repositories
                 game.Name = entity.Name;
                 game.Genre = entity.Genre;
                 game.Tournaments = entity.Tournaments;
+                context.Genres.Attach(game.Genre);
+                if (game.Tournaments != null)
+                {
+                    foreach (var tournament in game.Tournaments)
+                    {
+                        context.Tournaments.Attach(tournament);
+                    }              
+                }
                 context.SaveChanges();
                 return true;
             }

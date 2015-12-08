@@ -16,5 +16,6 @@ namespace Entities
         [Required]
         [JsonProperty(PropertyName = "DtoTeams")]
         public List<Team> Teams { get; set; }
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
+using Newtonsoft.Json;
 
 namespace Entities
 {
@@ -10,9 +11,9 @@ namespace Entities
         public int Id { get; set; }
         [Required(ErrorMessage = "Please Enter a Name")]
         public string Name { get; set; }
-
+        [JsonProperty(PropertyName = "DTOGenre")]
         public virtual Genre Genre { get; set; }
-
+        [JsonProperty(PropertyName = "DTOTournament")]
         public virtual List<Tournament> Tournaments { get; set; }
     }
 }

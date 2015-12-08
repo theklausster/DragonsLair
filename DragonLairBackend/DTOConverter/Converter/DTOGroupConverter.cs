@@ -15,7 +15,6 @@ namespace DTOConverter.Converter
         public override DTOGroup Convert(Group t)
         {
             if (t == null) throw new ArgumentException("Game is not allowed to be null");
-            //if (t.Tournament == null) throw new ArgumentException("A group must have a tournamnet attached!");
             if (t.Teams == null) throw new ArgumentException("A group must have at least one team attached!");
             {
                 List<DTOTeam> dtoTeams = new List<DTOTeam>();
@@ -23,9 +22,30 @@ namespace DTOConverter.Converter
                 {
                     dtoTeams.Add(new DTOTeam() { Id = teams.Id, Name = teams.Name, Draw = teams.Draw, Win = teams.Win, Loss = teams.Loss });
                 }
-                //DTOTournament dtoTournament = new DTOTournament() { Id = t.Tournament.Id, Name = t.Tournament.Name, StartDate = t.Tournament.StartDate};
-                return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams };
-            }       
+                if (t.Tournament == null) return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams };
+                DTOTournament dtoTournament = new DTOTournament()
+                {
+                    Id = t.Tournament.Id,
+                    Name = t.Tournament.Name,
+                    StartDate = t.Tournament.StartDate,
+                    DtoGame = new DTOGame()
+                    {
+                        Id = t.Tournament.Game.Id,
+                        Name = t.Tournament.Game.Name,
+                        DtoGenre = new DTOGenre()
+                        {
+                            Id = t.Tournament.Game.Genre.Id,
+                            Name = t.Tournament.Game.Genre.Name
+                        }
+                    },
+                    DTOTournamentType = new DTOTournamentType()
+                    {
+                        Id = t.Tournament.TournamentType.Id,
+                        Type = t.Tournament.TournamentType.Type
+                    }
+                };
+                return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament };
+            }
         }
     }
 }
