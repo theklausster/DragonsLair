@@ -12,7 +12,8 @@ namespace Entities
 
         [Required(ErrorMessage = "Please enter a Name")]
         public string Name { get; set; }
-
+      
+        [JsonProperty(PropertyName = "DtoTournament")]
         public virtual Tournament Tournament { get; set; }
         [JsonProperty(PropertyName = "DtoTeams")]
         public virtual List<Team> Teams { get; set; }
