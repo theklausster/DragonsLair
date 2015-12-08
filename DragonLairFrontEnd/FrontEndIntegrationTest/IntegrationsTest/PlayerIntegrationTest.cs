@@ -52,6 +52,18 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         }
 
         [Test]
+        public async void Test_can_get_player_through_controller()
+        {
+            WebApiService apiService = new WebApiService();
+            Player player = await apiService.GetAsync<Player>("api/player/" + 1);
+            Assert.IsNotNull(player);
+            var result = await playerController.Details(1) as ViewResult;
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
+            Assert.AreEqual("Details", result.ViewName);
+        }
+
+        [Test]
         public async void Test_Can_Create_and_delete_player_Through_controller()
         {
             var result =  await playerController.Create(player);
@@ -65,7 +77,7 @@ namespace FrontEndIntegrationTest.IntegrationsTest
             Assert.AreEqual(newPlayer.Name, createdePlayer.Name);
             Assert.AreEqual(newPlayer.Id, createdePlayer.Id);
             await playerController.DeleteConfirmed(newPlayer.Id);
-            
+         
            
         }
     }

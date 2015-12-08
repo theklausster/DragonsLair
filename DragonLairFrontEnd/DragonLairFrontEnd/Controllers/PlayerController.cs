@@ -29,7 +29,7 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Details(int id)
         {
             Player player = await apiService.GetAsync<Player>(baseRoute + id);
-            return View(player);
+            return View("Details", player);
         }
 
         // GET: Player/Create
