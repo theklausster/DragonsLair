@@ -9,7 +9,7 @@ using Entities;
 
 namespace BackendDAL.Initializer
 {
-    class DragonLairInitizalizer : DropCreateDatabaseIfModelChanges<DragonLairContext>
+    class DragonLairInitizalizer : DropCreateDatabaseAlways<DragonLairContext>
     {
         private Player player1;
         private Player player2;
@@ -33,15 +33,14 @@ namespace BackendDAL.Initializer
             List<Team> teams = new List<Team>();
             team = new Team() { Name = "team1", Loss = 0, Win = 0, Draw = 0, Players = players };
             teams.Add(team);
-            group1 = new Group() { Name = "group1", Tournament = tournament, Teams = teams };
+            group1 = new Group() { Name = "groupONE", Teams = teams };
             groups.Add(group1);
             tournament = new Tournament() { Name = "wars", Game = game1, Groups = groups, TournamentType = tournamentType, StartDate = DateTime.Today };
         }
 
         protected override void Seed(DragonLairContext context)
         {
-            context.Genres.Add(genre);
-            context.Games.Add(game1);
+            
             context.Players.Add(player1);
             context.Players.Add(player2);
             context.Players.Add(player3);
@@ -49,6 +48,9 @@ namespace BackendDAL.Initializer
             context.Groups.Add(group1);
             context.TournamentTypes.Add(tournamentType);
             context.Tournaments.Add(tournament);
+            context.Games.Add(game1);
+            context.Genres.Add(genre);
+            
             base.Seed(context);
         }
     }

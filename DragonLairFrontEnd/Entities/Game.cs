@@ -19,9 +19,9 @@ namespace Entities
         [DataMember]
         [Required(ErrorMessage = "Please Enter a Name")]
         public string Name { get; set; }
-        [JsonProperty(PropertyName = "DTOGenre")]
+        [JsonProperty(PropertyName = "DtoGenre")]
         public Genre Genre { get; set; }
-        [JsonProperty(PropertyName = "DTOTournament")]
+        [JsonProperty(PropertyName = "DtoTournaments")]
         public List<Tournament> Tournaments { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace BackendTest.TestDTOConverter
             DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
             dtoTeam = dtoTeamConverter.Convert(team);
             Assert.AreEqual(team.Id, dtoTeam.Id);
-            Assert.NotNull(dtoTeam.Players); 
+            Assert.NotNull(dtoTeam.DtoPlayers); 
         }
 
 

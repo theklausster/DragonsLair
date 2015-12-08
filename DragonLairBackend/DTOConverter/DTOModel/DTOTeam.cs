@@ -23,10 +23,10 @@ namespace DTOConverter.DTOModel
         [DataMember]
         public string Name { get; set; }
         [DataMember]
-        public ICollection<DTOPlayer> Players { get; set; }
+        public ICollection<DTOPlayer> DtoPlayers { get; set; }
 
         [DataMember]
-        public ICollection<DTOGroup> Groups { get; set; }
+        public ICollection<DTOGroup> DtoGroups { get; set; }
 
     }
 }

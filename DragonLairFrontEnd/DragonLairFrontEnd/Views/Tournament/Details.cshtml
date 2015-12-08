@@ -1,4 +1,4 @@
-﻿@model Entities.Tournament
+﻿@model DragonLairFrontEnd.Models.TournamentViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -9,26 +9,92 @@
 <div>
     <h4>Tournament</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+    <table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
+        <tr>
+            <td></td>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Game)</th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Tournament.Name):</td>
+            <td>@Html.DisplayFor(model => model.Tournament.Game.Name)</td>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Tournament.Game.Genre):</td>
+            <td>@Html.DisplayFor(model => model.Tournament.Game.Genre.Name)</td>
 
-    </dl>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Tournament.TournamentType.Type):</td>
+            <td>@Html.DisplayFor(model => model.Tournament.TournamentType.Type)</td>
+        </tr>
+
+    </table>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tournament.Groups):
+            </th>
+        </tr>
+
+
+            @foreach (var group in Model.Tournament.Groups)
+            {
+                <tr><td>@Html.DisplayFor(model => group.Name)</td><tr>
+            }
+   
+
+    </table>
+
+
+    <table>
+
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Groups.First().Teams):</th>
+            <th></th>
+            <th></th>
+            <th></th>   
+        </tr>
+
+        <tr>
+            <td>Name:</td>
+            <td>Win:</td>
+            <td>Draw:</td>
+            <td>Loss:</td>
+        </tr>
+            @foreach (var team in Model.Tournament.Groups.FirstOrDefault().Teams)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(model => team.Name)</td>
+                    <td>@Html.DisplayFor(model => team.Win)</td>
+                    <td>@Html.DisplayFor(model => team.Draw)</td>
+                    <td>@Html.DisplayFor(model => team.Loss)</td>
+                </tr>
+            }
+      
+    </table>
+  
+
+    <table>
+
+        <tr>
+            <td>@Html.DisplayNameFor(model => model.Tournament.Groups.First().Teams.First().Players):</td>
+        </tr>
+
+        @foreach (var player in Model.Tournament.Groups.FirstOrDefault().Teams.FirstOrDefault().Players)
+            {
+            <tr>
+                <td>@Html.DisplayFor(model => player.Name)</td>
+            </tr>
+        }
+
+
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Tournament.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

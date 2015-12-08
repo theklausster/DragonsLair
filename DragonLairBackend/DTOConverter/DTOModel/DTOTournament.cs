@@ -20,9 +20,12 @@ namespace DTOConverter.DTOModel
 
         [DataMember]
         public DateTime StartDate { get; set; }
-
+        [DataMember]
         public DTOTournamentType DTOTournamentType { get; set; }
+        [DataMember]
         public ICollection<DTOGroup> DtoGroups { get; set; }
+
+        [DataMember]
         public DTOGame DtoGame { get; set; }
     }
 }
