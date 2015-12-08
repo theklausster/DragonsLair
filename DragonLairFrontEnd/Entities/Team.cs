@@ -21,9 +21,9 @@ namespace Entities
         public int Win { get; set; }
         [Required(ErrorMessage = "Please enter a Name")]
         public string Name { get; set; }
-
+        [JsonProperty(PropertyName = "DtoGroups")]
         public  List<Group> Groups { get; set; }
-
+        [JsonProperty(PropertyName = "DtoPlayers")]
         public  List<Player> Players { get; set; }
 
     }
