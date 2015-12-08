@@ -41,7 +41,7 @@ namespace DragonLairBackend.Controllers
         public HttpResponseMessage Post(Tournament tournament)
         {
             tournament = tournamentRepository.Create(tournament);
-            var response = Request.CreateResponse<Tournament>(HttpStatusCode.Created, tournament);
+            var response = Request.CreateResponse<DTOTournament>(HttpStatusCode.Created, dtoTournamentConverter.Convert(tournament));
             string uri = Url.Link("DefaultApi", new { id = tournament.Id });
             response.Headers.Location = new Uri(uri);
             return response;

@@ -9,7 +9,7 @@ using Entities;
 
 namespace BackendDAL.Initializer
 {
-    class DragonLairInitizalizer : DropCreateDatabaseIfModelChanges<DragonLairContext>
+    class DragonLairInitizalizer : DropCreateDatabaseAlways<DragonLairContext>
     {
         private Player player1;
         private Player player2;
@@ -17,39 +17,38 @@ namespace BackendDAL.Initializer
         private Group group1;
         private Tournament tournament;
         private Team team;
+        private Team team2;
         private TournamentType tournamentType;
         private Genre genre;
         private Game game1;
         public DragonLairInitizalizer()
         {
-            genre = new Genre() { Name = "Roleplaying" };
-            game1 = new Game() {Name = "Wars", Genre = genre };
-            tournamentType = new TournamentType() { Type = "2vs2" };
-            List<Group> groups = new List<Group>();
-            player1 = new Player() { Name = "Søren" };
-            player2 = new Player() { Name = "Mark" };
-            player3 = new Player() { Name = "René" };
-            List<Player> players = new List<Player> { player1, player2 };
-            List<Team> teams = new List<Team>();
-            team = new Team() { Name = "team1", Loss = 0, Win = 0, Draw = 0, Players = players };
-            teams.Add(team);
-            group1 = new Group() { Name = "group1", Tournament = tournament, Teams = teams };
-            groups.Add(group1);
-            tournament = new Tournament() { Name = "wars", Game = game1, Groups = groups, TournamentType = tournamentType, StartDate = DateTime.Today };
+            genre = new Genre() { Name = "I'm Genre Roleplaying" };
+            game1 = new Game() { Name = "Im a Game - Wars", Genre = genre };
+            tournamentType = new TournamentType() { Type = "I'm type 2vs2" };
+            player1 = new Player() { Name = "I'm player Søren" };
+            player2 = new Player() { Name = "I'm player Mark" };
+            player3 = new Player() { Name = "I'm player René" };
+            team = new Team() { Name = "I'm a Team", Loss = 0, Win = 0, Draw = 0, Players = new List<Player> { player1, player2 } };
+            team2 = new Team() { Name = "I'm a Team", Loss = 0, Win = 0, Draw = 0, Players = new List<Player> { player3 } };
+            group1 = new Group() { Name = "I'm a Group", Teams = new List<Team>() { team, team2 } };
+            tournament = new Tournament() { Name = "I'm a Tournament", Game = game1, Groups = new List<Group> { group1 }, TournamentType = tournamentType, StartDate = DateTime.Today };
         }
 
         protected override void Seed(DragonLairContext context)
         {
             context.Genres.Add(genre);
             context.Games.Add(game1);
+            context.TournamentTypes.Add(tournamentType);
             context.Players.Add(player1);
             context.Players.Add(player2);
             context.Players.Add(player3);
             context.Teams.Add(team);
+            context.Teams.Add(team2);
             context.Groups.Add(group1);
-            context.TournamentTypes.Add(tournamentType);
             context.Tournaments.Add(tournament);
-            base.Seed(context);
+
+                   base.Seed(context);
         }
     }
 }
