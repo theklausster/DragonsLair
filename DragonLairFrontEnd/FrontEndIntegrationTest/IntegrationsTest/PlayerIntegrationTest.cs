@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 using DragonLairFrontEnd.Controllers;
+using DragonLairFrontEnd.Models;
 using Entities;
 using NUnit.Framework;
+using ServiceGateway.Http;
 
-namespace BackEndIntegrationTest.IntegrationTest
+namespace FrontEndIntegrationTest.IntegrationsTest
 {
     [TestFixture]
     class PlayerIntegrationTest
@@ -15,7 +21,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         public void SetUp()
         {
         playerController = new PlayerController();
-         player = new Player() { Name = "Peter" };
+         player = new Player() { Name = "TestPlayer" };
             
         }
 
@@ -27,32 +33,40 @@ namespace BackEndIntegrationTest.IntegrationTest
         }
 
         [Test]
-        public void Test_You_Can_Read_All_Players_From_Database()
+        public async void Test_You_Can_Get_View_From_Controller()
         {
-            
+            var result = await playerController.Index() as ViewResult;
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.ViewName);
+        }
+        [Test]
+        public async void Test_You_Can_Get_Players_from_view_model()
+        {
+            WebApiService apiService = new WebApiService();
+            var player = await apiService.GetAsync<Player>("api/player/" + 1);
+            PlayerModel pm = new PlayerModel();
+            pm.Player = player;
+            Assert.IsNotNull(pm.Player);
+            Assert.AreEqual(player.Id, pm.Player.Id);
+            Assert.AreEqual(player.Teams[0].Id, pm.Player.Teams[0].Id);
         }
 
-        //    [Test]
-        //    public void Test_You_Can_Create_A_Player_On_DataBase()
-        //    {
-        //        var response = playerController.Post(player);
-        //        response.Content.ReadAsAsync<object>().ContinueWith(task => {
-        //            // The Task.Result property holds the whole deserialized object
-        //            //string returnedToken = ((dynamic)task.Result).Token;
-        //            Player testPlayer = ((dynamic)task.Result);
-        //            Assert.Greater(testPlayer.Id, 0);
-
-        //        });
-
-        //    }
-        //    [Test]
-        //    public void Test_You_Can_Find_A_Single_Player_On_Database()
-        //    {
-
-        //    }
-
-
-
-        //}
+        [Test]
+        public async void Test_Can_Create_and_delete_player_Through_controller()
+        {
+            var result =  await playerController.Create(player);
+            WebApiService apiService = new WebApiService();
+            var players = await apiService.GetAsync<List<Player>>("api/player/");
+            var createdePlayer =  players.FirstOrDefault(a => a.Name == player.Name);
+            Assert.IsNotNull(player);
+            Assert.IsNotNull(players);
+            Assert.IsNotNull(createdePlayer);
+            var newPlayer = await apiService.GetAsync<Player>("api/player/" + createdePlayer.Id);
+            Assert.AreEqual(newPlayer.Name, createdePlayer.Name);
+            Assert.AreEqual(newPlayer.Id, createdePlayer.Id);
+            await playerController.DeleteConfirmed(newPlayer.Id);
+            
+           
+        }
     }
 }

@@ -27,18 +27,43 @@ namespace BackendTest.TestDTOConverter
             Team Team1 = new Team() { Id = 1, Name = "Awesome", Players = PlayersForTeam1 };
             Team Team2 = new Team() { Id = 1, Name = "More Awesome", Players = PlayersForTeam2 };
 
-            Tournament tournament1 = new Tournament() { Id = 1, Name = "Warhammer" };
+            Tournament tournament1 = new Tournament()
+            {
+                Id = 1,
+                Name = "Warhammer",
+                Game = new Game()
+                {
+                    Id = 1,
+                    Name = "Wars",
+                    Genre = new Genre() { Id = 1, Name = "role" }
+                },
+                StartDate = DateTime.Today,
+                TournamentType = new TournamentType()
+                {
+                    Id = 1,
+                    Type = "2vs2"
+                }
+            };
             List<Team> teams = new List<Team> { Team1, Team2 };
 
             Group group = new Group() { Id = 1, Name = "A", Teams = teams, Tournament = tournament1 };
 
             DTOGroupConverter dtogroupConverter = new DTOGroupConverter();
-            DTOGroup dtogroup = dtogroupConverter.Convert(group);
+            DTOGroup dtoGroup = dtogroupConverter.Convert(group);
 
             Assert.IsNotNull(teams);
-            Assert.AreEqual(dtogroup.Id, 1);
-            Assert.AreSame(Team1.Name, dtogroup.DtoTeams[0].Name);
-            Assert.Greater(dtogroup.DtoTeams.Count, 0);
+            Assert.AreEqual(dtoGroup.Id, 1);
+            Assert.AreSame(Team1.Name, dtoGroup.DtoTeams[0].Name);
+            Assert.Greater(dtoGroup.DtoTeams.Count, 0);
+            Assert.AreEqual(dtoGroup.DtoTeams[0].Id, group.Teams[0].Id);
+            Assert.AreEqual(dtoGroup.DtoTeams[1].Id, group.Teams[1].Id);
+            Assert.AreEqual(dtoGroup.DtoTeams[0].Name, group.Teams[0].Name);
+            Assert.AreEqual(dtoGroup.DtoTeams[1].Name, group.Teams[1].Name);
+            Assert.AreEqual(dtoGroup.DtoTournament.Id, tournament1.Id);
+            Assert.AreEqual(dtoGroup.DtoTournament.Name, tournament1.Name);
+            Assert.AreEqual(dtoGroup.DtoTournament.StartDate, tournament1.StartDate);
+            Assert.AreEqual(dtoGroup.DtoTournament.DTOTournamentType.Id, group.Tournament.TournamentType.Id);
+            Assert.AreEqual(dtoGroup.DtoTournament.DTOTournamentType.Type, group.Tournament.TournamentType.Type);
         }
         [Test]
         [ExpectedException(typeof(ArgumentException))]
@@ -86,8 +111,8 @@ namespace BackendTest.TestDTOConverter
             Team Team1 = new Team() { Id = 1, Name = "Awesome" };
             Team Team2 = new Team() { Id = 1, Name = "More Awesome" };
             List<Team> teams = new List<Team> { Team1, Team2 };
-            Tournament tournament = new Tournament() {Id = 1, Name = "tour1", Game = new Game() {Id = 1, Name = "war", Genre = new Genre() {Id = 1, Name = "role"} }, StartDate = DateTime.Today, TournamentType = new TournamentType() {Id = 1, Type = "2vs2"} };
-            Group group = new Group() { Id = 1, Name = "A", Teams = teams, Tournament = tournament};
+            Tournament tournament = new Tournament() { Id = 1, Name = "tour1", Game = new Game() { Id = 1, Name = "war", Genre = new Genre() { Id = 1, Name = "role" } }, StartDate = DateTime.Today, TournamentType = new TournamentType() { Id = 1, Type = "2vs2" } };
+            Group group = new Group() { Id = 1, Name = "A", Teams = teams, Tournament = tournament };
             DTOGroupConverter dtogroupConverter = new DTOGroupConverter();
             DTOGroup dtoGroup = dtogroupConverter.Convert(group);
             Assert.IsNotNull(dtoGroup);

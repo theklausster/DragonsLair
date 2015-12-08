@@ -32,20 +32,14 @@ namespace BackendTest.TestDTOConverter
 
 
 
-        //[Test]
-        //[ExpectedException(typeof(ArgumentException))]
-        //public void Test_if_argument_exception_if_players_is_null()
-        //{
-        //    Team team = new Team() { Id = 1, Draw = 0, Loss = 0, Win = 1, Name = "Team Awesome" };
-        //    team.Players = new List<Player>()
-        //        {
-        //            new Player() { Id = 1, Name = "Ole" },
-        //            new Player() { Id = 2, Name = "Ulla" }
-        //        };
-        //    DTOTeam dtoTeam = new DTOTeam();
-        //    DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
-        //    dtoTeam = dtoTeamConverter.Convert(team);
-        //}
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Test_if_argument_exception_if_players_is_null()
+        {
+           DTOTeamConverter dtoTeamConverter = new DTOTeamConverter();
+            Team team = new Team() { Id = 1, Draw = 0, Loss = 0, Win = 1, Name = "Team Awesome" };
+            DTOTeam dtoTeam = dtoTeamConverter.Convert(team);
+        }
 
 
         [Test]
