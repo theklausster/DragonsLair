@@ -7,11 +7,13 @@ namespace Entities
     public class Group
     {
         [Required]
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter a Name")]
         public string Name { get; set; }
-
+      
+        [JsonProperty(PropertyName = "DtoTournament")]
         public virtual Tournament Tournament { get; set; }
         [JsonProperty(PropertyName = "DtoTeams")]
         public virtual List<Team> Teams { get; set; }

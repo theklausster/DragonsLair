@@ -1,0 +1,17 @@
+diff a/DragonLairBackend/Entities/Group.cs b/DragonLairBackend/Entities/Group.cs	(rejected hunks)
+@@ -7,13 +7,13 @@
+     public class Group
+     {
+         [Required]
++        [Key]
+         public int Id { get; set; }
+ 
+         [Required(ErrorMessage = "Please enter a Name")]
+         public string Name { get; set; }
+ 
+         public virtual Tournament Tournament { get; set; }
+-        [JsonProperty(PropertyName = "DtoTeams")]
+         public virtual List<Team> Teams { get; set; }
+     }
+ }
+\ No newline at end of file

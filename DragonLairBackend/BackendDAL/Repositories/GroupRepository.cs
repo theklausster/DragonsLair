@@ -15,8 +15,6 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                
-                //entity.Teams.ForEach(a => context.Teams.Attach(a));
                 foreach (var team in entity.Teams)
                 {
                     team.Players = null;
@@ -41,8 +39,14 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                
-                Group group =context.Groups.Include(a => a.Teams).Include(a => a.Tournament).FirstOrDefault(b => b.Id == id);
+
+                Group group = context.Groups
+                    .Include(a => a.Teams)
+                    .Include(a => a.Tournament)
+                    .Include(b => b.Tournament.TournamentType)
+                    .Include(c => c.Tournament.Game)
+                    .Include(d => d.Tournament.Game.Genre)
+                    .FirstOrDefault(b => b.Id == id);
                 return group;
             }
         }
@@ -51,7 +55,13 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                List<Group> groups = context.Groups.Include(a => a.Teams).Include(a => a.Tournament).ToList();
+                List<Group> groups = context.Groups
+                    .Include(a => a.Teams)
+                    .Include(a => a.Tournament)
+                    .Include(b => b.Tournament.TournamentType)
+                    .Include(c => c.Tournament.Game)
+                    .Include(d => d.Tournament.Game.Genre)
+                    .ToList();
                 return groups;
             }
         }
@@ -60,11 +70,16 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Group group = context.Groups.Find(entity.Id);
+                Group group = context.Groups.Include(a => a.Teams).FirstOrDefault(b => b.Id == entity.Id);
                 if ((group == null)) return false;
                 group.Name = entity.Name;
-                group.Teams = entity.Teams;
-                group.Tournament = entity.Tournament;
+                group.Teams.Clear();
+                foreach (var team in entity.Teams)
+                {
+                    team.Players = null;
+                    group.Teams.Add(context.Teams.Find(team.Id));
+                }
+                context.Entry(group).State = EntityState.Modified;
                 context.SaveChanges();
                 return true;
             }

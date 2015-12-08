@@ -40,9 +40,9 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentController.Url = urlHelper;
 
             GroupController groupController = new GroupController();
-            var response = groupController.Get(1);
-            var contentResult = response as OkNegotiatedContentResult<DTOGroup>;
-            DTOGroup DtoGroup = contentResult.Content;
+            var groupResponse = groupController.Get(1);
+            var groupContentResult = groupResponse as OkNegotiatedContentResult<DTOGroup>;
+            DTOGroup DtoGroup = groupContentResult.Content;
             Group groupFromDb = new Group();
             groupFromDb.Name = DtoGroup.Name;
             groupFromDb.Id = DtoGroup.Id;
@@ -56,7 +56,15 @@ namespace BackEndIntegrationTest.IntegrationTest
             gameFromDb.Name = DtoGame.Name;
             gameFromDb.Id = DtoGame.Id;
 
-            tournament = new Tournament() { Name = "Missing", Groups = groups, Game = gameFromDb };
+            TournamentTypeController tournamentTypeController = new TournamentTypeController();
+            var Response = tournamentTypeController.Get(1);
+            var ContentResult = Response as OkNegotiatedContentResult<DTOTournamentType>;
+            DTOTournamentType DtoTournamentType = ContentResult.Content;
+            TournamentType tournamentTypeFromDb = new TournamentType();
+            tournamentTypeFromDb.Type = DtoTournamentType.Type;
+            tournamentTypeFromDb.Id = DtoTournamentType.Id;
+
+            tournament = new Tournament() { Name = "Missing", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb };
             DbInitializer.Initialize();
 
         }
