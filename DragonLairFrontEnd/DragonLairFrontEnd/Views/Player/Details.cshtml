@@ -23,7 +23,7 @@
                 <br/>
                 @foreach (var team in Model.Teams)
                 {
-                    <p>@team.Name</p>
+                    @Html.DisplayName(team.Name)
                 }
             </dd>
         </dl>
