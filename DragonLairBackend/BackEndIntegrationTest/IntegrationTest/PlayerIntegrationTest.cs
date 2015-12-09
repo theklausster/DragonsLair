@@ -29,7 +29,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
          
             var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/player");
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://dragonapi.devjakobsen.dk/api/player");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "player" } });
     
@@ -43,7 +43,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerController.Url = urlHelper;
 
             player = new Player() {Name = "Peter"};
- 
+            DbTestInitializer.Initialize();
         }
 
         [TearDown]

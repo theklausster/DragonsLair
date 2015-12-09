@@ -29,7 +29,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
 
             var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/game");
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://dragonapi.devjakobsen.dk/api/game");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "game" } });
 
@@ -50,6 +50,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             genrefromDb.Name = DtoGenre.Name;
             genrefromDb.Id = DtoGenre.Id;
             game = new Game() { Name = "Warhammer", Genre = genrefromDb };
+            DbTestInitializer.Initialize();
             
 
         }

@@ -26,7 +26,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
 
             var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/team");
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://dragonapi.devjakobsen.dk/api/team");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "team" } });
 
@@ -48,7 +48,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerFromDb.Id = Dtoplayer.Id;
             List<Player> players = new List<Player>() {playerFromDb};
             team = new Team() { Name = "Missing", Players = players};
-           
+            DbTestInitializer.Initialize();
 
         }
 
