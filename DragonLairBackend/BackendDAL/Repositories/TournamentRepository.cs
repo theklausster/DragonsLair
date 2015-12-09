@@ -34,17 +34,15 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Tournament tournament = context.Tournaments
-                        .Include(a => a.Game)
-                        .Include(g => g.Game.Genre)
-                        .Include(b => b.Groups.Select(g => g.Teams))
-                        .Include(k => k.Groups.Select(y => y.Teams.Select(l => l.Players)))
-                        .Include(c => c.TournamentType)
-                        .FirstOrDefault(d => d.Id == id);
+                context.Configuration.ProxyCreationEnabled = false;
 
-                return tournament;
+                var x = context.Tournaments.Find(id);
 
+                context.Entry(x).Collection(a => a.Groups).Query().Include(b => b.Teams).Include(c => c.Teams.Select(d => d.Players)).Load();
+                context.Entry(x).Reference(a => a.Game).Query().Include(a => a.Genre).Load();
+                context.Entry(x).Reference(a => a.TournamentType).Load();
 
+                return x;
             }
         }
 

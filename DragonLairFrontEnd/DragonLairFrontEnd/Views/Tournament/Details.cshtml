@@ -10,7 +10,7 @@
     <h4>Tournament</h4>
     <hr />
 
-    <table>
+    <table class="table">
 
         <tr>
             <td></td>
@@ -33,7 +33,7 @@
 
     </table>
 
-    <table>
+    <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Tournament.Groups):
@@ -59,7 +59,7 @@
 
             for (int i = 0; i < Model.Tournament.Groups.FirstOrDefault().Teams.Count; i++)
             {
-                if (i % Model.Tournament.Groups.FirstOrDefault().Teams.Count == 0)
+                if (i % Model.Tournament.Groups.Count == 0)
                 {
                     <tr>
                         <td>@Html.DisplayFor(model => group.Name)</td>
