@@ -24,6 +24,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         private GenreController genreController;
         private GameController gameController;
         private Game game;
+        private Genre genrefromDb;
         [SetUp]
         public void SetUp()
         {
@@ -46,10 +47,10 @@ namespace BackEndIntegrationTest.IntegrationTest
             var contentResult = response as OkNegotiatedContentResult<DTOGenre>;
 
             DTOGenre DtoGenre = contentResult.Content;
-            Genre genrefromDb = new Genre();
+            genrefromDb = new Genre();
             genrefromDb.Name = DtoGenre.Name;
             genrefromDb.Id = DtoGenre.Id;
-            game = new Game() { Name = "Warhammer", Genre = genrefromDb };
+            game = new Game() { Name = "Integration Test Game", Genre = genrefromDb };
             DbTestInitializer.Initialize();
             
 
@@ -58,7 +59,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         [TearDown]
         public void TearDown()
         {
-
+            
         }
 
         [Test]
@@ -79,7 +80,10 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOGame dtogame = ((dynamic)task.Result);
                 game.Id = dtogame.Id;
+                gameController.Delete(game.Id);
                 Assert.Greater(dtogame.Id, 0);
+                
+                
 
             });
 
@@ -120,10 +124,11 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOGame dtogame = ((dynamic)task.Result);
                 game.Id = dtogame.Id;
+                gameController.Delete(game.Id);
                 Assert.Greater(dtogame.Id, 0);
 
             });
-            gameController.Delete(game.Id);
+            
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 

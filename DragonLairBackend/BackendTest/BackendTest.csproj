@@ -90,11 +90,11 @@
     <Compile Include="TestEntitity\TestGame.cs" />
     <Compile Include="TestEntitity\TestGenre.cs" />
     <Compile Include="TestEntitity\TestGroup.cs" />
+    <Compile Include="TestEntitity\TestMatch.cs" />
     <Compile Include="TestEntitity\TestPlayer.cs" />
     <Compile Include="TestEntitity\TestTeam.cs" />
     <Compile Include="TestEntitity\TestTournament.cs" />
     <Compile Include="TestEntitity\TestTournamentType.cs" />
-    <Compile Include="TestTeamCity\TestTeamCity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

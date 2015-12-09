@@ -20,7 +20,9 @@ namespace BackEndIntegrationTest.IntegrationTest
     class GroupIntegrationTest
     {
         private GroupController groupController;
+        TeamController teamController = new TeamController();
         private Group group;
+        private Team teamFromDb;
         [SetUp]
         public void SetUp()
         {
@@ -39,22 +41,22 @@ namespace BackEndIntegrationTest.IntegrationTest
             groupController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             groupController.Url = urlHelper;
 
-            TeamController teamController = new TeamController();
+            
             var response = teamController.Get(1);
             var contentResult = response as OkNegotiatedContentResult<DTOTeam>;
             DTOTeam DtoTeam = contentResult.Content;
-            Team teamFromDb = new Team();
+            teamFromDb = new Team();
             teamFromDb.Name = DtoTeam.Name;
             teamFromDb.Id = DtoTeam.Id;
             List<Team> teams = new List<Team>() { teamFromDb };
-            group = new Group() { Name = "g1", Teams = teams };
+            group = new Group() { Name = "Integration Test Group", Teams = teams };
             DbTestInitializer.Initialize();
         }
 
         [TearDown]
         public void TearDown()
         {
-
+            
         }
 
         [Test]
@@ -73,7 +75,9 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Group testGroup = ((dynamic)task.Result);
+                groupController.Delete(testGroup.Id);
                 Assert.Greater(testGroup.Id, 0);
+                
 
             });
 
@@ -114,10 +118,11 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOGroup dtoGroup = ((dynamic)task.Result);
                 group.Id = dtoGroup.Id;
+                groupController.Delete(group.Id);
                 Assert.Greater(dtoGroup.Id, 0);
 
             });
-            groupController.Delete(group.Id);
+            
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 

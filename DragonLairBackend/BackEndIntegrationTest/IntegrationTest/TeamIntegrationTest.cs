@@ -19,9 +19,11 @@ namespace BackEndIntegrationTest.IntegrationTest
 {
     class TeamIntegrationTest
     {
+        PlayerController playerController = new PlayerController();
         private TeamController teamController;
         private Team team;
-        [SetUp]
+        private Player playerFromDb;
+       [SetUp]
         public void SetUp()
         {
 
@@ -38,16 +40,16 @@ namespace BackEndIntegrationTest.IntegrationTest
             teamController.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
             teamController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             teamController.Url = urlHelper;
-            PlayerController playerController = new PlayerController();
+            
             var response = playerController.Get(1);
             var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
 
             DTOPlayer Dtoplayer = contentResult.Content;
-            Player playerFromDb = new Player();
+             playerFromDb = new Player();
             playerFromDb.Name = Dtoplayer.Name;
             playerFromDb.Id = Dtoplayer.Id;
             List<Player> players = new List<Player>() {playerFromDb};
-            team = new Team() { Name = "Missing", Players = players};
+            team = new Team() { Name = "Integration Test Team", Players = players};
             DbTestInitializer.Initialize();
 
         }
@@ -55,7 +57,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         [TearDown]
         public void TearDown()
         {
-
+            
         }
 
         [Test]
@@ -74,7 +76,9 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Team testTeam = ((dynamic)task.Result);
+                teamController.Delete(testTeam.Id);
                 Assert.Greater(testTeam.Id, 0);
+               
 
             });
 
@@ -115,10 +119,12 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOTeam dtoTeam = ((dynamic)task.Result);
                 team.Id = dtoTeam.Id;
+                teamController.Delete(team.Id);
                 Assert.Greater(dtoTeam.Id, 0);
 
             });
-            teamController.Delete(team.Id);
+           
+
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 

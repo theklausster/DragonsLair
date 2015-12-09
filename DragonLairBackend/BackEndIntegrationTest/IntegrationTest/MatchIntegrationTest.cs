@@ -19,8 +19,15 @@ namespace BackEndIntegrationTest.IntegrationTest
 {
     class MatchIntegrationTest
     {
+        private TournamentController tournamentController = new TournamentController();
+        private GroupController groupController = new GroupController();
+        private TeamController teamController = new TeamController();
         private MatchController matchController;
         private Match match;
+        private Tournament tournamentFromDb;
+        private Team teamFromDb;
+        private Group groupFromDb;
+
         [SetUp]
         public void SetUp()
         {
@@ -39,39 +46,39 @@ namespace BackEndIntegrationTest.IntegrationTest
             matchController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             matchController.Url = urlHelper;
 
-            TournamentController tournamentController = new TournamentController();
+           
             var Response = tournamentController.Get(1);
             var ContentResult = Response as OkNegotiatedContentResult<DTOTournament>;
             DTOTournament DtoTournament = ContentResult.Content;
-            Tournament tournamentFromDb = new Tournament();
+            tournamentFromDb = new Tournament();
             tournamentFromDb.Name = DtoTournament.Name;
             tournamentFromDb.Id = DtoTournament.Id;
 
-            GroupController groupController = new GroupController();
+          
             var groupResponse = groupController.Get(1);
             var groupContentResult = groupResponse as OkNegotiatedContentResult<DTOGroup>;
             DTOGroup DtoGroup = groupContentResult.Content;
-            Group groupFromDb = new Group();
+             groupFromDb = new Group();
             groupFromDb.Name = DtoGroup.Name;
             groupFromDb.Id = DtoGroup.Id;
 
-            TeamController teamController = new TeamController();
+          
             var teamResponse = teamController.Get(1);
             var teamcontentResult = teamResponse as OkNegotiatedContentResult<DTOTeam>;
             DTOTeam DtoTeam = teamcontentResult.Content;
-            Team teamFromDb = new Team();
+             teamFromDb = new Team();
             teamFromDb.Name = DtoTeam.Name;
             teamFromDb.Id = DtoTeam.Id;
             List<Team> teams = new List<Team>() { teamFromDb };
 
-            match = new Match() { Round = "Playoff Round 1", Teams = teams, Group = groupFromDb, Tournament = tournamentFromDb};
+            match = new Match() { Id = 1, Round = "Integration Test Playoff Round 1", Teams = teams, Group = groupFromDb, Tournament = tournamentFromDb};
 
         }
 
         [TearDown]
         public void TearDown()
         {
-
+            
         }
 
         [Test]
@@ -90,7 +97,9 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Match testMatch = ((dynamic)task.Result);
+                matchController.Delete(testMatch.Id);
                 Assert.Greater(testMatch.Id, 0);
+
 
             });
 
@@ -131,10 +140,12 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOMatch dtoMatch = ((dynamic)task.Result);
                 match.Id = dtoMatch.Id;
+                matchController.Delete(match.Id);
                 Assert.Greater(dtoMatch.Id, 0);
 
             });
-            matchController.Delete(match.Id);
+
+           
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 
