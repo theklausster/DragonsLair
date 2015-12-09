@@ -23,8 +23,14 @@ namespace DTOConverter.Converter
                     dtoTeams.Add(new DTOTeam() { Id = teams.Id, Name = teams.Name, Draw = teams.Draw, Win = teams.Win, Loss = teams.Loss });
                 }
                 if (t.Tournament == null) return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams };
+<<<<<<< HEAD
                 DTOTournament dtoTournament = new DTOTournament()            {  Id = t.Tournament.Id,Name = t.Tournament.Name, StartDate = t.Tournament.StartDate, };
                 return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament };
+=======
+                DTOTournament dtoTournament = new DTOTournament() {Id = t.Tournament.Id, Name = t.Tournament.Name, StartDate = t.Tournament.StartDate};
+               
+                return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament};
+>>>>>>> dffa372d7de749df43200a505dcb6e23a477d4e2
             }
         }
     }
