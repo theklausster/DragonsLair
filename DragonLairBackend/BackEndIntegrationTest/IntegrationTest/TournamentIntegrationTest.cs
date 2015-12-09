@@ -147,13 +147,6 @@ namespace BackEndIntegrationTest.IntegrationTest
 
             });
             tournamentController.Delete(tournament.Id);
-            //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
-
-
-            //Assert.Throws(<Exception> (() => gameController.Get(game.Id));
-            //Assert.Throws<ArgumentException>(gameController.Get(game.Id));
-
-
         }
     }
 }
