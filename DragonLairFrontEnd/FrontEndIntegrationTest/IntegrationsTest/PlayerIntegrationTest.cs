@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Web.Mvc;
 using DragonLairFrontEnd.Controllers;
 using DragonLairFrontEnd.Models;
@@ -90,7 +91,7 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         }
 
         [Test]
-        public async void Test_if_create_return_edit_view()
+        public async void Test_if_create_return_view()
         {
             WebApiService apiService = new WebApiService();
             var result = playerController.Create() as ViewResult;
@@ -118,6 +119,65 @@ namespace FrontEndIntegrationTest.IntegrationsTest
             Assert.AreEqual(newName, changedPlayer.Name);
             Assert.AreEqual(testPlayer.Id, changedPlayer.Id);
             await playerController.DeleteConfirmed(testPlayer.Id);
+        }
+
+        [Test]
+        public async void Test_if_edit_with_missing_data_returns_edit_view()
+        {
+            string newName = "changedName";
+            WebApiService apiService = new WebApiService();
+            Assert.IsNotNull(player);
+            string[] teamId = null;
+            var result = await playerController.Edit(player, teamId) as ViewResult;
+            Assert.AreEqual("Edit", result.ViewName);
+           
+        }
+
+        [Test]
+        public async void Test_if_a_player_with_a_team_can_be_edited()
+        {
+            var result = await playerController.Create(player);
+            string newName = "changedName";
+            WebApiService apiService = new WebApiService();
+            var players = await apiService.GetAsync<List<Player>>("api/player/");
+            var createdePlayer = players.FirstOrDefault(a => a.Name == player.Name);
+            Assert.IsNotNull(player);
+            Assert.IsNotNull(players);
+            Assert.IsNotNull(createdePlayer);
+            var testPlayer = await apiService.GetAsync<Player>("api/player/" + createdePlayer.Id);
+            testPlayer.Name = newName;
+            string[] teamId = new string[]{"1"};
+            await playerController.Edit(testPlayer, teamId);
+            var changedPlayer = await apiService.GetAsync<Player>("api/player/" + testPlayer.Id);
+            Assert.AreEqual(newName, changedPlayer.Name);
+            Assert.AreEqual(testPlayer.Id, changedPlayer.Id);
+            Assert.AreEqual(testPlayer.Teams[0].Id, changedPlayer.Teams[0].Id);
+            await playerController.DeleteConfirmed(testPlayer.Id);
+        }
+
+        [Test]
+        public async void Test_if_create_with_missing_data_returns_create_view()
+        {
+            player = null;
+            var result = await playerController.Create(player) as ViewResult;
+            Assert.AreEqual("Create", result.ViewName);
+
+        }
+        [Test]
+        public async void Test_if_delete_returns_delete_view()
+        {
+            int id = 1;
+            var result = await playerController.Delete(0) as ViewResult;
+            Assert.AreEqual("Delete", result.ViewName);
+
+        }
+        [Test]
+        public async void Test_if_deleteConfirmed_with_missing_data_returns_delete_view()
+        {
+            int id = 0;
+            var result = await playerController.Delete(id) as ViewResult;
+            Assert.AreEqual("Delete", result.ViewName);
+
         }
     }
 }

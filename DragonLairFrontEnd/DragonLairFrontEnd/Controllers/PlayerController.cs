@@ -50,7 +50,7 @@ namespace DragonLairFrontEnd.Controllers
             }
             catch
             {
-                return View();
+                return View("Create");
             }
         }
 
@@ -87,7 +87,7 @@ namespace DragonLairFrontEnd.Controllers
             }
             catch
             {
-                return View();
+                return View("Edit");
             }
         }
 
@@ -95,7 +95,7 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             Player player = await apiService.GetAsync<Player>(baseRoute + id);
-            return View(player);
+            return View("Delete", player);
         }
 
         // POST: Player/Delete/5
@@ -110,7 +110,7 @@ namespace DragonLairFrontEnd.Controllers
             }
             catch
             {
-                return View();
+                return View("Delete");
             }
         }
 
