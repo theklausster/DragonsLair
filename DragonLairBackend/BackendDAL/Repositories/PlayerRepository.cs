@@ -68,8 +68,7 @@ namespace BackendDAL.Repositories
                 context.Entry(player).State = EntityState.Modified;           
                 context.SaveChanges();
                 return true;
-            }
-                
+            }             
         }
     }
 }

@@ -81,6 +81,49 @@ namespace BackEndIntegrationTest.IntegrationTest
         [Test]
         public void Test_You_Can_Find_A_Single_Group_On_Database()
         {
+            var response = groupController.Get(1);
+            var contentResult = response as OkNegotiatedContentResult<DTOGroup>;
+            DTOGroup groupFromDb = contentResult.Content;
+
+            Assert.AreEqual(contentResult.Content.Id, 1);
+
+        }
+        [Test]
+        public void Test_You_Can_Update_A_Group_On_DataBase()
+        {
+            group.Id = 1;
+            Group newplayer = group;
+            newplayer.Name = "Group c";
+            groupController.Put(group.Id, newplayer);
+            var response = groupController.Get(group.Id);
+            var contentResult = response as OkNegotiatedContentResult<DTOGroup>;
+            DTOGroup dtoGroup = contentResult.Content;
+
+
+            Assert.AreEqual(contentResult.Content.Name, newplayer.Name);
+
+        }
+
+        [Test]
+        public void Test_You_Can_Delete_A_Group_On_Database()
+        {
+            var response = groupController.Post(group);
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
+                // The Task.Result property holds the whole deserialized object
+                //string returnedToken = ((dynamic)task.Result).Token;
+                DTOGroup dtoGroup = ((dynamic)task.Result);
+                group.Id = dtoGroup.Id;
+                Assert.Greater(dtoGroup.Id, 0);
+
+            });
+            groupController.Delete(group.Id);
+            //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
+
+
+            //Assert.Throws(<Exception> (() => gameController.Get(game.Id));
+            //Assert.Throws<ArgumentException>(gameController.Get(game.Id));
+
 
         }
     }
