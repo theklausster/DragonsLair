@@ -26,7 +26,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
 
             var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/tournamentType");
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://dragonapi.devjakobsen.dk/api/tournamentType");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "tournamentType" } });
 
@@ -40,7 +40,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentTypeController.Url = urlHelper;
 
             tournamentType = new TournamentType() { Type = "Missing" };
-
+            DbTestInitializer.Initialize();
         }
 
         [TearDown]

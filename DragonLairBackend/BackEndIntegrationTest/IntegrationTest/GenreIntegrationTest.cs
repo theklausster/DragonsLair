@@ -27,7 +27,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
 
             var config = new HttpConfiguration();
-            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost:41257/api/genre");
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://dragonapi.devjakobsen.dk/api/genre");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "Genre" } });
 
@@ -41,7 +41,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             genreController.Url = urlHelper;
 
             Genre = new Genre() { Name = "BoardGame" };;
-
+            DbTestInitializer.Initialize();
         }
 
         [TearDown]
