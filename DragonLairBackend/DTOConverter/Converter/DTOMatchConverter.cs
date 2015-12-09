@@ -12,7 +12,7 @@ namespace DTOConverter.Converter
     {
         public override DTOMatch Convert(Match t)
         {
-            if (t.Teams == null || t.Tournament == null || t.Group == null) throw new ArgumentException("Missing some data");
+            if (t.Teams == null || t.Tournament == null || t.Group == null) throw new ArgumentException("Missing some data in Match");
             DTOMatch dtoMatch = new DTOMatch();
             List<DTOTeam> dtoTeams = new List<DTOTeam>();
             DTOTournament dtoTournament = new DTOTournament();
