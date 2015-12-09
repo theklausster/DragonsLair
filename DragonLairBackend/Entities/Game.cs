@@ -13,7 +13,7 @@ namespace Entities
         public string Name { get; set; }
         [JsonProperty(PropertyName = "DTOGenre")]
         public virtual Genre Genre { get; set; }
-        [JsonProperty(PropertyName = "DTOTournament")]
+        [JsonProperty(PropertyName = "DTOTournaments")]
         public virtual List<Tournament> Tournaments { get; set; }
     }
 }

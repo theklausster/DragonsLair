@@ -23,6 +23,7 @@ namespace DTOConverter.Converter
                     dtoTeams.Add(new DTOTeam() { Id = teams.Id, Name = teams.Name, Draw = teams.Draw, Win = teams.Win, Loss = teams.Loss });
                 }
                 if (t.Tournament == null) return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams };
+
                 DTOTournament dtoTournament = new DTOTournament() {Id = t.Tournament.Id, Name = t.Tournament.Name, StartDate = t.Tournament.StartDate};
                
                 return new DTOGroup() { Id = t.Id, Name = t.Name, DtoTeams = dtoTeams, DtoTournament = dtoTournament};
