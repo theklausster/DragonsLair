@@ -48,6 +48,14 @@ namespace BackEndIntegrationTest.IntegrationTest
             groupFromDb.Id = DtoGroup.Id;
             List<Group> groups = new List<Group>() { groupFromDb };
 
+            GenreController genreController = new GenreController();
+            var genreResponse = genreController.Get(1);
+            var genreContentResult = genreResponse as OkNegotiatedContentResult<DTOGenre>;
+            DTOGenre DtoGenre = genreContentResult.Content;
+            Genre genreFromDb = new Genre();
+            genreFromDb.Name = DtoGenre.Name;
+            genreFromDb.Id = DtoGenre.Id;
+
             GameController gameController = new GameController();
             var gameResponse = gameController.Get(1);
             var gameContentResult = gameResponse as OkNegotiatedContentResult<DTOGame>;
@@ -55,6 +63,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             Game gameFromDb = new Game();
             gameFromDb.Name = DtoGame.Name;
             gameFromDb.Id = DtoGame.Id;
+            gameFromDb.Genre = genreFromDb;
 
             TournamentTypeController tournamentTypeController = new TournamentTypeController();
             var Response = tournamentTypeController.Get(1);
@@ -64,8 +73,8 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentTypeFromDb.Type = DtoTournamentType.Type;
             tournamentTypeFromDb.Id = DtoTournamentType.Id;
 
-            tournament = new Tournament() { Name = "Missing", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb };
-            DbInitializer.Initialize();
+            tournament = new Tournament() { Name = "Test", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb };
+            //DbInitializer.Initialize();
 
         }
 
@@ -91,8 +100,9 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Tournament testTournament = ((dynamic)task.Result);
+                tournament.Id = testTournament.Id;
                 Assert.Greater(testTournament.Id, 0);
-
+                tournamentController.Delete(tournament.Id);
             });
 
         }
@@ -123,7 +133,8 @@ namespace BackEndIntegrationTest.IntegrationTest
         }
 
         [Test]
-        public void Test_You_Can_Delete_A_Tournament_On_Database()
+        [ExpectedException(typeof(System.Data.Entity.Infrastructure.DbUpdateException))]
+        public void Test_You_Can_Not_Delete_A_Tournament_On_Database_With_Connections_To_Other_Entities()
         {
             var response = tournamentController.Post(tournament);
             response.Content.ReadAsAsync<object>().ContinueWith(task =>

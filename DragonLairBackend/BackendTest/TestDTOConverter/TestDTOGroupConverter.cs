@@ -62,8 +62,6 @@ namespace BackendTest.TestDTOConverter
             Assert.AreEqual(dtoGroup.DtoTournament.Id, tournament1.Id);
             Assert.AreEqual(dtoGroup.DtoTournament.Name, tournament1.Name);
             Assert.AreEqual(dtoGroup.DtoTournament.StartDate, tournament1.StartDate);
-            Assert.AreEqual(dtoGroup.DtoTournament.DTOTournamentType.Id, group.Tournament.TournamentType.Id);
-            Assert.AreEqual(dtoGroup.DtoTournament.DTOTournamentType.Type, group.Tournament.TournamentType.Type);
         }
         [Test]
         [ExpectedException(typeof(ArgumentException))]
@@ -125,8 +123,6 @@ namespace BackendTest.TestDTOConverter
             Assert.AreEqual(dtoGroup.DtoTournament.Id, tournament.Id);
             Assert.AreEqual(dtoGroup.DtoTournament.Name, tournament.Name);
             Assert.AreEqual(dtoGroup.DtoTournament.StartDate, tournament.StartDate);
-            Assert.AreEqual(dtoGroup.DtoTournament.DTOTournamentType.Id, group.Tournament.TournamentType.Id);
-            Assert.AreEqual(dtoGroup.DtoTournament.DTOTournamentType.Type, group.Tournament.TournamentType.Type);
-        }
+         }
     }
 }

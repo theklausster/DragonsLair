@@ -48,7 +48,6 @@ namespace BackEndIntegrationTest.IntegrationTest
             teamFromDb.Id = DtoTeam.Id;
             List<Team> teams = new List<Team>() { teamFromDb };
             group = new Group() { Name = "g1", Teams = teams };
-            DbInitializer.Initialize();
 
         }
 

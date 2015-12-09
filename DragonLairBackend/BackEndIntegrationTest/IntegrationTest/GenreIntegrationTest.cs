@@ -40,8 +40,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             genreController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             genreController.Url = urlHelper;
 
-            Genre = new Genre() { Name = "BoardGame" };
-            DbInitializer.Initialize();
+            Genre = new Genre() { Name = "BoardGame" };;
 
         }
 

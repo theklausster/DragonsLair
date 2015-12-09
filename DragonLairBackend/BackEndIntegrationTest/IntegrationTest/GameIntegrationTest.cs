@@ -51,7 +51,6 @@ namespace BackEndIntegrationTest.IntegrationTest
             genrefromDb.Id = DtoGenre.Id;
             game = new Game() { Name = "Warhammer", Genre = genrefromDb };
             
-            DbInitializer.Initialize();
 
         }
 

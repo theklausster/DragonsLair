@@ -43,8 +43,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerController.Url = urlHelper;
 
             player = new Player() {Name = "Peter"};
-            DbInitializer.Initialize();
-
+ 
         }
 
         [TearDown]
