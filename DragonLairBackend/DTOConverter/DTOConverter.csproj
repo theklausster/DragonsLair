@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -44,6 +48,7 @@
     <Compile Include="Converter\DTOAbstract.cs" />
     <Compile Include="Converter\DTOGameConverter.cs" />
     <Compile Include="Converter\DTOGroupConverter.cs" />
+    <Compile Include="Converter\DTOMatchConverter.cs" />
     <Compile Include="Converter\DTOPlayerConverter.cs" />
     <Compile Include="Converter\DTOTeamConverter.cs" />
     <Compile Include="Converter\DTOTournamentConverter.cs" />
@@ -52,6 +57,7 @@
     <Compile Include="DTOModel\DTOGame.cs" />
     <Compile Include="DTOModel\DTOGenre.cs" />
     <Compile Include="DTOModel\DTOGroup.cs" />
+    <Compile Include="DTOModel\DTOMatch.cs" />
     <Compile Include="DTOModel\DTOPlayer.cs" />
     <Compile Include="DTOModel\DTOTeam.cs" />
     <Compile Include="DTOModel\DTOTournament.cs" />
@@ -63,6 +69,9 @@
       <Project>{2736e730-c275-496e-a89b-416758f4dbaa}</Project>
       <Name>Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,7 +19,10 @@ namespace BackendDAL.Facade
         {
             return new PlayerRepository();
         }
-
+        public IRepository<Match> GetMatchRepository()
+        {
+            return new MatchRepository();
+        }
         public IRepository<Team> GetTeamRepository()
         {
             return new TeamRepository();

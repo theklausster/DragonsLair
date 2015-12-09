@@ -24,5 +24,6 @@ namespace BackendDAL.Context
         public DbSet<TournamentType> TournamentTypes { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Match> Matches { get; set; } 
     }
 }

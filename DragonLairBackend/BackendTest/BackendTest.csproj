@@ -82,6 +82,7 @@
     <Compile Include="TestDTOConverter\TestDTOGameConverter.cs" />
     <Compile Include="TestDTOConverter\TestDTOGenreConverter.cs" />
     <Compile Include="TestDTOConverter\TestDTOGroupConverter.cs" />
+    <Compile Include="TestDTOConverter\TestDTOMatchConverter.cs" />
     <Compile Include="TestDTOConverter\TestDTOPlayerConverter.cs" />
     <Compile Include="TestDTOConverter\TestDTOTeamConverter.cs" />
     <Compile Include="TestDTOConverter\TestDTOTournamentConverter.cs" />

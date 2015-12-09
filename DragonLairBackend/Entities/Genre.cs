@@ -13,7 +13,8 @@ namespace Entities
         public int Id { get; set; }
         [Required(ErrorMessage = "Please enter a Name")]
         public string Name { get; set; }
-        [JsonProperty(PropertyName = "DtoGame")]
+
+        [JsonProperty(PropertyName = "DtoGames")]
         public virtual List<Game> Games { get; set; }
     }
 }

@@ -9,8 +9,16 @@ using Entities;
 
 namespace BackendDAL.Initializer
 {
-    class DragonLairInitizalizer : DropCreateDatabaseAlways<DragonLairContext>
+    public static class DbTestInitializer
     {
+        public static void Initialize()
+        {
+            Database.SetInitializer(new TestInitializer());
+        }
+    }
+    class TestInitializer : DropCreateDatabaseAlways<DragonLairContext>
+    {
+
         private Player player1;
         private Player player2;
         private Player player3;
@@ -22,7 +30,7 @@ namespace BackendDAL.Initializer
         private Genre genre;
         private Game game1;
         private Match match;
-        public DragonLairInitizalizer()
+        public TestInitializer()
         {
             genre = new Genre() { Name = "I'm Genre Roleplaying" };
             game1 = new Game() { Name = "Im a Game - Wars", Genre = genre };
@@ -38,7 +46,7 @@ namespace BackendDAL.Initializer
             {
                 Round = "Playoff round 1",
                 Group = group1,
-                Teams = new List<Team>() { team, team2 },
+                Teams = new List<Team>() {team, team2},
                 Tournament = tournament
             };
         }
@@ -56,8 +64,9 @@ namespace BackendDAL.Initializer
             context.Groups.Add(group1);
             context.Tournaments.Add(tournament);
             context.Matches.Add(match);
-
             base.Seed(context);
         }
     }
 }
+
+
