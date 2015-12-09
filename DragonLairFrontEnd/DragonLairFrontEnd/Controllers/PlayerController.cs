@@ -35,7 +35,7 @@ namespace DragonLairFrontEnd.Controllers
         // GET: Player/Create
         public ActionResult Create()
         {
-            return View(new Player());
+            return View("Create", new Player());
         }
 
         // POST: Player/Create
@@ -61,7 +61,7 @@ namespace DragonLairFrontEnd.Controllers
             playerModel.Player = await apiService.GetAsync<Player>(baseRoute + id);
             playerModel.Teams = await apiService.GetAsync<List<Team>>("api/team/");
             playerModel.SetupList(playerModel.Player, playerModel.Teams);
-            return View(playerModel);
+            return View("Edit", playerModel);
         }
 
         // POST: Player/Edit/5

@@ -20,9 +20,9 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         [SetUp]
         public void SetUp()
         {
-        playerController = new PlayerController();
-         player = new Player() { Name = "TestPlayer" };
-            
+            playerController = new PlayerController();
+            player = new Player() { Name = "TestPlayer" };
+
         }
 
         [TearDown]
@@ -66,10 +66,10 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         [Test]
         public async void Test_Can_Create_and_delete_player_Through_controller()
         {
-            var result =  await playerController.Create(player);
+            var result = await playerController.Create(player);
             WebApiService apiService = new WebApiService();
             var players = await apiService.GetAsync<List<Player>>("api/player/");
-            var createdePlayer =  players.FirstOrDefault(a => a.Name == player.Name);
+            var createdePlayer = players.FirstOrDefault(a => a.Name == player.Name);
             Assert.IsNotNull(player);
             Assert.IsNotNull(players);
             Assert.IsNotNull(createdePlayer);
@@ -77,8 +77,47 @@ namespace FrontEndIntegrationTest.IntegrationsTest
             Assert.AreEqual(newPlayer.Name, createdePlayer.Name);
             Assert.AreEqual(newPlayer.Id, createdePlayer.Id);
             await playerController.DeleteConfirmed(newPlayer.Id);
-         
-           
+        }
+
+        [Test]
+        public async void Test_if_edit_return_edit_view()
+        {
+            WebApiService apiService = new WebApiService();
+            var result = await playerController.Edit(1) as ViewResult;
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
+            Assert.AreEqual("Edit", result.ViewName);
+        }
+
+        [Test]
+        public async void Test_if_create_return_edit_view()
+        {
+            WebApiService apiService = new WebApiService();
+            var result = playerController.Create() as ViewResult;
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
+            Assert.AreEqual("Create", result.ViewName);
+        }
+
+        [Test]
+        public async void Test_if_a_player_can_be_edited()
+        {
+            var result = await playerController.Create(player);
+            string newName = "changedName";
+            WebApiService apiService = new WebApiService();
+            var players = await apiService.GetAsync<List<Player>>("api/player/");
+            var createdePlayer = players.FirstOrDefault(a => a.Name == player.Name);
+            Assert.IsNotNull(player);
+            Assert.IsNotNull(players);
+            Assert.IsNotNull(createdePlayer);
+            var testPlayer = await apiService.GetAsync<Player>("api/player/" + createdePlayer.Id);
+            testPlayer.Name = newName;
+            string[] teamId = null;
+            await playerController.Edit(testPlayer, teamId);
+            var changedPlayer = await apiService.GetAsync<Player>("api/player/" + testPlayer.Id);
+            Assert.AreEqual(newName, changedPlayer.Name);
+            Assert.AreEqual(testPlayer.Id, changedPlayer.Id);
+            await playerController.DeleteConfirmed(testPlayer.Id);
         }
     }
 }
