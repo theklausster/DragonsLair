@@ -62,46 +62,46 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         }
 
 
-        [Test]
-        public async void Test_if_a_match_can_be_edited_if_winner_is_null()
-        {
-            match = await apiService.GetAsync<Match>("api/match/" + 1);
-            int winningTeamId = match.Winner.Id;
-            match.Winner = null;
-            Assert.IsNull(match.Winner);
-            await matchController.Edit(match, winningTeamId.ToString());
-            Match editedMatch1 = await apiService.GetAsync<Match>("api/match/" + 1);
-            Assert.IsNotNull(editedMatch1);
-            Assert.IsNotNull(editedMatch1.Winner);
-            }
-        [Test]
-        public async void Test_if_a_edit_match_fails_and_returns_a_view()
-        {
-            match = await apiService.GetAsync<Match>("api/match/" + 1);
-            match.Id = 5;
-            var result = await matchController.Edit(match, match.Winner.Id.ToString()) as ViewResult;
-            Assert.IsNotNull(result);
-            Assert.AreEqual("Edit", result.ViewName);
+        //[Test]
+        //public async void Test_if_a_match_can_be_edited_if_winner_is_null()
+        //{
+        //    match = await apiService.GetAsync<Match>("api/match/" + 1);
+        //    int winningTeamId = match.Winner.Id;
+        //    match.Winner = null;
+        //    Assert.IsNull(match.Winner);
+        //    await matchController.Edit(match, winningTeamId.ToString());
+        //    Match editedMatch1 = await apiService.GetAsync<Match>("api/match/" + 1);
+        //    Assert.IsNotNull(editedMatch1);
+        //    Assert.IsNotNull(editedMatch1.Winner);
+        //    }
+        //[Test]
+        //public async void Test_if_a_edit_match_fails_and_returns_a_view()
+        //{
+        //    match = await apiService.GetAsync<Match>("api/match/" + 1);
+        //    match.Id = 5;
+        //    var result = await matchController.Edit(match, match.Winner.Id.ToString()) as ViewResult;
+        //    Assert.IsNotNull(result);
+        //    Assert.AreEqual("Edit", result.ViewName);
 
-        }
+        //}
 
-        [Test]
-        public async void Test_if_a_match_can_be_edited_if_winner_is_not_null()
-        {
-            match = await apiService.GetAsync<Match>("api/match/" + 1);
-            match.Winner = await apiService.GetAsync<Team>("api/team/" + 1);
-            await matchController.Edit(match, match.Winner.Id.ToString());
-            Match editedMatch1 = await apiService.GetAsync<Match>("api/match/" + 1);
-            Assert.IsNotNull(editedMatch1);
-            Assert.IsNotNull(editedMatch1.Winner);
+        //[Test]
+        //public async void Test_if_a_match_can_be_edited_if_winner_is_not_null()
+        //{
+        //    match = await apiService.GetAsync<Match>("api/match/" + 1);
+        //    match.Winner = await apiService.GetAsync<Team>("api/team/" + 1);
+        //    await matchController.Edit(match, match.Winner.Id.ToString());
+        //    Match editedMatch1 = await apiService.GetAsync<Match>("api/match/" + 1);
+        //    Assert.IsNotNull(editedMatch1);
+        //    Assert.IsNotNull(editedMatch1.Winner);
 
-            Match editedMatch2 = await apiService.GetAsync<Match>("api/match/" + 1);
-            editedMatch2.Winner = await apiService.GetAsync<Team>("api/team/" + 2);
-            await matchController.Edit(editedMatch2, editedMatch2.Winner.Id.ToString());
-            Assert.IsNotNull(editedMatch2);
-            Assert.IsNotNull(editedMatch2.Winner);
-            Assert.AreNotEqual(1, editedMatch2.Winner.Id);
+        //    Match editedMatch2 = await apiService.GetAsync<Match>("api/match/" + 1);
+        //    editedMatch2.Winner = await apiService.GetAsync<Team>("api/team/" + 2);
+        //    await matchController.Edit(editedMatch2, editedMatch2.Winner.Id.ToString());
+        //    Assert.IsNotNull(editedMatch2);
+        //    Assert.IsNotNull(editedMatch2.Winner);
+        //    Assert.AreNotEqual(1, editedMatch2.Winner.Id);
 
-        }
+        //}
     }
 }
