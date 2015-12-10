@@ -22,11 +22,11 @@ namespace DragonLairFrontEnd.Models
            
         }
 
-        public void Remove(int teamid)
+        public void Remove(int teamId)
         {
-            Team team = Group.Teams.FirstOrDefault(a => a.Id == teamid);
+            Team team = Group.Teams.FirstOrDefault(a => a.Id == teamId);
             ListWithOutAdded.Add(team);
-            SelectedTeams.Remove(team);
+            SelectedTeams.Remove(SelectedTeams.FirstOrDefault(a => a.Id == teamId));
             
         }
 
@@ -34,7 +34,7 @@ namespace DragonLairFrontEnd.Models
         {
             Team team = Teams.FirstOrDefault(a => a.Id == teamId);
             SelectedTeams.Add(team);
-            ListWithOutAdded.Remove(team);
+            ListWithOutAdded.Remove(ListWithOutAdded.FirstOrDefault(a=> a.Id == teamId));
         }
 
         public void SetUpListWithOutAdded()
