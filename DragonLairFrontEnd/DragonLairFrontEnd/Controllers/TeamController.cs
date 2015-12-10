@@ -25,11 +25,12 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Team
-        public async Task<ActionResult> Index(TeamViewModel teamViewModel)
+        public async Task<ActionResult> Index(TeamViewModel teamViewModel = null)
         {
-            ResetSessions();
+            if(teamViewModel != null) ResetSessions();
+            if(teamViewModel == null) teamViewModel = new TeamViewModel();
             await teamViewModel.PopulateData();
-            return View(teamViewModel.Teams);
+            return View("Index", teamViewModel.Teams);
         }
 
         // GET: Team/Details/5
