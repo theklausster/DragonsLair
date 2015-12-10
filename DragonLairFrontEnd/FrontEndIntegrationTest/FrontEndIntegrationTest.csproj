@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IntegrationsTest\PlayerIntegrationTest.cs" />
+    <Compile Include="IntegrationsTest\TeamIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
