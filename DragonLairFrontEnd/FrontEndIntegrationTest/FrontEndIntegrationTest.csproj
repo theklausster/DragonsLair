@@ -98,6 +98,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationsTest\GenreIntegrationTest.cs" />
+    <Compile Include="IntegrationsTest\MatchIntegrationTest.cs" />
     <Compile Include="IntegrationsTest\PlayerIntegrationTest.cs" />
     <Compile Include="IntegrationsTest\TeamIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

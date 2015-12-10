@@ -42,7 +42,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             playerController.Url = urlHelper;
 
-            player = new Player() {Name = "Peter"};
+            player = new Player() {Name = "Integration Test Player" };
             DbTestInitializer.Initialize();
         }
 
@@ -68,7 +68,9 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Player testPlayer = ((dynamic)task.Result);
+                playerController.Delete(testPlayer.Id);
                 Assert.Greater(testPlayer.Id, 0);
+                
 
             });
 
@@ -109,10 +111,11 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOPlayer dtoplayer = ((dynamic)task.Result);
                 player.Id = dtoplayer.Id;
+                playerController.Delete(player.Id);
                 Assert.Greater(dtoplayer.Id, 0);
 
             });
-            playerController.Delete(player.Id);
+           
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 

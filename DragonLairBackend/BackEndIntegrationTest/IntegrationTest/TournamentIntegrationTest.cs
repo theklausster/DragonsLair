@@ -19,8 +19,17 @@ namespace BackEndIntegrationTest.IntegrationTest
 {
     class TournamentIntegrationTest
     {
+        TournamentTypeController tournamentTypeController = new TournamentTypeController();
+        GenreController genreController = new GenreController();
+        GroupController groupController = new GroupController();
+        GameController gameController = new GameController();
         private TournamentController tournamentController;
         private Tournament tournament;
+        private Genre genreFromDb;
+        private Group groupFromDb;
+        private Game gameFromDb;
+        private TournamentType tournamentTypeFromDb;
+
         [SetUp]
         public void SetUp()
         {
@@ -39,42 +48,42 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             tournamentController.Url = urlHelper;
 
-            GroupController groupController = new GroupController();
+            
             var groupResponse = groupController.Get(1);
             var groupContentResult = groupResponse as OkNegotiatedContentResult<DTOGroup>;
             DTOGroup DtoGroup = groupContentResult.Content;
-            Group groupFromDb = new Group();
+            groupFromDb = new Group();
             groupFromDb.Name = DtoGroup.Name;
             groupFromDb.Id = DtoGroup.Id;
             List<Group> groups = new List<Group>() { groupFromDb };
 
-            GenreController genreController = new GenreController();
+           
             var genreResponse = genreController.Get(1);
             var genreContentResult = genreResponse as OkNegotiatedContentResult<DTOGenre>;
             DTOGenre DtoGenre = genreContentResult.Content;
-            Genre genreFromDb = new Genre();
+            genreFromDb = new Genre();
             genreFromDb.Name = DtoGenre.Name;
             genreFromDb.Id = DtoGenre.Id;
 
-            GameController gameController = new GameController();
+           
             var gameResponse = gameController.Get(1);
             var gameContentResult = gameResponse as OkNegotiatedContentResult<DTOGame>;
             DTOGame DtoGame = gameContentResult.Content;
-            Game gameFromDb = new Game();
+             gameFromDb = new Game();
             gameFromDb.Name = DtoGame.Name;
             gameFromDb.Id = DtoGame.Id;
             gameFromDb.Genre = genreFromDb;
 
-            TournamentTypeController tournamentTypeController = new TournamentTypeController();
+           
             var Response = tournamentTypeController.Get(1);
             var ContentResult = Response as OkNegotiatedContentResult<DTOTournamentType>;
             DTOTournamentType DtoTournamentType = ContentResult.Content;
-            TournamentType tournamentTypeFromDb = new TournamentType();
+             tournamentTypeFromDb = new TournamentType();
             tournamentTypeFromDb.Type = DtoTournamentType.Type;
             tournamentTypeFromDb.Id = DtoTournamentType.Id;
 
-            tournament = new Tournament() { Name = "Test", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb };
-            DbTestInitializer.Initialize();
+            tournament = new Tournament() { Name = "Integration Test Tournament", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb };
+            //DbTestInitializer.Initialize();
         }
 
         [TearDown]
@@ -100,8 +109,10 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Tournament testTournament = ((dynamic)task.Result);
                 tournament.Id = testTournament.Id;
-                Assert.Greater(testTournament.Id, 0);
                 tournamentController.Delete(tournament.Id);
+
+                Assert.Greater(testTournament.Id, 0);
+                
             });
 
         }
@@ -142,10 +153,13 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOTournament dtoTournament = ((dynamic)task.Result);
                 tournament.Id = dtoTournament.Id;
+                tournamentController.Delete(tournament.Id);
                 Assert.Greater(dtoTournament.Id, 0);
 
             });
-            tournamentController.Delete(tournament.Id);
+
+           
+
         }
     }
 }

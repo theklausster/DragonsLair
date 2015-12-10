@@ -40,7 +40,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             genreController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             genreController.Url = urlHelper;
 
-            Genre = new Genre() { Name = "BoardGame" };;
+            Genre = new Genre() { Name = "Integration Test Genre" };;
             DbTestInitializer.Initialize();
         }
 
@@ -66,6 +66,7 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Genre testGenre = ((dynamic)task.Result);
+                genreController.Delete(testGenre.Id);
                 Assert.Greater(testGenre.Id, 0);
 
             });
@@ -103,11 +104,11 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Genre testGenre = ((dynamic)task.Result);
-                
+                genreController.Delete(Genre.Id);
                 Assert.Greater(testGenre.Id, 0);
 
             });
-            genreController.Delete(Genre.Id);
+         
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 

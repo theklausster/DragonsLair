@@ -34,17 +34,15 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Tournament tournament = context.Tournaments
-                        .Include(a => a.Game)
-                        .Include(g => g.Game.Genre)
-                        .Include(b => b.Groups.Select(g => g.Teams))
-                        .Include(k => k.Groups.Select(y => y.Teams.Select(l => l.Players)))
-                        .Include(c => c.TournamentType)
-                        .FirstOrDefault(d => d.Id == id);
+                context.Configuration.ProxyCreationEnabled = false;
+
+                Tournament tournament = context.Tournaments.Find(id);
+
+                context.Entry(tournament).Collection(a => a.Groups).Query().Include(b => b.Teams).Include(c => c.Teams.Select(d => d.Players)).Load();
+                context.Entry(tournament).Reference(a => a.Game).Query().Include(a => a.Genre).Load();
+                context.Entry(tournament).Reference(a => a.TournamentType).Load();
 
                 return tournament;
-
-
             }
         }
 
@@ -52,14 +50,18 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                List<Tournament> tournaments = context.Tournaments
-                        .Include(a => a.Game)
-                        .Include(g => g.Game.Genre)
-                        .Include(b => b.Groups)
-                        .Include(c => c.Groups.Select(d => d.Teams))
-                        .Include(d => d.Groups.Select(f => f.Teams.Select(e => e.Players)))
-                        .Include(c => c.TournamentType).ToList();
-                return tournaments;
+                context.Configuration.ProxyCreationEnabled = false;
+
+                List<Tournament> tournaments = context.Tournaments.ToList();
+                List<Tournament> ts = ts = new List<Tournament>();
+
+                foreach (var tournament in tournaments)
+                {
+
+                    var t = Read(tournament.Id);
+                    ts.Add(t);
+                }
+                return ts;
             }
         }
 

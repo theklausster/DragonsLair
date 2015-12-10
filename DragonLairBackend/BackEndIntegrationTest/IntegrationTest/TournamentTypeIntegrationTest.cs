@@ -39,7 +39,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentTypeController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             tournamentTypeController.Url = urlHelper;
 
-            tournamentType = new TournamentType() { Type = "Missing" };
+            tournamentType = new TournamentType() { Type = "Integration Test TournamentType" };
             DbTestInitializer.Initialize();
         }
 
@@ -65,7 +65,9 @@ namespace BackEndIntegrationTest.IntegrationTest
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 TournamentType testTournamentType = ((dynamic)task.Result);
+                tournamentTypeController.Delete(testTournamentType.Id);
                 Assert.Greater(testTournamentType.Id, 0);
+                
 
             });
 
@@ -106,10 +108,11 @@ namespace BackEndIntegrationTest.IntegrationTest
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOTournamentType dtoTournamentType = ((dynamic)task.Result);
                 tournamentType.Id = dtoTournamentType.Id;
+                tournamentTypeController.Delete(tournamentType.Id);
                 Assert.Greater(dtoTournamentType.Id, 0);
 
             });
-            tournamentTypeController.Delete(tournamentType.Id);
+      
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 
