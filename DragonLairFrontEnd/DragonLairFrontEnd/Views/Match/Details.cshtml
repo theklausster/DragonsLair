@@ -1,0 +1,66 @@
+﻿@model Entities.Match
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Match</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Round)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Round)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tournament)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tournament.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Group)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Group.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Teams)
+        </dt>
+
+        @foreach (var team in Model.Teams)
+            {
+            <dd>
+                @Html.DisplayFor(model => team.Name)<br />
+            </dd>
+        }
+
+        <dt>
+            <br />
+            @Html.DisplayNameFor(model => model.Winner)
+
+        </dt>
+      
+        @if (Model.Winner != null)
+        {
+
+            <dd>
+                <br />
+                @Html.DisplayFor(model => model.Winner.Name)
+            </dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

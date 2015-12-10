@@ -39,7 +39,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Match match = context.Matches.Include(b => b.Tournament).Include(b => b.Group).Include(b => b.Teams).FirstOrDefault(a => a.Id == id);
+                Match match = context.Matches.Include(b => b.Tournament).Include(b => b.Group).Include(b => b.Teams).Include(b => b.Winner).FirstOrDefault(a => a.Id == id);
                 return match;
             }
         }
@@ -60,12 +60,13 @@ namespace BackendDAL.Repositories
                 Match match = context.Matches.Find(entity.Id);
                 if ((match == null)) return false;
                 match.Group = entity.Group;
-                match.Teams = entity.Teams;
+                match.Teams.Clear();
                 match.Tournament = entity.Tournament;
                 foreach (var team in entity.Teams)
                 {
                     match.Teams.Add(context.Teams.Find(team.Id));
                 }
+                if (entity.Winner != null) match.Winner = entity.Winner;
                 context.Entry(match).State = EntityState.Modified;
                 context.SaveChanges();
                 return true;

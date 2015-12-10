@@ -90,7 +90,7 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         }
 
         [Test]
-        public async void Test_if_create_return_edit_view()
+        public async void Test_if_create_return_a_view()
         {
             WebApiService apiService = new WebApiService();
             var result = playerController.Create() as ViewResult;
