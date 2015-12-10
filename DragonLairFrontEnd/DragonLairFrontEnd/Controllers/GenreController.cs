@@ -18,20 +18,20 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Index()
         {
             List<Genre> genres = await apiService.GetAsync<List<Genre>>(baseRoute);
-            return View(genres);
+            return View("Index", genres);
         }
 
         // GET: genre/Details/5
         public async Task<ActionResult> Details(int id)
         {
             Genre genre = await apiService.GetAsync<Genre>(baseRoute + id);
-            return View(genre);
+            return View("Details", genre);
         }
 
         // GET: genre/Create
         public ActionResult Create()
         {
-            return View(new Genre());
+            return View("Create", new Genre());
         }
 
         // POST: genre/Create
@@ -54,7 +54,7 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             Genre genre = await apiService.GetAsync<Genre>(baseRoute + id);
-            return View(genre);
+            return View("Edit", genre);
         }
 
         // POST: genre/Edit/5
@@ -77,7 +77,7 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             Genre genre = await apiService.GetAsync<Genre>(baseRoute + id);
-            return View(genre);
+            return View("Delete", genre);
         }
 
         // POST: genre/Delete/5
