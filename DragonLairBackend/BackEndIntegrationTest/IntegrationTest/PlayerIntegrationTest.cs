@@ -85,21 +85,21 @@ namespace BackEndIntegrationTest.IntegrationTest
             Assert.AreEqual(contentResult.Content.Id, 1);
 
         }
-        [Test]
-        public void Test_You_Can_Update_A_Player_On_DataBase()
-        {
-            player.Id = 1;
-            Player newplayer = player;
-            newplayer.Name = "Magic The Gathering";
-            playerController.Put(player.Id, newplayer);
-            var response = playerController.Get(player.Id);
-            var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
-            DTOPlayer dtoPlayer = contentResult.Content;
+        //[Test]
+        //public void Test_You_Can_Update_A_Player_On_DataBase()
+        //{
+        //    player.Id = 1;
+        //    Player newplayer = player;
+        //    newplayer.Name = "";
+        //    playerController.Put(player.Id, newplayer);
+        //    var response = playerController.Get(player.Id);
+        //    var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
+        //    DTOPlayer dtoPlayer = contentResult.Content;
 
 
-            Assert.AreEqual(contentResult.Content.Name, newplayer.Name);
+        //    Assert.AreEqual(contentResult.Content.Name, newplayer.Name);
 
-        }
+        //}
 
         [Test]
         public void Test_You_Can_Delete_A_Player_On_Database()

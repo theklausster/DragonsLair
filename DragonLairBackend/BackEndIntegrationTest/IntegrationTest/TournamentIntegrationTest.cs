@@ -48,7 +48,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             tournamentController.Url = urlHelper;
 
-            
+
             var groupResponse = groupController.Get(1);
             var groupContentResult = groupResponse as OkNegotiatedContentResult<DTOGroup>;
             DTOGroup DtoGroup = groupContentResult.Content;
@@ -57,7 +57,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             groupFromDb.Id = DtoGroup.Id;
             List<Group> groups = new List<Group>() { groupFromDb };
 
-           
+
             var genreResponse = genreController.Get(1);
             var genreContentResult = genreResponse as OkNegotiatedContentResult<DTOGenre>;
             DTOGenre DtoGenre = genreContentResult.Content;
@@ -65,20 +65,20 @@ namespace BackEndIntegrationTest.IntegrationTest
             genreFromDb.Name = DtoGenre.Name;
             genreFromDb.Id = DtoGenre.Id;
 
-           
+
             var gameResponse = gameController.Get(1);
             var gameContentResult = gameResponse as OkNegotiatedContentResult<DTOGame>;
             DTOGame DtoGame = gameContentResult.Content;
-             gameFromDb = new Game();
+            gameFromDb = new Game();
             gameFromDb.Name = DtoGame.Name;
             gameFromDb.Id = DtoGame.Id;
             gameFromDb.Genre = genreFromDb;
 
-           
+
             var Response = tournamentTypeController.Get(1);
             var ContentResult = Response as OkNegotiatedContentResult<DTOTournamentType>;
             DTOTournamentType DtoTournamentType = ContentResult.Content;
-             tournamentTypeFromDb = new TournamentType();
+            tournamentTypeFromDb = new TournamentType();
             tournamentTypeFromDb.Type = DtoTournamentType.Type;
             tournamentTypeFromDb.Id = DtoTournamentType.Id;
 
@@ -104,7 +104,8 @@ namespace BackEndIntegrationTest.IntegrationTest
         public void Test_You_Can_Create_A_Tournament_On_DataBase()
         {
             var response = tournamentController.Post(tournament);
-            response.Content.ReadAsAsync<object>().ContinueWith(task => {
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Tournament testTournament = ((dynamic)task.Result);
@@ -112,7 +113,7 @@ namespace BackEndIntegrationTest.IntegrationTest
                 tournamentController.Delete(tournament.Id);
 
                 Assert.Greater(testTournament.Id, 0);
-                
+
             });
 
         }
@@ -158,7 +159,7 @@ namespace BackEndIntegrationTest.IntegrationTest
 
             });
 
-           
+
 
         }
     }
