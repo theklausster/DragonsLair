@@ -31,7 +31,6 @@ namespace BackEndIntegrationTest.IntegrationTest
         [SetUp]
         public void SetUp()
         {
-            DbTestInitializer.Initialize();
             var config = new HttpConfiguration();
             var request = new HttpRequestMessage(HttpMethod.Post, "http://dragonapi.devjakobsen.dk/api/match");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
@@ -53,6 +52,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentFromDb = new Tournament();
             tournamentFromDb.Name = DtoTournament.Name;
             tournamentFromDb.Id = DtoTournament.Id;
+            tournamentFromDb.Groups =  DtoTournament.DtoGroups;
 
           
             var groupResponse = groupController.Get(1);
@@ -119,7 +119,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             match.Id = 1;
             Match newMatch = match;
-            newMatch.Round = "PlayOff round 2";
+            newMatch.Round = "Integration PlayOff round 2";
             matchController.Put(match.Id, newMatch);
             var response = matchController.Get(match.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOMatch>;

@@ -19,6 +19,7 @@ namespace BackEndIntegrationTest.IntegrationTest
 {
     class TeamIntegrationTest
     {
+        GroupController groupController = new GroupController();
         PlayerController playerController = new PlayerController();
         private TeamController teamController;
         private Team team;
@@ -44,13 +45,21 @@ namespace BackEndIntegrationTest.IntegrationTest
             var response = playerController.Get(1);
             var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
 
+            var groupResponse = groupController.Get(1);
+            var groupContentResult = groupResponse as OkNegotiatedContentResult<DTOGroup>;
+            DTOGroup DtoGroup = groupContentResult.Content;
+            Group groupFromDb = new Group();
+            groupFromDb.Name = DtoGroup.Name;
+            groupFromDb.Id = DtoGroup.Id;
+            List<Group> groups = new List<Group>() { groupFromDb };
+
             DTOPlayer Dtoplayer = contentResult.Content;
              playerFromDb = new Player();
             playerFromDb.Name = Dtoplayer.Name;
             playerFromDb.Id = Dtoplayer.Id;
             List<Player> players = new List<Player>() {playerFromDb};
-            team = new Team() { Name = "Integration Test Team", Players = players};
-            DbTestInitializer.Initialize();
+            team = new Team() { Name = "Integration Test Team", Players = players, Groups = groups, Draw = 0, Win = 0, Loss = 0};
+
 
         }
 
@@ -98,7 +107,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             team.Id = 1;
             Team newTeam = team;
-            newTeam.Name = "Team Test";
+            newTeam.Name = "Integration team update";
             teamController.Put(team.Id, newTeam);
             var response = teamController.Get(team.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOTeam>;

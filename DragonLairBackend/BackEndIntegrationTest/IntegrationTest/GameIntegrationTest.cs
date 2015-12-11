@@ -103,7 +103,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             game.Id = 1;
             Game newGame = game;
-            newGame.Name = "Magic The Gathering";
+            newGame.Name = "Integration game update";
             gameController.Put(game.Id, newGame);
             var response = gameController.Get(game.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOGame>;

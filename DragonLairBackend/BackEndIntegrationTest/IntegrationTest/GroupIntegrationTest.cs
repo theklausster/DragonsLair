@@ -19,6 +19,7 @@ namespace BackEndIntegrationTest.IntegrationTest
 {
     class GroupIntegrationTest
     {
+        private TournamentController tournamentController;
         private GroupController groupController;
         TeamController teamController = new TeamController();
         private Group group;
@@ -41,7 +42,14 @@ namespace BackEndIntegrationTest.IntegrationTest
             groupController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             groupController.Url = urlHelper;
 
-            
+            var Response = tournamentController.Get(1);
+            var ContentResult = Response as OkNegotiatedContentResult<DTOTournament>;
+            DTOTournament DtoTournament = ContentResult.Content;
+            Tournament tournamentFromDb = new Tournament();
+            tournamentFromDb.Name = DtoTournament.Name;
+            tournamentFromDb.Id = DtoTournament.Id;
+
+
             var response = teamController.Get(1);
             var contentResult = response as OkNegotiatedContentResult<DTOTeam>;
             DTOTeam DtoTeam = contentResult.Content;
@@ -49,8 +57,8 @@ namespace BackEndIntegrationTest.IntegrationTest
             teamFromDb.Name = DtoTeam.Name;
             teamFromDb.Id = DtoTeam.Id;
             List<Team> teams = new List<Team>() { teamFromDb };
-            group = new Group() { Name = "Integration Test Group", Teams = teams };
-            DbTestInitializer.Initialize();
+            group = new Group() { Name = "Integration Test Group", Teams = teams, Tournament = tournamentFromDb};
+
         }
 
         [TearDown]
@@ -97,7 +105,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             group.Id = 1;
             Group newplayer = group;
-            newplayer.Name = "Group c";
+            newplayer.Name = "Integration Group c";
             groupController.Put(group.Id, newplayer);
             var response = groupController.Get(group.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOGroup>;

@@ -23,6 +23,7 @@ namespace BackEndIntegrationTest.IntegrationTest
     class PlayerIntegrationTest
     {
         private PlayerController playerController;
+        private TeamController teamController;
         private Player player;
         [SetUp]
         public void SetUp()
@@ -42,8 +43,16 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             playerController.Url = urlHelper;
 
-            player = new Player() {Name = "Integration Test Player" };
-            DbTestInitializer.Initialize();
+
+            var response = teamController.Get(1);
+            var contentResult = response as OkNegotiatedContentResult<DTOTeam>;
+            DTOTeam DtoTeam = contentResult.Content;
+            Team teamFromDb = new Team();
+            teamFromDb.Name = DtoTeam.Name;
+            teamFromDb.Id = DtoTeam.Id;
+            List<Team> teams = new List<Team>() { teamFromDb };
+
+            player = new Player() {Name = "Integration Test Player", Teams  = teams};
         }
 
         [TearDown]
@@ -90,7 +99,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             player.Id = 1;
             Player newplayer = player;
-            newplayer.Name = "Magic The Gathering";
+            newplayer.Name = "Integration Test Player update";
             playerController.Put(player.Id, newplayer);
             var response = playerController.Get(player.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;

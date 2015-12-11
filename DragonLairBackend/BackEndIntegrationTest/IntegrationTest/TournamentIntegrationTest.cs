@@ -82,8 +82,8 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentTypeFromDb.Type = DtoTournamentType.Type;
             tournamentTypeFromDb.Id = DtoTournamentType.Id;
 
-            tournament = new Tournament() { Name = "Integration Test Tournament", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb };
-            //DbTestInitializer.Initialize();
+            tournament = new Tournament() { Name = "Integration Test Tournament", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb, StartDate = System.DateTime.Now};
+
         }
 
         [TearDown]
@@ -131,7 +131,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             tournament.Id = 1;
             Tournament newTournament = tournament;
-            newTournament.Name = "Team Test";
+            newTournament.Name = "Integration Tournament update";
             tournamentController.Put(tournament.Id, newTournament);
             var response = tournamentController.Get(tournament.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOTournament>;

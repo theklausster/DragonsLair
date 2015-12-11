@@ -86,7 +86,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             Genre.Id = 1;
             Genre newGenre = Genre;
-            newGenre.Name = "TestGenre";
+            newGenre.Name = "Integration Genre update";
             genreController.Put(Genre.Id, newGenre);
             var response = genreController.Get(Genre.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOGenre>;
