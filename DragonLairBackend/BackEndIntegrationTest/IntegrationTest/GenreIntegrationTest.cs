@@ -41,6 +41,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             genreController.Url = urlHelper;
 
             Genre = new Genre() { Name = "Integration Test Genre" };
+
         }
 
         [TearDown]

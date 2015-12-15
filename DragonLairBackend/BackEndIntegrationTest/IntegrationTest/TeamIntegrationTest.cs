@@ -58,7 +58,9 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerFromDb.Name = Dtoplayer.Name;
             playerFromDb.Id = Dtoplayer.Id;
             List<Player> players = new List<Player>() {playerFromDb};
+
             team = new Team() { Name = "Integration Test Team", Players = players, Groups = groups, Draw = 0, Win = 0, Loss = 0};
+
 
 
         }

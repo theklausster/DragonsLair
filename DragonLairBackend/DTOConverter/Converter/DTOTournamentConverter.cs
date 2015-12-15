@@ -16,9 +16,23 @@ namespace DTOConverter.Converter
             if (t.Game == null || t.TournamentType == null || t.Groups == null) throw new ArgumentException("Missing some data in Tournament");
             DTOTournament dtoTournament = new DTOTournament();
             List<DTOGroup> dtoGroups = new List<DTOGroup>();
-            
+            DTOTeam dtoWinner = null;
             DTOTournamentType dtoTournamentType = new DTOTournamentType() { Id = t.TournamentType.Id, Type = t.TournamentType.Type };
-            
+            List<DTOMatch> dtoMatches = new List<DTOMatch>();
+            foreach (var match in t.Matches)
+            {
+                var winner = match.Winner;
+                if (winner == null) dtoWinner = new DTOTeam() { };
+                else dtoWinner = new DTOTeam() { Id = winner.Id, Draw = winner.Draw, Loss = winner.Loss, Name = winner.Name, Win = winner.Win };
+                dtoMatches.Add(new DTOMatch()
+                {
+                    Id = match.Id,
+                    Round = match.Round,
+                    Winner = dtoWinner,
+                    HomeTeam = new DTOTeam() { Id = match.HomeTeam.Id, Name = match.HomeTeam.Name, Win = match.HomeTeam.Win, Loss = match.HomeTeam.Loss, Draw = match.HomeTeam.Draw },
+                    AwayTeam = new DTOTeam() { Id = match.AwayTeam.Id, Name = match.AwayTeam.Name, Win = match.AwayTeam.Win, Loss = match.AwayTeam.Loss, Draw = match.AwayTeam.Draw }
+            });
+            }
 
             foreach (var group in t.Groups)
             {
@@ -57,6 +71,7 @@ namespace DTOConverter.Converter
             dtoTournament.StartDate = t.StartDate;
             dtoTournament.DtoGroups = dtoGroups;
             dtoTournament.DtoGame = new DTOGame() { Id = t.Game.Id, Name = t.Game.Name, DtoGenre = new DTOGenre() { Id = t.Game.Genre.Id, Name = t.Game.Genre.Name } };
+            dtoTournament.DtoMatches = dtoMatches;
             return dtoTournament;
         }
     }

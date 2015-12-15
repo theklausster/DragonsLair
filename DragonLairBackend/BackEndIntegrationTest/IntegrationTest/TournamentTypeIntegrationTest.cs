@@ -40,6 +40,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentTypeController.Url = urlHelper;
 
             tournamentType = new TournamentType() { Type = "Integration Test TournamentType" };
+
         }
 
         [TearDown]

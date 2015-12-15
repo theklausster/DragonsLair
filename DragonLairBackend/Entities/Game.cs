@@ -11,6 +11,7 @@ namespace Entities
         public int Id { get; set; }
         [Required(ErrorMessage = "Please Enter a Name")]
         public string Name { get; set; }
+
         [JsonProperty(PropertyName = "DTOGenre")]
         public virtual Genre Genre { get; set; }
         [JsonProperty(PropertyName = "DTOTournaments")]

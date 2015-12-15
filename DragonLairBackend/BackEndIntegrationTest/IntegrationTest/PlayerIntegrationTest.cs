@@ -44,6 +44,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerController.Url = urlHelper;
 
 
+
             var response = teamController.Get(1);
             var contentResult = response as OkNegotiatedContentResult<DTOTeam>;
             DTOTeam DtoTeam = contentResult.Content;
@@ -53,6 +54,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             List<Team> teams = new List<Team>() { teamFromDb };
 
             player = new Player() { Name = "Integration Test Player", Teams = teams };
+
         }
 
         [TearDown]

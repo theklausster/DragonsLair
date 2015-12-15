@@ -11,7 +11,6 @@ namespace Entities
         {
         }
         [Required]
-        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Enter a Number")]
         public int Draw { get; set; }

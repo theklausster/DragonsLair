@@ -27,5 +27,8 @@ namespace DTOConverter.DTOModel
 
         [DataMember]
         public DTOGame DtoGame { get; set; }
+
+        [DataMember]
+        public ICollection<DTOMatch> DtoMatches { get; set; }
     }
 }

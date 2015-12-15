@@ -51,6 +51,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
+               
                 List<Player> players = context.Players.Include(a => a.Teams).ToList();
                 return players;
             }
