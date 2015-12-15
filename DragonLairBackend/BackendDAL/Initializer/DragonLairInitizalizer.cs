@@ -22,6 +22,7 @@ namespace BackendDAL.Initializer
         private Genre genre;
         private Game game1;
         private Match match;
+  
         public DragonLairInitizalizer()
         {
             genre = new Genre() { Name = "I'm Genre Roleplaying" };
@@ -39,6 +40,7 @@ namespace BackendDAL.Initializer
                 Round = "Playoff round 1",
                 Tournament = tournament
             };
+
         }
 
         protected override void Seed(DragonLairContext context)
@@ -53,7 +55,7 @@ namespace BackendDAL.Initializer
             context.Teams.Add(team2);
             context.Groups.Add(group1);
             context.Tournaments.Add(tournament);
-            context.Matches.Add(match);
+         
 
             base.Seed(context);
         }

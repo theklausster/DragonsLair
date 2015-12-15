@@ -1,5 +1,5 @@
-﻿
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -21,6 +21,7 @@ namespace BackEndIntegrationTest.IntegrationTest
     class GroupIntegrationTest
     {
         private TournamentController tournamentController = new TournamentController();
+
         private GroupController groupController;
         TeamController teamController = new TeamController();
         private Group group;
@@ -50,7 +51,6 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentFromDb.Name = DtoTournament.Name;
             tournamentFromDb.Id = DtoTournament.Id;
 
-
             var response = teamController.Get(1);
             var contentResult = response as OkNegotiatedContentResult<DTOTeam>;
             DTOTeam DtoTeam = contentResult.Content;
@@ -58,15 +58,13 @@ namespace BackEndIntegrationTest.IntegrationTest
             teamFromDb.Name = DtoTeam.Name;
             teamFromDb.Id = DtoTeam.Id;
             List<Team> teams = new List<Team>() { teamFromDb };
-            group = new Group() { Name = "Integration Test Group", Teams = teams, Tournament = tournamentFromDb};
+            group = new Group() { Name = "Integration Test Group", Teams = teams, Tournament = tournamentFromDb };
 
         }
 
         [TearDown]
         public void TearDown()
         {
-
-
         }
 
         [Test]
@@ -88,6 +86,7 @@ namespace BackEndIntegrationTest.IntegrationTest
                 Group testGroup = ((dynamic)task.Result);
                 groupController.Delete(testGroup.Id);
                 Assert.Greater(testGroup.Id, 0);
+
             });
 
         }
@@ -107,6 +106,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             group.Id = 1;
             Group newplayer = group;
             newplayer.Name = "Integration Group c";
+
             groupController.Put(group.Id, newplayer);
             var response = groupController.Get(group.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOGroup>;
@@ -131,12 +131,6 @@ namespace BackEndIntegrationTest.IntegrationTest
                 Assert.Greater(dtoGroup.Id, 0);
 
             });
-            
-//            //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
-
-
-//            //Assert.Throws(<Exception> (() => gameController.Get(game.Id));
-//            //Assert.Throws<ArgumentException>(gameController.Get(game.Id));
 
 
         }

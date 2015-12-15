@@ -78,7 +78,6 @@ namespace BackEndIntegrationTest.IntegrationTest
             group.Teams = dtoTeams;
             groups.Add(group);
 
-
             var gameResponse = gameController.Get(1);
             var gameContentResult = gameResponse as OkNegotiatedContentResult<DTOGame>;
             DTOGame DtoGame = gameContentResult.Content;

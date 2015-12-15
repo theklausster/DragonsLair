@@ -100,13 +100,19 @@ namespace DragonLairFrontEnd.Models
         }
 
 
-        public void CreateTournament(Tournament tournament)
+        public async Task CreateTournament(Tournament tournament)
         {
             Tournament.Name = tournament.Name;
             Tournament.StartDate = tournament.StartDate;
             AutoGenerateGroups();
             AutoGenerateTeams();
+            await SaveOnDB();
+        }
 
+        private async Task SaveOnDB()
+        {
+
+            await ServiceGateway.PostAsync<Tournament>("api/Tournament/", Tournament);
         }
 
         public void AutoGenerateGroups()
