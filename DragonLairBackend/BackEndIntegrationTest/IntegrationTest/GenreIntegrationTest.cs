@@ -40,8 +40,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             genreController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             genreController.Url = urlHelper;
 
-            Genre = new Genre() { Name = "Integration Test Genre" };;
-            DbTestInitializer.Initialize();
+            Genre = new Genre() { Name = "Integration Test Genre" };
         }
 
         [TearDown]
@@ -62,7 +61,8 @@ namespace BackEndIntegrationTest.IntegrationTest
         public void Test_You_Can_Create_A_Genre_On_DataBase()
         {
             var response = genreController.Post(Genre);
-            response.Content.ReadAsAsync<object>().ContinueWith(task => {
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Genre testGenre = ((dynamic)task.Result);
@@ -84,7 +84,17 @@ namespace BackEndIntegrationTest.IntegrationTest
         [Test]
         public void Test_You_Can_Update_A_Genre_On_DataBase()
         {
-            Genre.Id = 1;
+
+            var responsePost = genreController.Post(Genre);
+            responsePost.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
+                // The Task.Result property holds the whole deserialized object
+                //string returnedToken = ((dynamic)task.Result).Token;
+                Genre testGenre = ((dynamic)task.Result);
+                Genre.Id = testGenre.Id;
+
+            });
+
             Genre newGenre = Genre;
             newGenre.Name = "Integration Genre update";
             genreController.Put(Genre.Id, newGenre);
@@ -93,6 +103,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             DTOGenre dtoGenre = contentResult.Content;
 
             Assert.AreEqual(contentResult.Content.Name, newGenre.Name);
+            genreController.Delete(Genre.Id);
 
         }
 
@@ -100,15 +111,16 @@ namespace BackEndIntegrationTest.IntegrationTest
         public void Test_You_Can_Delete_A_Genre_On_Database()
         {
             var response = genreController.Post(Genre);
-            response.Content.ReadAsAsync<object>().ContinueWith(task => {
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Genre testGenre = ((dynamic)task.Result);
-                genreController.Delete(Genre.Id);
-                Assert.Greater(testGenre.Id, 0);
+                genreController.Delete(testGenre.Id);
+
 
             });
-         
+
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 

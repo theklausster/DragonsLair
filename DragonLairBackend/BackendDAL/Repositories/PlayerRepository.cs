@@ -18,6 +18,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
+                entity.Teams.ForEach(team => context.Teams.Attach(team));
                 context.Players.Add(entity);
                 context.SaveChanges();
             }
@@ -28,8 +29,11 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
 
-            {                
-                context.Players.Remove(context.Players.Find(id));         
+            {
+                Player player = context.Players.Find(id);
+                player.Teams.ForEach(team =>context.Teams.Attach(team));
+                context.Players.Attach(player);              
+                context.Players.Remove(player);         
                 context.SaveChanges();
             }
         }

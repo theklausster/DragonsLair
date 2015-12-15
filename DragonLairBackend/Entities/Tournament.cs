@@ -23,7 +23,7 @@ namespace Entities
         [JsonProperty(PropertyName = "DtoGame")]
         public virtual Game Game { get; set; }
         [JsonProperty(PropertyName = "DtoGroups ")]
-        public virtual ICollection Groups { get; set; }
+        public virtual List<Group> Groups { get; set; }
 
 
     }

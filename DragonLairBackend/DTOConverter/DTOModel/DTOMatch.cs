@@ -19,10 +19,7 @@ namespace DTOConverter.DTOModel
         [DataMember]
         public DTOTeam Winner { get; set; }
         [DataMember]
-        public ICollection<DTOTeam> DtoTeams { get; set; }
-        [DataMember]
         public DTOTournament DtoTournament { get; set; }
-        [DataMember]
-        public DTOGroup DtoGroup { get; set; }
+
     }
 }

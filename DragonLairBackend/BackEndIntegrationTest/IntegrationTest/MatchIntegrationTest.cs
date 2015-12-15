@@ -52,26 +52,36 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentFromDb = new Tournament();
             tournamentFromDb.Name = DtoTournament.Name;
             tournamentFromDb.Id = DtoTournament.Id;
-            tournamentFromDb.Groups =  DtoTournament.DtoGroups;
-
-          
-            var groupResponse = groupController.Get(1);
-            var groupContentResult = groupResponse as OkNegotiatedContentResult<DTOGroup>;
-            DTOGroup DtoGroup = groupContentResult.Content;
-             groupFromDb = new Group();
-            groupFromDb.Name = DtoGroup.Name;
-            groupFromDb.Id = DtoGroup.Id;
-
-          
-            var teamResponse = teamController.Get(1);
-            var teamcontentResult = teamResponse as OkNegotiatedContentResult<DTOTeam>;
-            DTOTeam DtoTeam = teamcontentResult.Content;
-             teamFromDb = new Team();
-            teamFromDb.Name = DtoTeam.Name;
-            teamFromDb.Id = DtoTeam.Id;
-            List<Team> teams = new List<Team>() { teamFromDb };
-
-            match = new Match() { Id = 1, Round = "Integration Test Playoff Round 1", Teams = teams, Group = groupFromDb, Tournament = tournamentFromDb};
+            List<Group> dtoGroups = new List<Group>();
+            foreach (var dtoGroup in DtoTournament.DtoGroups)
+            {
+                Group group = new Group();
+                group.Name = dtoGroup.Name;
+                group.Id = dtoGroup.Id;
+                List<Team> dtoTeams = new List<Team>();
+                foreach (var dtoTeam in dtoGroup.DtoTeams)
+                {
+                    Team team = new Team();
+                    team.Name = dtoTeam.Name;
+                    team.Id = dtoTeam.Id;
+                    team.Draw = dtoTeam.Draw;
+                    team.Loss = dtoTeam.Loss;
+                    team.Win = dtoTeam.Win;
+                    List<Player> dtoPlayers = new List<Player>();
+                    foreach (var dtoPlayer in dtoTeam.DtoPlayers)
+                    {
+                        Player player = new Player();
+                        player.Name = dtoPlayer.Name;
+                        player.Id = dtoPlayer.Id;
+                        dtoPlayers.Add(player);
+                    }
+                    team.Players = dtoPlayers;
+                    dtoTeams.Add(team);
+                }
+                group.Teams = dtoTeams;
+                tournamentFromDb.Groups = dtoGroups;
+            }
+            match = new Match() { Id = 1, Round = "Integration Test Playoff Round 1", Tournament = tournamentFromDb};
 
         }
 

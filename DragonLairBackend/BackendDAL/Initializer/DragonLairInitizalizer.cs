@@ -32,13 +32,11 @@ namespace BackendDAL.Initializer
             player3 = new Player() { Name = "I'm player René" };
             team = new Team() { Name = "I'm a Team", Loss = 0, Win = 0, Draw = 0, Players = new List<Player> { player1, player2 } };
             team2 = new Team() { Name = "I'm a Team", Loss = 0, Win = 0, Draw = 0, Players = new List<Player> { player3 } };
-            group1 = new Group() { Name = "I'm a Group", Tournament = new Tournament() { Name = "I'm a Tournament" }, Teams = new List<Team>() { team, team2 } };
+            group1 = new Group() { Name = "I'm a Group", Teams = new List<Team>() { team, team2 } };
             tournament = new Tournament() { Name = "I'm a Tournament", Game = game1, Groups = new List<Group> { group1 }, TournamentType = tournamentType, StartDate = DateTime.Today };
             match = new Match()
             {
                 Round = "Playoff round 1",
-                Group = group1,
-                Teams = new List<Team>() { team, team2 },
                 Tournament = tournament
             };
         }

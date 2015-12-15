@@ -1,3 +1,4 @@
+﻿
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace BackEndIntegrationTest.IntegrationTest
 {
     class GroupIntegrationTest
     {
-        private TournamentController tournamentController;
+        private TournamentController tournamentController = new TournamentController();
         private GroupController groupController;
         TeamController teamController = new TeamController();
         private Group group;
@@ -64,7 +65,8 @@ namespace BackEndIntegrationTest.IntegrationTest
         [TearDown]
         public void TearDown()
         {
-            
+
+
         }
 
         [Test]
@@ -79,14 +81,13 @@ namespace BackEndIntegrationTest.IntegrationTest
         public void Test_You_Can_Create_A_Group_On_DataBase()
         {
             var response = groupController.Post(group);
-            response.Content.ReadAsAsync<object>().ContinueWith(task => {
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Group testGroup = ((dynamic)task.Result);
                 groupController.Delete(testGroup.Id);
                 Assert.Greater(testGroup.Id, 0);
-                
-
             });
 
         }
@@ -131,11 +132,11 @@ namespace BackEndIntegrationTest.IntegrationTest
 
             });
             
-            //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
+//            //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 
-            //Assert.Throws(<Exception> (() => gameController.Get(game.Id));
-            //Assert.Throws<ArgumentException>(gameController.Get(game.Id));
+//            //Assert.Throws(<Exception> (() => gameController.Get(game.Id));
+//            //Assert.Throws<ArgumentException>(gameController.Get(game.Id));
 
 
         }

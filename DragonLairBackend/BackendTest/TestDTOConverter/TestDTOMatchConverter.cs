@@ -24,18 +24,6 @@ namespace BackendTest.TestDTOConverter
 
         }
 
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Test_if_match_can_be_converted_with_a_group_and_fail()
-        {
-            DTOMatch dtomatch = new DTOMatch();
-            Group group = new Group() {Id = 1, Name = "I am a group"};
-            DTOMatchConverter dtoMatchConverter = new DTOMatchConverter();
-            Match match = new Match() { Id = 1, Round = "Playoff Round 1", Group = group}; 
-            
-            dtomatch = dtoMatchConverter.Convert(match);
-
-        }
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
@@ -49,21 +37,9 @@ namespace BackendTest.TestDTOConverter
             dtomatch = dtoMatchConverter.Convert(match);
 
         }
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Test_if_match_can_be_converted_with_teams_and_fail()
-        {
-            DTOMatch dtomatch = new DTOMatch();
-            List<Team> teams = new List<Team>() { new Team() { Id = 1, Name = "Test Team" }
-        , new Team() { Id = 1, Name = "Test Team" }};
-            DTOMatchConverter dtoMatchConverter = new DTOMatchConverter();
-            Match match = new Match() { Id = 1, Round = "Playoff Round 1", Teams = teams };
 
-            dtomatch = dtoMatchConverter.Convert(match);
-
-        }
         [Test]
-        public void Test_if_Match_can_be_converted_with_group_and_tournament_and_a_teams()
+        public void Test_if_Match_can_be_converted_with_tournament()
         {
             Group group = new Group() { Id = 1, Name = "I am a group" };
             DTOMatch dtomatch = new DTOMatch();
@@ -71,15 +47,10 @@ namespace BackendTest.TestDTOConverter
             List<Team> teams = new List<Team>() { new Team() { Id = 1, Name = "Test Team" }
         , new Team() { Id = 1, Name = "Test Team" }};
             DTOMatchConverter dtoMatchConverter = new DTOMatchConverter();
-            Match match = new Match() { Id = 1, Round = "Playoff Round 1", Teams = teams, Group = group, Tournament = tournament};
+            Match match = new Match() { Id = 1, Round = "Playoff Round 1", Tournament = tournament};
 
             dtomatch = dtoMatchConverter.Convert(match);
-
-            Assert.IsNotNull(dtomatch.DtoGroup);
-            Assert.AreEqual(dtomatch.DtoGroup.Id, group.Id);
             Assert.AreEqual(dtomatch.Id, match.Id);
-            Assert.IsNotNull(dtomatch.DtoTeams);
-            Assert.AreEqual(dtomatch.DtoTeams.Count, teams.Count);
             Assert.IsNotNull(dtomatch.DtoTournament);
             Assert.AreEqual(dtomatch.DtoTournament.Id, tournament.Id);
         }

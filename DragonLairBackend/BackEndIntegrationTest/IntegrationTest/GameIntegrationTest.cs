@@ -25,6 +25,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         private GameController gameController;
         private Game game;
         private Genre genrefromDb;
+
         [SetUp]
         public void SetUp()
         {
@@ -51,15 +52,12 @@ namespace BackEndIntegrationTest.IntegrationTest
             genrefromDb.Name = DtoGenre.Name;
             genrefromDb.Id = DtoGenre.Id;
             game = new Game() { Name = "Integration Test Game", Genre = genrefromDb };
-            DbTestInitializer.Initialize();
-            
-
         }
 
         [TearDown]
         public void TearDown()
         {
-            
+
         }
 
         [Test]
@@ -82,60 +80,61 @@ namespace BackEndIntegrationTest.IntegrationTest
                 game.Id = dtogame.Id;
                 gameController.Delete(game.Id);
                 Assert.Greater(dtogame.Id, 0);
-                
-                
-
             });
-
         }
         [Test]
         public void Test_You_Can_Find_A_Single_Game_On_Database()
         {
-            var response = gameController.Get(1);
+            if (game.Id == 0)
+            {
+                game.Id = 1;
+            }
+            var response = gameController.Get(game.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOGame>;
             DTOGame gamefromDb = contentResult.Content;
 
             Assert.AreEqual(contentResult.Content.Id, 1);
 
         }
+
         [Test]
         public void Test_You_Can_Update_A_Game_On_DataBase()
         {
-            game.Id = 1;
+            DTOGame gamefromDb = new DTOGame();
             Game newGame = game;
-            newGame.Name = "Integration game update";
-            gameController.Put(game.Id, newGame);
-            var response = gameController.Get(game.Id);
-            var contentResult = response as OkNegotiatedContentResult<DTOGame>;
-            DTOGame dtoGame = contentResult.Content;
-
-
-            Assert.AreEqual(contentResult.Content.Name, newGame.Name);
-
-        }
-
-        [Test]
-        public void Test_You_Can_Delete_A_Game_On_Database()
-        {
-            var response = gameController.Post(game);
-            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            var responsePost = gameController.Post(game);
+            responsePost.Content.ReadAsAsync<object>().ContinueWith(task =>
             {
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 DTOGame dtogame = ((dynamic)task.Result);
                 game.Id = dtogame.Id;
-                gameController.Delete(game.Id);
-                Assert.Greater(dtogame.Id, 0);
 
             });
-            
-            //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
+            newGame.Name = "Integration game update";
+            gameController.Put(game.Id, newGame);
+            var response = gameController.Get(game.Id);
+            var contentResult = response as OkNegotiatedContentResult<DTOGame>;
+            var dtoGame = contentResult.Content;
+            gameController.Delete(game.Id);
+            Assert.AreEqual(contentResult.Content.Name, newGame.Name);
+        }
 
-
-            //Assert.Throws(<Exception> (() => gameController.Get(game.Id));
-            //Assert.Throws<ArgumentException>(gameController.Get(game.Id));
-
-
+        [Test]
+        public void Test_You_Can_Delete_A_Game_On_Database()
+        {
+            if (game.Id == 0)
+            {
+                var response = gameController.Post(game);
+                response.Content.ReadAsAsync<object>().ContinueWith(task =>
+                {
+                    // The Task.Result property holds the whole deserialized object
+                    //string returnedToken = ((dynamic)task.Result).Token;
+                    DTOGame dtogame = ((dynamic)task.Result);
+                    game.Id = dtogame.Id;
+                });
+            }
+            gameController.Delete(game.Id);
         }
     }
 }

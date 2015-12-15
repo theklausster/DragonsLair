@@ -23,17 +23,17 @@ namespace BackEndIntegrationTest.IntegrationTest
     class PlayerIntegrationTest
     {
         private PlayerController playerController;
-        private TeamController teamController;
+        private TeamController teamController = new TeamController();
         private Player player;
         [SetUp]
         public void SetUp()
         {
-         
+
             var config = new HttpConfiguration();
             var request = new HttpRequestMessage(HttpMethod.Post, "http://dragonapi.devjakobsen.dk/api/player");
             var route = config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}");
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "player" } });
-    
+
 
             playerController = new PlayerController();
             UrlHelper urlHelper = new UrlHelper(request);
@@ -52,13 +52,13 @@ namespace BackEndIntegrationTest.IntegrationTest
             teamFromDb.Id = DtoTeam.Id;
             List<Team> teams = new List<Team>() { teamFromDb };
 
-            player = new Player() {Name = "Integration Test Player", Teams  = teams};
+            player = new Player() { Name = "Integration Test Player", Teams = teams };
         }
 
         [TearDown]
         public void TearDown()
         {
-           
+
         }
 
         [Test]
@@ -73,13 +73,14 @@ namespace BackEndIntegrationTest.IntegrationTest
         public void Test_You_Can_Create_A_Player_On_DataBase()
         {
             var response = playerController.Post(player);
-            response.Content.ReadAsAsync<object>().ContinueWith(task => {
+            response.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
                 // The Task.Result property holds the whole deserialized object
                 //string returnedToken = ((dynamic)task.Result).Token;
                 Player testPlayer = ((dynamic)task.Result);
                 playerController.Delete(testPlayer.Id);
                 Assert.Greater(testPlayer.Id, 0);
-                
+
 
             });
 
@@ -87,7 +88,11 @@ namespace BackEndIntegrationTest.IntegrationTest
         [Test]
         public void Test_You_Can_Find_A_Single_Player_On_Database()
         {
-            var response = playerController.Get(1);
+            if (player.Id == 0)
+            {
+                player.Id = 1;
+            }
+            var response = playerController.Get(player.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
             DTOPlayer playerfromDb = contentResult.Content;
 
@@ -97,14 +102,22 @@ namespace BackEndIntegrationTest.IntegrationTest
         [Test]
         public void Test_You_Can_Update_A_Player_On_DataBase()
         {
-            player.Id = 1;
+            var responsePost = playerController.Post(player);
+            responsePost.Content.ReadAsAsync<object>().ContinueWith(task =>
+            {
+                // The Task.Result property holds the whole deserialized object
+                //string returnedToken = ((dynamic)task.Result).Token;
+                Player testPlayer = ((dynamic)task.Result);
+                player.Id = testPlayer.Id;
+
+            });
             Player newplayer = player;
             newplayer.Name = "Integration Test Player update";
             playerController.Put(player.Id, newplayer);
             var response = playerController.Get(player.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOPlayer>;
             DTOPlayer dtoPlayer = contentResult.Content;
-
+            playerController.Delete(player.Id);
 
             Assert.AreEqual(contentResult.Content.Name, newplayer.Name);
 
@@ -124,7 +137,7 @@ namespace BackEndIntegrationTest.IntegrationTest
                 Assert.Greater(dtoplayer.Id, 0);
 
             });
-           
+
             //Assert.Throws(typeof(ArgumentException), new TestDelegate(gameController.Get(game.Id)));
 
 
