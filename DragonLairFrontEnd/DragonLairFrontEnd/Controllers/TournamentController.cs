@@ -87,20 +87,20 @@ namespace DragonLairFrontEnd.Controllers
         }
 
 
-        // POST: tournament/Create
-        //[HttpPost]
-        //public async Task<ActionResult> Create([Bind(Include = "Id, Name, StartDate")] Tournament tournament)
-        //{
-        //    try
-        //    {
-        //        TournamentViewModel.CreateTournament(tournament);
-        //       return RedirectToAction("Index");
-        //    }
-        //    catch
-        //    {
-        //        return View();
-        //    }
-        //}
+        //POST: tournament/Create
+       [HttpPost]
+        public async Task<ActionResult> Create([Bind(Include = "Id, Name, StartDate")] Tournament tournament)
+        {
+            try
+            {
+                await TournamentViewModel.CreateTournament(tournament);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         //    // GET: tournament/Edit/5
         //    public async Task<ActionResult> Edit(int id)

@@ -41,7 +41,7 @@ namespace BackendDAL.Repositories
                 context.Entry(tournament).Collection(a => a.Groups).Query().Include(b => b.Teams).Include(c => c.Teams.Select(d => d.Players)).Load();
                 context.Entry(tournament).Reference(a => a.Game).Query().Include(a => a.Genre).Load();
                 context.Entry(tournament).Reference(a => a.TournamentType).Load();
-
+                context.Entry(tournament).Collection(a => a.Matches).Load();
                 return tournament;
             }
         }

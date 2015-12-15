@@ -17,9 +17,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                entity.Teams.ForEach(a => context.Teams.Attach(a));
                 context.Tournaments.Attach(entity.Tournament);
-                context.Groups.Attach(entity.Group);
                 context.Matches.Add(entity);
                 context.SaveChanges();
             }
@@ -39,7 +37,13 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                Match match = context.Matches.Include(b => b.Tournament).Include(b => b.Group).Include(b => b.Teams).Include(b => b.Winner).FirstOrDefault(a => a.Id == id);
+                context.Configuration.ProxyCreationEnabled = false;
+
+                Match match = context.Matches.Find(id);
+
+                context.Entry(match).Reference(a => a.Tournament).Load();
+                context.Entry(match.Tournament).Collection(a => a.Groups).Query().Include(a => a.Teams).Include(a => a.Teams.Select(b => b.Players)).Load();
+
                 return match;
             }
         }
@@ -48,7 +52,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                List<Match> matches =  context.Matches.Include(b => b.Tournament).Include(b => b.Group).Include(b => b.Teams).ToList();
+                List<Match> matches = context.Matches.Include(a => a.Tournament).ToList();
                 return matches;
             }
         }
@@ -59,13 +63,7 @@ namespace BackendDAL.Repositories
             {
                 Match match = context.Matches.Find(entity.Id);
                 if ((match == null)) return false;
-                match.Group = entity.Group;
-                match.Teams.Clear();
                 match.Tournament = entity.Tournament;
-                foreach (var team in entity.Teams)
-                {
-                    match.Teams.Add(context.Teams.Find(team.Id));
-                }
                 if (entity.Winner != null) match.Winner = entity.Winner;
                 context.Entry(match).State = EntityState.Modified;
                 context.SaveChanges();

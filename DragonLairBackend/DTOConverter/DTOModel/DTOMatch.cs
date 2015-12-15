@@ -18,11 +18,13 @@ namespace DTOConverter.DTOModel
         public string Round { get; set; }
         [DataMember]
         public DTOTeam Winner { get; set; }
+
         [DataMember]
-        public ICollection<DTOTeam> DtoTeams { get; set; }
+        public DTOTeam HomeTeam { get; set; }
         [DataMember]
+        public DTOTeam AwayTeam { get; set; }
+        public List<int> TeamIdvsTeamId { get; set; }
         public DTOTournament DtoTournament { get; set; }
-        [DataMember]
-        public DTOGroup DtoGroup { get; set; }
+ 
     }
 }

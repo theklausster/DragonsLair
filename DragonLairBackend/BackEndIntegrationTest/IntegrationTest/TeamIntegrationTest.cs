@@ -50,7 +50,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             playerFromDb.Id = Dtoplayer.Id;
             List<Player> players = new List<Player>() {playerFromDb};
             team = new Team() { Name = "Integration Test Team", Players = players};
-            DbTestInitializer.Initialize();
+           
 
         }
 

@@ -18,13 +18,16 @@ namespace Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
-        [JsonProperty(PropertyName = "DTOTournamentType")]
-        public TournamentType TournamentType { get; set; }
-        [JsonProperty(PropertyName = "DtoGame")]
-        public Game Game { get; set; }
-        [JsonProperty(PropertyName = "DtoGroups")]
-        public List<Group> Groups { get; set; }
 
+
+        [JsonProperty(PropertyName = "DTOTournamentType")]
+        public virtual TournamentType TournamentType { get; set; }
+        [JsonProperty(PropertyName = "DtoGame")]
+        public virtual Game Game { get; set; }
+
+        [JsonProperty(PropertyName = "DtoGroups ")]
+        public virtual List<Group> Groups { get; set; }
+        public virtual List<Match> Matches { get; set; }
 
     }
 }
