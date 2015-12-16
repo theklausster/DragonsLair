@@ -16,36 +16,54 @@ namespace BackendDAL.Repositories
         DALFacade facade = new DALFacade();
         public Tournament Create(Tournament entity)
         {
-            List<Team> newTeams = new List<Team>();
-            List<Group> newGroups = new List<Group>();
-            List<Match> newMatches = new List<Match>();
-            Group newGroup = null;
 
-
+            var matches =  entity.Matches;
+            entity.Matches = null;
             using (var context = new DragonLairContext())
             {
                 foreach (var group in entity.Groups)
                 {
-                    newTeams = facade.GetTeamRepository().Create(group.Teams);
-                    newGroup = new Group() { Name = group.Name, Teams = newTeams }; 
-                    facade.GetGroupRepository().Create(newGroup);
-                    newGroups.Add(newGroup);
-                    context.Groups.Attach(newGroup);
-                    
-                    
+                    foreach (var team in group.Teams)
+                    {
+                        team.Players.ForEach(a => context.Players.Attach(a));            
+                    }
                 }
-
-                newMatches = facade.GetMatchRepository().Create(entity.Matches);
-                entity.Matches = newMatches;
-                
-                entity.Groups = newGroups;
                 context.Games.Attach(entity.Game);
                 context.Genres.Attach(entity.Game.Genre);
                 context.TournamentTypes.Attach(entity.TournamentType);
                 context.Tournaments.Add(entity);
-                
-               context.SaveChanges();
+                context.SaveChanges();
             }
+
+            using (var context = new DragonLairContext())
+            {
+
+                List<Group> groups = entity.Groups.ToList();
+                List<Team> allTeams = new List<Team>();
+
+                foreach (var group in groups)
+                {
+                    group.Teams.ForEach(team => allTeams.Add(team));                  
+                }
+                matches.ForEach(x => x.AwayTeam = allTeams.FirstOrDefault(a => a.Name.Equals(x.AwayTeam.Name)));
+                matches.ForEach(x => x.HomeTeam = allTeams.FirstOrDefault(a => a.Name.Equals(x.HomeTeam.Name)));
+                matches.ForEach(x => x.Tournament = entity);
+                matches.ForEach(x => context.Teams.Attach(x.AwayTeam));
+                matches.ForEach(x => context.Teams.Attach(x.HomeTeam));
+                matches.ForEach(x => context.Tournaments.Attach(x.Tournament));
+                matches.ForEach(x => context.Matches.Add(x));
+                context.SaveChanges();
+            }
+
+            using (var context = new DragonLairContext())
+            {
+                Tournament tounament = context.Tournaments.Find(entity.Id);
+                tounament.Matches = context.Matches.Where(a => a.Tournament.Id == entity.Id).ToList();
+                
+                context.SaveChanges();
+            }
+
+
             return entity;
         }
 

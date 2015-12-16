@@ -18,8 +18,6 @@ namespace BackendDAL.Repositories
             Match match = new Match();
             using (var context = new DragonLairContext())
             {
-                    context.Teams.Attach(entity.HomeTeam);
-                    context.Teams.Attach(entity.AwayTeam);
                     context.Matches.Add(entity);
                     context.SaveChanges();
             }
