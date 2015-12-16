@@ -1,0 +1,21 @@
+﻿@model DragonLairFrontEnd.Models.TeamModel
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Players.FirstOrDefault().Name)
+            </th>
+        </tr>
+
+        @foreach (var player in Model.Players)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => player.Name)
+                </td>
+            </tr>
+        }
+
+    </table>
+}
