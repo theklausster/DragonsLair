@@ -15,14 +15,40 @@ namespace BackendDAL.Repositories
     {
         public Match Create(Match entity)
         {
+            Match match = new Match();
             using (var context = new DragonLairContext())
             {
-                context.Tournaments.Attach(entity.Tournament);
-                context.Matches.Add(entity);
-                context.SaveChanges();
+                    context.Teams.Attach(entity.HomeTeam);
+                    context.Teams.Attach(entity.AwayTeam);
+                    context.Matches.Add(entity);
+                    context.SaveChanges();
             }
             return entity;
         }
+
+        public List<Match> Create(List<Match> matches)
+        {
+            List<Team> teams = new List<Team>();
+            List<Match> list = new List<Match>();
+            using (var context = new DragonLairContext())
+            {
+                context.Configuration.ProxyCreationEnabled = false;
+
+                teams = context.Teams.ToList();
+                foreach (var match in matches)
+                {
+                    match.HomeTeam = teams.FirstOrDefault(a => a.Name == match.HomeTeam.Name);
+                    match.AwayTeam = teams.FirstOrDefault(a => a.Name == match.AwayTeam.Name);
+                    context.Matches.Add(match);
+                    list.Add(match);
+
+                }
+                context.SaveChanges();
+                return list; 
+            }
+            
+        }
+
 
         public void Delete(int id)
         {
@@ -37,13 +63,8 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                context.Configuration.ProxyCreationEnabled = false;
 
-                Match match = context.Matches.Find(id);
-
-                context.Entry(match).Reference(a => a.Tournament).Load();
-                context.Entry(match.Tournament).Collection(a => a.Groups).Query().Include(a => a.Teams).Include(a => a.Teams.Select(b => b.Players)).Load();
-
+                Match match = context.Matches.FirstOrDefault(a => a.Id == id);
                 return match;
             }
         }
@@ -52,8 +73,9 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                List<Match> matches = context.Matches.Include(a => a.Tournament).ToList();
-                return matches;
+                var list = context.Matches.Include(a => a.HomeTeam).Include(a => a.AwayTeam).Include(a => a.Winner).ToList();
+
+                return list;
             }
         }
 

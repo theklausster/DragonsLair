@@ -25,9 +25,7 @@ namespace DTOConverter.Converter
                 DTOTeam dtoTeam = new DTOTeam() { Id = t.Winner.Id, Name = t.Winner.Name, Win = t.Winner.Win, Loss = t.Winner.Loss, Draw = t.Winner.Draw };
                 dtoMatch.Winner = dtoTeam;
             }
-           
-            dtoTournament = new DTOTournament() { Id = t.Tournament.Id, Name = t.Tournament.Name, StartDate = t.Tournament.StartDate };
-            dtoMatch.DtoTournament = dtoTournament;
+        
 
             return dtoMatch;
 

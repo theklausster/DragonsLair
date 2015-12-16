@@ -6,17 +6,45 @@ using System.Text;
 using System.Threading.Tasks;
 using BackendDAL.Context;
 using System.Data.Entity;
+using BackendDAL.Facade;
 
 namespace BackendDAL.Repositories
 {
     class TournamentRepository : IRepository<Tournament>
     {
+
+        DALFacade facade = new DALFacade();
         public Tournament Create(Tournament entity)
         {
+            List<Team> newTeams = new List<Team>();
+            List<Group> newGroups = new List<Group>();
+            List<Match> newMatches = new List<Match>();
+            Group newGroup = null;
+
+
             using (var context = new DragonLairContext())
             {
+                foreach (var group in entity.Groups)
+                {
+                    newTeams = facade.GetTeamRepository().Create(group.Teams);
+                    newGroup = new Group() { Name = group.Name, Teams = newTeams }; 
+                    facade.GetGroupRepository().Create(newGroup);
+                    newGroups.Add(newGroup);
+                    context.Groups.Attach(newGroup);
+                    
+                    
+                }
+
+                newMatches = facade.GetMatchRepository().Create(entity.Matches);
+                entity.Matches = newMatches;
+                
+                entity.Groups = newGroups;
+                context.Games.Attach(entity.Game);
+                context.Genres.Attach(entity.Game.Genre);
+                context.TournamentTypes.Attach(entity.TournamentType);
                 context.Tournaments.Add(entity);
-                context.SaveChanges();
+                
+               context.SaveChanges();
             }
             return entity;
         }
@@ -41,7 +69,7 @@ namespace BackendDAL.Repositories
                 context.Entry(tournament).Collection(a => a.Groups).Query().Include(b => b.Teams).Include(c => c.Teams.Select(d => d.Players)).Load();
                 context.Entry(tournament).Reference(a => a.Game).Query().Include(a => a.Genre).Load();
                 context.Entry(tournament).Reference(a => a.TournamentType).Load();
-                context.Entry(tournament).Collection(a => a.Matches).Load();
+                context.Entry(tournament).Collection(a => a.Matches).Query().Include(a=>a.AwayTeam).Include(a => a.HomeTeam).Load();
                 return tournament;
             }
         }

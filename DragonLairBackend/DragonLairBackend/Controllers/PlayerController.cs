@@ -22,7 +22,7 @@ namespace DragonLairBackend.Controllers
         public PlayerController()
         {
             DtoPlayerConverter = new DTOPlayerConverter();
-            var facade = new Facade();
+            var facade = new DALFacade();
             playerRepository = facade.GetPlayerRepository();
             teamRepository = facade.GetTeamRepository();
         }

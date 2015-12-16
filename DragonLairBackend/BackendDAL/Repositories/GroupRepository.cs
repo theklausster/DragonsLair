@@ -17,7 +17,6 @@ namespace BackendDAL.Repositories
             {
                 foreach (var team in entity.Teams)
                 {
-                    team.Players = null;
                     context.Teams.Attach(team);
                 }
                 context.Groups.Add(entity);

@@ -21,7 +21,7 @@ namespace DragonLairBackend.Controllers
         public GenreController()
         {
             DtoGenreConverter = new DTOGenreConverter();
-            GenreRepository = new Facade().GetGenreRepository();
+            GenreRepository = new DALFacade().GetGenreRepository();
         }
         // GET: api/Genre
         public List<DTOGenre> Get()

@@ -23,7 +23,6 @@ namespace DTOConverter.DTOModel
         public DTOTeam HomeTeam { get; set; }
         [DataMember]
         public DTOTeam AwayTeam { get; set; }
-        public List<int> TeamIdvsTeamId { get; set; }
         public DTOTournament DtoTournament { get; set; }
  
     }

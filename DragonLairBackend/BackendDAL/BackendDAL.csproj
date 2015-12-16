@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\DragonLairContext.cs" />
-    <Compile Include="Facade\Facade.cs" />
+    <Compile Include="Facade\DALFacade.cs" />
     <Compile Include="Initializer\DbInitializer.cs" />
     <Compile Include="Initializer\DragonLairInitizalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

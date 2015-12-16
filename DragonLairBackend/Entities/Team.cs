@@ -26,5 +26,7 @@ namespace Entities
         [JsonProperty(PropertyName = "DtoPlayers")]
         public virtual List<Player> Players { get; set; }
 
+        public virtual List<Match> Matches { get; set; }
+
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BackendDAL.Facade
 {
-    public class Facade
+    public class DALFacade
     {
         ////Hacks to ensure DLL is copies to the database!
         private SqlProviderServices ensureDLLIsInUse = SqlProviderServices.Instance;
@@ -19,11 +19,11 @@ namespace BackendDAL.Facade
         {
             return new PlayerRepository();
         }
-        public IRepository<Match> GetMatchRepository()
+        public MatchRepository GetMatchRepository()
         {
             return new MatchRepository();
         }
-        public IRepository<Team> GetTeamRepository()
+        public TeamRepository GetTeamRepository()
         {
             return new TeamRepository();
         }

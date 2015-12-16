@@ -20,7 +20,7 @@ namespace DragonLairBackend.Controllers
         public TeamController()
         {
             DtoTeamConverter = new DTOTeamConverter();
-            var facade = new Facade();
+            var facade = new DALFacade();
             teamRepository = facade.GetTeamRepository();
 
             

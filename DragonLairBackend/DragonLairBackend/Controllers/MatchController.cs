@@ -17,13 +17,13 @@ namespace DragonLairBackend.Controllers
     {
         private readonly IRepository<Group> groupRepository;
         private readonly IRepository<Tournament> tournamentRepository;
-        private readonly IRepository<Team> teamRepository;
+        private readonly TeamRepository teamRepository;
         private readonly IRepository<Match> matchRepository;
         private DTOMatchConverter DtoMatcbConverter;
         public MatchController()
         {
             DtoMatcbConverter = new DTOMatchConverter();
-            var facade = new Facade();
+            var facade = new DALFacade();
             matchRepository = facade.GetMatchRepository();
             teamRepository = facade.GetTeamRepository();
             groupRepository = facade.GetGroupRepository();

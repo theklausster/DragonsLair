@@ -141,7 +141,7 @@ namespace DragonLairFrontEnd.Models
             
             for (int i = 0; i < AmmountOfGroups; i++)
             {
-                groups.Add(new Group() { Teams = new List<Team>(), Name = "Group"+i+1 });
+                groups.Add(new Group() { Teams = new List<Team>(), Name = Tournament.Name+"Group"+i});
             }
             if (AmmountOfGroups == 1)
             {
@@ -196,7 +196,7 @@ namespace DragonLairFrontEnd.Models
            
             if (item.Teams.Count % 2 != 0)
             {
-                    item.Teams.Add(new Team() { Name = "UnEven", Win = 0, Draw = 0, Loss = 0, Players = new List<Player>() });
+                    item.Teams.Add(new Team() { Name = "UnEven"+item.Name, Win = 0, Draw = 0, Loss = 0, Players = new List<Player>() });
             }
 
             int numMatch = (item.Teams.Count - 1);

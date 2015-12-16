@@ -21,7 +21,7 @@ namespace DragonLairBackend.Controllers
         public GameController()
         {
             dtoGameConverter = new DTOGameConverter();
-            var facade = new Facade();
+            var facade = new DALFacade();
             gameRepository = facade.GetGameRepository();
         }
 

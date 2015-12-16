@@ -13,5 +13,7 @@ namespace BackendDAL.Repositories
         T Create(T entity);
         bool Update(T entity);
         void Delete(int id);
+
+       
     }
 }

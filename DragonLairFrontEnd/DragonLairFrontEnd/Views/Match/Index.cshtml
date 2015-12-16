@@ -12,10 +12,13 @@
             @Html.DisplayNameFor(model => model.Round)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tournament)
+            @Html.DisplayNameFor(model => model.HomeTeam)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Group)
+            @Html.DisplayNameFor(model => model.AwayTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Winner)
         </th>
 
         <th></th>
@@ -28,18 +31,29 @@
                 @Html.DisplayFor(modelItem => item.Round)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Tournament.Name)
+                @Html.DisplayFor(modelItem => item.HomeTeam.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Group.Name)
+                @Html.DisplayFor(modelItem => item.AwayTeam.Name)
             </td>
-
+            @if (item.Winner != null)
+            {
+            <td>
+                @Html.DisplayFor(modelItem => item.Winner.Name)
+            </td>
+            }
+            else
+            {
+                <td></td>
+            }
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
+            
         </tr>
+
     }
 
 </table>

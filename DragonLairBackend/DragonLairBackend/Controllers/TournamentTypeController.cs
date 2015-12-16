@@ -19,7 +19,7 @@ namespace DragonLairBackend.Controllers
         public TournamentTypeController()
         {
             DtoTournamentTypeConverter = new DTOTournamentTypeConverter();
-            var facade = new Facade();
+            var facade = new DALFacade();
             tournamentTypeRepository = facade.GetTournamentTypeRepository();
 
 

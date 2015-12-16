@@ -71,7 +71,7 @@ namespace DTOConverter.Converter
             dtoTournament.StartDate = t.StartDate;
             dtoTournament.DtoGroups = dtoGroups;
             dtoTournament.DtoGame = new DTOGame() { Id = t.Game.Id, Name = t.Game.Name, DtoGenre = new DTOGenre() { Id = t.Game.Genre.Id, Name = t.Game.Genre.Name } };
-            dtoTournament.DtoMatches = dtoMatches;
+            dtoTournament.Matches = dtoMatches;
             return dtoTournament;
         }
     }

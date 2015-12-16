@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace BackendDAL.Repositories
 {
-    class TeamRepository : IRepository<Team>
+    public class TeamRepository : IRepository<Team>
     {
         public Team Create(Team entity)
         {
@@ -20,6 +20,23 @@ namespace BackendDAL.Repositories
                 context.SaveChanges();
             }
             return entity;
+        }
+
+        public List<Team> Create(List<Team> teams)
+        {
+            List<Team> list = new List<Team>();
+            using (var context = new DragonLairContext())
+            {               
+                foreach (var team in teams)
+                {
+                    team.Players.ForEach(a => context.Players.Attach(a));
+                    context.Teams.Add(team);
+                    list.Add(team);
+                }
+                context.SaveChanges();
+
+            }
+            return list; 
         }
 
         public void Delete(int id)

@@ -25,8 +25,9 @@ namespace Entities
         [JsonProperty(PropertyName = "DtoGame")]
         public virtual Game Game { get; set; }
 
-        [JsonProperty(PropertyName = "DtoGroups ")]
+        [JsonProperty(PropertyName = "DtoGroups")]
         public virtual List<Group> Groups { get; set; }
+
         public virtual List<Match> Matches { get; set; }
 
     }
