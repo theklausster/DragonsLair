@@ -40,7 +40,7 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentTypeController.Url = urlHelper;
 
             tournamentType = new TournamentType() { Type = "Integration Test TournamentType" };
-           
+
         }
 
         [TearDown]
@@ -87,7 +87,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             tournamentType.Id = 1;
             TournamentType newTournamentType = tournamentType;
-            newTournamentType.Type = "Playoff";
+            newTournamentType.Type = "Integration tournamentType update";
             tournamentTypeController.Put(tournamentType.Id, newTournamentType);
             var response = tournamentTypeController.Get(tournamentType.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOTournamentType>;

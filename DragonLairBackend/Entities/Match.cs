@@ -15,7 +15,6 @@ namespace Entities
         public int Id { get; set; }
         [Required(ErrorMessage = "Please enter a Round name")]
         public string Round { get; set; }
-
       
         public virtual Team Winner { get; set; }
 

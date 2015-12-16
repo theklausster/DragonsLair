@@ -20,10 +20,10 @@ namespace DTOConverter.DTOModel
         public DTOTeam Winner { get; set; }
 
         [DataMember]
+
         public DTOTeam HomeTeam { get; set; }
         [DataMember]
         public DTOTeam AwayTeam { get; set; }
         public DTOTournament DtoTournament { get; set; }
- 
     }
 }

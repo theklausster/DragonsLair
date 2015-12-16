@@ -35,6 +35,7 @@ namespace BackendDAL.Initializer
   
         public DragonLairInitizalizer()
         {
+
             genre = new Genre() { Name = "Roleplaying" };
             game1 = new Game() { Name = "Wars", Genre = genre };
             tournamentType = new TournamentType() { Type = "1vs1" };

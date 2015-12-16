@@ -42,9 +42,6 @@ namespace BackendDAL.Repositories
                 Group group = context.Groups
                     .Include(a => a.Teams)
                     .Include(a => a.Tournament)
-                    .Include(b => b.Tournament.TournamentType)
-                    .Include(c => c.Tournament.Game)
-                    .Include(d => d.Tournament.Game.Genre)
                     .FirstOrDefault(b => b.Id == id);
                 return group;
             }
@@ -57,9 +54,6 @@ namespace BackendDAL.Repositories
                 List<Group> groups = context.Groups
                     .Include(a => a.Teams)
                     .Include(a => a.Tournament)
-                    .Include(b => b.Tournament.TournamentType)
-                    .Include(c => c.Tournament.Game)
-                    .Include(d => d.Tournament.Game.Genre)
                     .ToList();
                 return groups;
             }

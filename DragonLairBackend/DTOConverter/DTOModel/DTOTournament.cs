@@ -23,7 +23,7 @@ namespace DTOConverter.DTOModel
         [DataMember]
         public DTOTournamentType DTOTournamentType { get; set; }
         [DataMember]
-        public ICollection<DTOGroup> DtoGroups { get; set; }
+        public List<DTOGroup> DtoGroups { get; set; }
 
         [DataMember]
         public DTOGame DtoGame { get; set; }

@@ -12,6 +12,7 @@ namespace DTOConverter.Converter
     {
         public override DTOMatch Convert(Match t)
         {
+
             //if (t.Teams == null || t.Tournament == null || t.Group == null) throw new ArgumentException("Missing some data in Match");
             DTOMatch dtoMatch = new DTOMatch();
             List<DTOTeam> dtoTeams = new List<DTOTeam>();
@@ -25,7 +26,10 @@ namespace DTOConverter.Converter
                 DTOTeam dtoTeam = new DTOTeam() { Id = t.Winner.Id, Name = t.Winner.Name, Win = t.Winner.Win, Loss = t.Winner.Loss, Draw = t.Winner.Draw };
                 dtoMatch.Winner = dtoTeam;
             }
-        
+
+            dtoTournament = new DTOTournament() { Id = t.Tournament.Id, Name = t.Tournament.Name, StartDate = t.Tournament.StartDate };
+            dtoMatch.DtoTournament = dtoTournament;
+
 
             return dtoMatch;
 

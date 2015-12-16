@@ -26,7 +26,6 @@ namespace BackEndIntegrationTest.IntegrationTest
         private TournamentController tournamentController;
         private Tournament tournament;
         private Genre genreFromDb;
-        private Group groupFromDb;
         private Game gameFromDb;
         private TournamentType tournamentTypeFromDb;
 
@@ -48,23 +47,36 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentController.Request.Properties[HttpPropertyKeys.HttpRouteDataKey] = routeData;
             tournamentController.Url = urlHelper;
 
-
             var groupResponse = groupController.Get(1);
             var groupContentResult = groupResponse as OkNegotiatedContentResult<DTOGroup>;
             DTOGroup DtoGroup = groupContentResult.Content;
-            groupFromDb = new Group();
-            groupFromDb.Name = DtoGroup.Name;
-            groupFromDb.Id = DtoGroup.Id;
-            List<Group> groups = new List<Group>() { groupFromDb };
 
-
-            var genreResponse = genreController.Get(1);
-            var genreContentResult = genreResponse as OkNegotiatedContentResult<DTOGenre>;
-            DTOGenre DtoGenre = genreContentResult.Content;
-            genreFromDb = new Genre();
-            genreFromDb.Name = DtoGenre.Name;
-            genreFromDb.Id = DtoGenre.Id;
-
+            List<Group> groups = new List<Group>();
+            Group group = new Group();
+            group.Name = DtoGroup.Name;
+            group.Id = DtoGroup.Id;
+            List<Team> dtoTeams = new List<Team>();
+            foreach (var dtoTeam in DtoGroup.DtoTeams)
+            {
+                Team team = new Team();
+                team.Name = dtoTeam.Name;
+                team.Id = dtoTeam.Id;
+                team.Draw = dtoTeam.Draw;
+                team.Loss = dtoTeam.Loss;
+                team.Win = dtoTeam.Win;
+                List<Player> dtoPlayers = new List<Player>();
+                foreach (var dtoPlayer in dtoTeam.DtoPlayers)
+                {
+                    Player player = new Player();
+                    player.Name = dtoPlayer.Name;
+                    player.Id = dtoPlayer.Id;
+                    dtoPlayers.Add(player);
+                }
+                team.Players = dtoPlayers;
+                dtoTeams.Add(team);
+            }
+            group.Teams = dtoTeams;
+            groups.Add(group);
 
             var gameResponse = gameController.Get(1);
             var gameContentResult = gameResponse as OkNegotiatedContentResult<DTOGame>;
@@ -82,8 +94,8 @@ namespace BackEndIntegrationTest.IntegrationTest
             tournamentTypeFromDb.Type = DtoTournamentType.Type;
             tournamentTypeFromDb.Id = DtoTournamentType.Id;
 
-            tournament = new Tournament() { Name = "Integration Test Tournament", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb };
-            //DbTestInitializer.Initialize();
+            tournament = new Tournament() { Name = "Integration Test Tournament", Groups = groups, Game = gameFromDb, TournamentType = tournamentTypeFromDb, StartDate = System.DateTime.Now };
+
         }
 
         [TearDown]
@@ -132,7 +144,7 @@ namespace BackEndIntegrationTest.IntegrationTest
         {
             tournament.Id = 1;
             Tournament newTournament = tournament;
-            newTournament.Name = "Team Test";
+            newTournament.Name = "Integration Tournament update";
             tournamentController.Put(tournament.Id, newTournament);
             var response = tournamentController.Get(tournament.Id);
             var contentResult = response as OkNegotiatedContentResult<DTOTournament>;

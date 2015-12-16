@@ -24,6 +24,7 @@
 
 //        }
 
+
 //        [Test]
 //        [ExpectedException(typeof(ArgumentException))]
 //        public void Test_if_match_can_be_converted_with_a_group_and_fail()
@@ -37,6 +38,7 @@
 
 //        }
 
+
 //        [Test]
 //        [ExpectedException(typeof(ArgumentException))]
 //        public void Test_if_match_can_be_converted_with_tournament_and_fail()
@@ -48,14 +50,34 @@
 
 //            dtomatch = dtoMatchConverter.Convert(match);
 
+
 //        }
+
 //        [Test]
-//        [ExpectedException(typeof(ArgumentException))]
-//        public void Test_if_match_can_be_converted_with_teams_and_fail()
+//        public void Test_if_Match_can_be_converted_with_tournament()
 //        {
+//            Group group = new Group() { Id = 1, Name = "I am a group" };
 //            DTOMatch dtomatch = new DTOMatch();
+//            Tournament tournament = new Tournament() { Id = 1, Name = "Test Tourny" };
 //            List<Team> teams = new List<Team>() { new Team() { Id = 1, Name = "Test Team" }
 //        , new Team() { Id = 1, Name = "Test Team" }};
+//            DTOMatchConverter dtoMatchConverter = new DTOMatchConverter();
+//            Match match = new Match() { Id = 1, Round = "Playoff Round 1", Tournament = tournament};
+
+//            dtomatch = dtoMatchConverter.Convert(match);
+//            Assert.AreEqual(dtomatch.Id, match.Id);
+//            Assert.IsNotNull(dtomatch.DtoTournament);
+//            Assert.AreEqual(dtomatch.DtoTournament.Id, tournament.Id);
+//        }
+
+////        }
+////        [Test]
+////        [ExpectedException(typeof(ArgumentException))]
+////        public void Test_if_match_can_be_converted_with_teams_and_fail()
+////        {
+////            DTOMatch dtomatch = new DTOMatch();
+////            List<Team> teams = new List<Team>() { new Team() { Id = 1, Name = "Test Team" }
+////        , new Team() { Id = 1, Name = "Test Team" }};
 //            DTOMatchConverter dtoMatchConverter = new DTOMatchConverter();
 //            Match match = new Match() { Id = 1, Round = "Playoff Round 1", Teams = teams };
 
@@ -83,6 +105,5 @@
 //            Assert.IsNotNull(dtomatch.DtoTournament);
 //            Assert.AreEqual(dtomatch.DtoTournament.Id, tournament.Id);
 //        }
-
 //    }
 //}
