@@ -116,9 +116,6 @@ namespace DragonLairFrontEnd.Models
             Tournament.TournamentType = TournamentType;
             Tournament.Groups = GeneratedGroups;
             Tournament.Matches = GeneratedMatches;
-            
-
-
 
             await SaveOnDB();
         }

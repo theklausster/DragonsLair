@@ -25,6 +25,7 @@ namespace DragonLairFrontEnd.Controllers
         {
             Match match = await apiService.GetAsync<Match>(baseRoute + id);
             return View("Details", match);
+            
         }
 
       

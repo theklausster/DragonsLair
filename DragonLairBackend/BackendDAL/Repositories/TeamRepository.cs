@@ -83,6 +83,7 @@ namespace BackendDAL.Repositories
                 foreach (var player in entity.Players)
                 {
                     team.Players.Add(context.Players.Find(player.Id));
+
                 }
                 context.Entry(team).State = EntityState.Modified;
                 context.SaveChanges();
