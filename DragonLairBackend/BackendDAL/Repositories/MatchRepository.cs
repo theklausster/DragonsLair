@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BackendDAL.Context;
+using BackendDAL.Facade;
 using Entities;
 using Match = Entities.Match;
 
@@ -67,8 +68,12 @@ namespace BackendDAL.Repositories
                 Match match = context.Matches.Find(id);
 
                 context.Entry(match).Reference(a => a.Tournament).Load();
-                context.Entry(match.Tournament).Collection(a => a.Groups).Query().Include(a => a.Teams).Include(a => a.Teams.Select(b => b.Players)).Load();
-
+                context.Entry(match.Tournament)
+                    .Collection(a => a.Groups)
+                    .Query().Include(a => a.Teams).Include(a => a.Teams.Select(b => b.Players)).Load();
+                context.Entry(match).Reference(a => a.AwayTeam).Load();
+                context.Entry(match).Reference(a => a.HomeTeam).Load();
+                context.Entry(match).Reference(a => a.Winner).Load();
                 return match;
             }
         }
@@ -77,7 +82,7 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                var list = context.Matches.Include(a => a.HomeTeam).Include(a => a.AwayTeam).Include(a => a.Winner).ToList();
+                var list = context.Matches.Include(a => a.HomeTeam).Include(a => a.AwayTeam).Include(a => a.Winner).Include(a => a.Tournament).ToList();
 
                 return list;
 
@@ -86,12 +91,16 @@ namespace BackendDAL.Repositories
 
         public bool Update(Match entity)
         {
-            using (var context = new DragonLairContext())
+           
+           using (var context = new DragonLairContext())
             {
                 Match match = context.Matches.Find(entity.Id);
                 if ((match == null)) return false;
-                match.Tournament = entity.Tournament;
-                if (entity.Winner != null) match.Winner = entity.Winner;
+                match.Tournament = context.Tournaments.Find(entity.Tournament.Id);
+                match.AwayTeam = context.Teams.Find(entity.AwayTeam.Id);
+                match.HomeTeam = context.Teams.Find(entity.HomeTeam.Id);
+                match.Round = entity.Round;
+                if (entity.Winner != null) match.Winner = context.Teams.Find(entity.Winner.Id);
                 context.Entry(match).State = EntityState.Modified;
                 context.SaveChanges();
                 return true;

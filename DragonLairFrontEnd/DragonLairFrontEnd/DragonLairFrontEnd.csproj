@@ -188,6 +188,7 @@
     <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MatchViewModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\TournamentViewModel.cs" />

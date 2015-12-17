@@ -1,81 +1,75 @@
-﻿@model Entities.Match
+﻿@model DragonLairFrontEnd.Models.MatchViewModel
 
-@{
-    ViewBag.Title = "Edit";
-}
+    @{
+        ViewBag.Title = "Edit";
+    }
 
-<h2>Edit Winner</h2>
+    <h2>Edit Winner</h2>
 
-<hr />
+    <hr />
 
-@using (Html.BeginForm())
-{
+    @using (Html.BeginForm())
+    {
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Match.Id)
 
-    @Html.AntiForgeryToken()
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Round)
-            </dt>
+        @Html.AntiForgeryToken()
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Match.Round)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Match.Round)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Round)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Match.Tournament)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Match.Tournament.Name)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Tournament)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Match.AwayTeam)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Match.AwayTeam.Name)
+                </dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Tournament.Name)
-            </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Match.HomeTeam)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Match.HomeTeam.Name)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Group)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Group.Name)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Teams)
-            </dt>
-            <dd>
-                @foreach (var team in Model.Teams)
-                {
-                    @Html.DisplayFor(model => team.Name)<br />
+                <dd>
+                    @Html.HiddenFor(model => model.Match.Winner)
+                </dd>
+                <dd>
+                    <br />
+                    @Html.DropDownList("teamId", new SelectList(Model.Teams, "Id", "Name", Model.Teams));
+                    @Html.ValidationMessageFor(model => model.Teams, "", new { @class = "text-danger" })
+                </dd>
 
-                }
-            </dd>
-            <dt>
-                <br/>
-                @Html.DisplayNameFor(model => model.Winner)
-            </dt>
-            <dd>
-                <br/>
-                @Html.DropDownList("teamId", new SelectList(Model.Teams, "Id", "Name", Model.Teams));
-                @Html.ValidationMessageFor(model => model.Teams, "", new {@class = "text-danger"})
+            </dl>
+        </div>
 
-            </dd>
-
-        </dl>
-    </div>
-
-  <div class="form-group">
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
 
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
