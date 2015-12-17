@@ -12,7 +12,6 @@ namespace DragonLairBackend.Areas.HelpPage
                 return "HelpPage";
             }
         }
-
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
