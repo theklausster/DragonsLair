@@ -37,7 +37,6 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         [Test]
         public async void Test_if_index_returns_a_view()
         {
-            match = await apiService.GetAsync<Match>("api/match/" + 1);
             var result = await matchController.Index() as ViewResult;
             Assert.IsNotNull(result);
             Assert.AreSame("Index", result.ViewName);
@@ -45,7 +44,6 @@ namespace FrontEndIntegrationTest.IntegrationsTest
         [Test]
         public async void Test_if_details_returns_a_view()
         {
-            match = await apiService.GetAsync<Match>("api/match/" + 1);
             var result = await matchController.Details(1) as ViewResult;
             Assert.IsNotNull(result);
             Assert.AreSame("Details", result.ViewName);

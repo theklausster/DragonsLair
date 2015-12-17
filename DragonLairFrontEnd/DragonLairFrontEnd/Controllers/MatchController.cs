@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DragonLairFrontEnd.Models;
 using Entities;
 using ServiceGateway.Http;
 
@@ -24,7 +25,7 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Details(int id)
         {
             Match match = await apiService.GetAsync<Match>(baseRoute + id);
-            return View("Details", match);
+          return View("Details", match);
         }
 
       
@@ -32,7 +33,11 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             Match match = await apiService.GetAsync<Match>(baseRoute + id);
-            return View("Edit", match);
+            MatchViewModel matchView = new MatchViewModel();
+            matchView.Match = match;
+            matchView.Winner = match.Winner;
+            matchView.Teams = matchView.FillTeams(match.HomeTeam, match.AwayTeam);
+            return View("Edit", matchView);
         }
 
         // POST: Match/Edit/5
