@@ -32,7 +32,7 @@
             <th>@Html.DisplayNameFor(model => model.Tournament.Groups)</th>
         </tr>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Tournament.Groups.Select(a => a.Teams))</th>
+            @*<th>@Html.DisplayNameFor(model => model.Tournament.Groups.Select(a => a.Teams))</th>*@
         </tr>
 
         @foreach (var group in Model.Tournament.Groups)

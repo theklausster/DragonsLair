@@ -12,9 +12,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Draw)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Loss)
         </th>
         <th>
@@ -32,9 +29,6 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Draw)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Loss)
             </td>
