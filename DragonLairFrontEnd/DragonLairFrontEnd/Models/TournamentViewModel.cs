@@ -188,11 +188,8 @@ namespace DragonLairFrontEnd.Models
         {
 
             var matches = new List<Match>();
-            
-
             foreach (var item in GeneratedGroups)
             {
-
            
             if (item.Teams.Count % 2 != 0)
             {

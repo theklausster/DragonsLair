@@ -4,95 +4,57 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Tournament</h4>
     <hr />
-
     <table class="table">
 
         <tr>
-            <td></td>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Tournament.TournamentType)</th>
             <th>@Html.DisplayNameFor(model => model.Tournament.Game)</th>
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Tournament.Name):</td>
-            <td>@Html.DisplayFor(model => model.Tournament.Game.Name)</td>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Game.Genre.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Tournament.StartDate)</th>
         </tr>
 
         <tr>
-            <td>@Html.DisplayNameFor(model => model.Tournament.Game.Genre):</td>
-            <td>@Html.DisplayFor(model => model.Tournament.Game.Genre.Name)</td>
-
-        </tr>
-        <tr>
-            <td>@Html.DisplayNameFor(model => model.Tournament.TournamentType.Type):</td>
+            <td>@Html.DisplayFor(model => model.Tournament.Name)</td>
             <td>@Html.DisplayFor(model => model.Tournament.TournamentType.Type)</td>
+            <td>@Html.DisplayFor(model => model.Tournament.Game.Name)</td>
+            <td>@Html.DisplayFor(model => model.Tournament.Game.Genre.Name)</td>
+            <td>@Html.DisplayFor(model => model.Tournament.StartDate)</td>
         </tr>
+
 
     </table>
-
+    <p></p>
     <table class="table">
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tournament.Groups):
-            </th>
-            <th>@Html.DisplayNameFor(model => model.Tournament.Groups.First().Teams):</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Groups)</th>
         </tr>
-
         <tr>
-            <td>Group Name:</td>
-            <td>Team Name:</td>
-            <td>Win:</td>
-            <td>Draw:</td>
-            <td>Loss:</td>
-            <td>Players in Team:</td>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Groups.Select(a => a.Teams))</th>
         </tr>
 
         @foreach (var group in Model.Tournament.Groups)
         {
+            <tr>
+                <td>@group.Name</td>
 
-            for (int i = 0; i < Model.Tournament.Groups.FirstOrDefault().Teams.Count; i++)
-            {
-                if (i % Model.Tournament.Groups.Count == 0)
+                @foreach (var team in group.Teams)
                 {
-                    <tr>
-                        <td>@Html.DisplayFor(model => group.Name)</td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Name)</td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Win)</td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Draw)</td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Loss)</td>
-                        <td>
-                            @foreach (var player in Model.Tournament.Groups.FirstOrDefault().Teams[i].Players)
-                            {
-                                <p>@player.Name</p>
-                            }
-                        </td>
-                    </tr>
+                    <td>@team.Name</td>
                 }
-                else
-                {
-                    <tr>
-                        <td></td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Name)</td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Win)</td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Draw)</td>
-                        <td>@Html.DisplayFor(model => Model.Tournament.Groups.FirstOrDefault().Teams[i].Loss)</td>
-                        <td>
-                            @foreach (var player in Model.Tournament.Groups.FirstOrDefault().Teams[i].Players)
-                            {
-                                <p>@player.Name</p>
-                            }
-                        </td>
-                    </tr>
-                }
-            }
+            </tr>
         }
+
+    </table>
+    <p></p>
+
+    <table class="table">
+        <tr>
+            <th></th>
+        </tr>
+
 
     </table>
 
