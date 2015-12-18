@@ -22,7 +22,7 @@ namespace DragonLairFrontEnd.Controllers
         protected override void Initialize(RequestContext requestContext)
         {
            base.Initialize(requestContext);
-        }
+           }
 
         // GET: Team
         public async Task<ActionResult> Index(TeamViewModel teamViewModel = null)
@@ -41,6 +41,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Team/Create
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TeamViewModel teamViewModel)
         {
             teamViewModel.ActionName = "Create";
@@ -50,6 +51,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Team/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TeamViewModel teamViewModel,[Bind(Include = "Name, Win, Loss, Draw")] Team team)
         {
             try
@@ -67,6 +69,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Team/Edit/5
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(TeamViewModel teamViewModel,int id)
         {
             teamViewModel.ActionName = "Edit";
@@ -93,6 +96,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Team/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(TeamViewModel teamViewModel,[Bind(Include = "Id, Name, Win, Loss, Draw")] Team team)
         {
             try
@@ -116,6 +120,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Team/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try

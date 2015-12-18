@@ -29,6 +29,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: genre/Create
+        [ValidateAntiForgeryToken]
         public ActionResult Create()
         {
             return View("Create", new Genre());
@@ -36,6 +37,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: genre/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Genre genre)
         {
             try
@@ -51,6 +53,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: genre/Edit/5
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id)
         {
             Genre genre = await apiService.GetAsync<Genre>(baseRoute + id);
@@ -59,6 +62,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: genre/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Genre genre)
         {
             try
@@ -82,6 +86,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: genre/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try

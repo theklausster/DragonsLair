@@ -88,7 +88,8 @@ namespace DragonLairFrontEnd.Controllers
 
 
         //POST: tournament/Create
-       [HttpPost]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id, Name, StartDate")] Tournament tournament)
         {
             try
@@ -102,51 +103,5 @@ namespace DragonLairFrontEnd.Controllers
             }
         }
 
-        //    // GET: tournament/Edit/5
-        //    public async Task<ActionResult> Edit(int id)
-        //    {
-        //        Tournament tournament = await apiService.GetAsync<Tournament>(baseRoute + id);
-        //        return View(tournament);
-        //    }
-
-        //    // POST: tournament/Edit/5
-        //    [HttpPost]
-        //    public async Task<ActionResult> Edit([Bind(Include = "Id, Name, StartDate")] Tournament tournament)
-        //    {
-        //        try
-        //        {
-        //            await apiService.PutAsync<Tournament>(baseRoute + tournament.Id, tournament);
-
-        //            return RedirectToAction("Index");
-        //        }
-        //        catch
-        //        {
-        //            return View();
-        //        }
-        //    }
-
-        //    // GET: tournament/Delete/5
-        //    public async Task<ActionResult> Delete(int id)
-        //    {
-        //        Tournament tournament = await apiService.GetAsync<Tournament>(baseRoute + id);
-        //        return View(tournament);
-        //    }
-
-        //    // POST: tournament/Delete/5
-        //    [HttpPost, ActionName("Delete")]
-        //    public async Task<ActionResult> DeleteConfirmed(int id)
-        //    {
-        //        try
-        //        {
-        //            await apiService.DeleteAsync<Player>(baseRoute + id);
-
-        //            return RedirectToAction("Index");
-        //        }
-        //        catch
-        //        {
-        //            return View();
-        //        }
-        //    }
-        //}
     }
 }

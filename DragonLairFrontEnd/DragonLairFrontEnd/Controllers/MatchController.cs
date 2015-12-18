@@ -28,8 +28,9 @@ namespace DragonLairFrontEnd.Controllers
           return View("Details", match);
         }
 
-      
+
         // GET: Match/Edit/5
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id)
         {
             Match match = await apiService.GetAsync<Match>(baseRoute + id);
@@ -42,6 +43,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Match/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Round ")] Match matchV, string teamId)
         {
             
