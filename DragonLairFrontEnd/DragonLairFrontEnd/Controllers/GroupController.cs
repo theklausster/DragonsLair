@@ -66,8 +66,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Group/Create
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create()
+       public async Task<ActionResult> Create()
         {
             GM = await SetUpGroupModel();
             return View(GM);
@@ -98,8 +97,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Group/Edit/5
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id)
+       public async Task<ActionResult> Edit(int id)
         {
             if (GM.Group != null) return View(GM);
 

@@ -28,8 +28,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: TournamentType/Create
-        [ValidateAntiForgeryToken]
-        public ActionResult Create()
+       public ActionResult Create()
         {
             return View(new TournamentType());
         }
@@ -52,8 +51,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: TournamentType/Edit/5
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id)
+      public async Task<ActionResult> Edit(int id)
         {
             TournamentType tournamentType = await apiService.GetAsync<TournamentType>(baseRoute + id);
             return View(tournamentType);

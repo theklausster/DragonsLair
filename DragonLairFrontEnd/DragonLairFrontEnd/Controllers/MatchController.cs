@@ -31,7 +31,6 @@ namespace DragonLairFrontEnd.Controllers
 
 
         // GET: Match/Edit/5
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id)
         {
             Match match = await apiService.GetAsync<Match>(baseRoute + id);

@@ -29,7 +29,6 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: genre/Create
-        [ValidateAntiForgeryToken]
         public ActionResult Create()
         {
             return View("Create", new Genre());
@@ -53,7 +52,6 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: genre/Edit/5
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id)
         {
             Genre genre = await apiService.GetAsync<Genre>(baseRoute + id);

@@ -33,8 +33,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Player/Create
-        [ValidateAntiForgeryToken]
-        public ActionResult Create()
+      public ActionResult Create()
         {
             return View("Create", new Player());
         }
@@ -57,7 +56,6 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Player/Edit/5
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id)
         {
             PlayerModel playerModel = new PlayerModel();

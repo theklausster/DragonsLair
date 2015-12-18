@@ -39,7 +39,6 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: game/Create
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create()
         {
             GameGenreViewModel gameGenreViewModel = await SetUpGameGenreViewModel();
@@ -69,8 +68,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: game/Edit/5
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id)
+       public async Task<ActionResult> Edit(int id)
         {
             GameGenreViewModel gameGenreViewModel = await SetUpGameGenreViewModel();
             gameGenreViewModel.Game = await apiService.GetAsync<Game>(baseRoute + id);

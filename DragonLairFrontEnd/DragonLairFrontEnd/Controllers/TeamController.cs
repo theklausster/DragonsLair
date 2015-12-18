@@ -41,7 +41,6 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Team/Create
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(TeamViewModel teamViewModel)
         {
             teamViewModel.ActionName = "Create";
@@ -69,8 +68,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Team/Edit/5
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(TeamViewModel teamViewModel,int id)
+       public async Task<ActionResult> Edit(TeamViewModel teamViewModel,int id)
         {
             teamViewModel.ActionName = "Edit";
             await teamViewModel.PopulateData(id);
