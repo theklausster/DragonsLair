@@ -30,20 +30,21 @@
     <table class="table">
         <tr>
             <th>@Html.DisplayNameFor(model => model.Tournament.Groups)</th>
-        </tr>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.Tournament.Groups.Select(a => a.Teams))</th>
+            <th>@Html.DisplayName("Teams")</th>
+
         </tr>
 
         @foreach (var group in Model.Tournament.Groups)
         {
             <tr>
-                <td>@group.Name</td>
-
-                @foreach (var team in group.Teams)
-                {
-                    <td>@team.Name</td>
-                }
+                <td>@Html.DisplayFor(model => group.Name)
+              
+                <td>
+                    @foreach (var team in group.Teams)
+                    {
+                        <p>@Html.DisplayFor(model => team.Name)</p>
+                    }
+                </td>
             </tr>
         }
 
@@ -52,8 +53,23 @@
 
     <table class="table">
         <tr>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Matches.First().Round)</th>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Matches)</th>
+            <th>@Html.DisplayNameFor(model => model.Tournament.Matches.First().Winner)</th>
         </tr>
+        @foreach(var match in Model.Tournament.Matches)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => match.Round)</td>
+                <td>@Html.DisplayFor(model => match.HomeTeam.Name) vs @Html.DisplayFor(model => match.AwayTeam.Name)</td>
+                @if (match.Winner != null)
+                {
+                    <td>@Html.DisplayFor(model => match.Winner.Name)</td>
+                }
+
+            </tr>
+
+        }
 
 
     </table>

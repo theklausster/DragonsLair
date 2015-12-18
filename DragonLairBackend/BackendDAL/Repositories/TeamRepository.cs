@@ -121,6 +121,7 @@ namespace BackendDAL.Repositories
                 {
                     team.Players.Add(context.Players.Find(player.Id));
                     context.Players.Attach(context.Players.Find(player.Id));
+
                 }
                 
                 context.Entry(team).State = EntityState.Modified;
