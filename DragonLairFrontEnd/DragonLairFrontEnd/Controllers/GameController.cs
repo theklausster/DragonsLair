@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using DragonLairFrontEnd.Models;
 using Entities;
@@ -16,6 +17,7 @@ namespace DragonLairFrontEnd.Controllers
         private WebApiService apiService = new WebApiService();
         // GET: game
 
+        
         private async Task<GameGenreViewModel> SetUpGameGenreViewModel()
         {
             GameGenreViewModel gameGenreViewModel = new GameGenreViewModel();
@@ -44,6 +46,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // POST: game/Create
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<ActionResult> Create([Bind(Include = "Id, Name, Genre")] Game game, string genreId)
         {
@@ -65,7 +68,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: game/Edit/5
-        public async Task<ActionResult> Edit(int id)
+       public async Task<ActionResult> Edit(int id)
         {
             GameGenreViewModel gameGenreViewModel = await SetUpGameGenreViewModel();
             gameGenreViewModel.Game = await apiService.GetAsync<Game>(baseRoute + id);
@@ -77,6 +80,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: game/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Game game, string genreId)
         {
             try
@@ -102,6 +106,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: game/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try

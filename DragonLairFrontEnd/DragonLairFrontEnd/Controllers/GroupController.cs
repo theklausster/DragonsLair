@@ -66,7 +66,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Group/Create
-        public async Task<ActionResult> Create()
+       public async Task<ActionResult> Create()
         {
             GM = await SetUpGroupModel();
             return View(GM);
@@ -74,6 +74,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Group/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Group group, string[] Teams)
         {
             group.Teams = new List<Team>();
@@ -96,7 +97,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Group/Edit/5
-        public async Task<ActionResult> Edit(int id)
+       public async Task<ActionResult> Edit(int id)
         {
             if (GM.Group != null) return View(GM);
 
@@ -111,6 +112,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Group/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Group group, string[] teamId)
         {
             group.Teams = new List<Team>();
@@ -142,6 +144,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Group/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Group group = await apiService.GetAsync<Group>(baseRoute + id);

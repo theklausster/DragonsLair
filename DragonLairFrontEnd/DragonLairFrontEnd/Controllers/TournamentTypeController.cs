@@ -28,13 +28,14 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: TournamentType/Create
-        public ActionResult Create()
+       public ActionResult Create()
         {
             return View(new TournamentType());
         }
 
         // POST: TournamentType/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id, Type")] TournamentType tournamentType)
         {
             try
@@ -50,7 +51,7 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: TournamentType/Edit/5
-        public async Task<ActionResult> Edit(int id)
+      public async Task<ActionResult> Edit(int id)
         {
             TournamentType tournamentType = await apiService.GetAsync<TournamentType>(baseRoute + id);
             return View(tournamentType);
@@ -58,6 +59,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: TournamentType/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Type")] TournamentType tournamentType)
         {
             try
@@ -81,6 +83,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: TournamentType/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try

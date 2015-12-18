@@ -290,7 +290,6 @@
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Group\Edit.cshtml" />
     <Content Include="Views\Group\Delete.cshtml" />
-    <Content Include="Views\Team\View.cshtml" />
     <Content Include="Views\Team\_Add_Remove_Player.cshtml" />
     <Content Include="Views\Shared\AddRemoveTable.cshtml" />
     <Content Include="Views\Match\Details.cshtml" />

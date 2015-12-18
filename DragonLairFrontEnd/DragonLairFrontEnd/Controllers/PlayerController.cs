@@ -33,13 +33,14 @@ namespace DragonLairFrontEnd.Controllers
         }
 
         // GET: Player/Create
-        public ActionResult Create()
+      public ActionResult Create()
         {
             return View("Create", new Player());
         }
 
         // POST: Player/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Player player)
         {
             try
@@ -66,6 +67,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Player/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Player player, string[] teamId)
         {
            
@@ -100,6 +102,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: Player/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try

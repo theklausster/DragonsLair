@@ -36,6 +36,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: genre/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id, Name")] Genre genre)
         {
             try
@@ -59,6 +60,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: genre/Edit/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id, Name")] Genre genre)
         {
             try
@@ -82,6 +84,7 @@ namespace DragonLairFrontEnd.Controllers
 
         // POST: genre/Delete/5
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             try
