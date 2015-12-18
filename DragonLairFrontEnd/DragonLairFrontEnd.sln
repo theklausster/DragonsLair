@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEndTest", "FrontEndTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEndIntegrationTest", "FrontEndIntegrationTest\FrontEndIntegrationTest.csproj", "{39AF603F-47CA-40F8-9163-500393359060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTournamentLogic", "TestTournamentLogic\TestTournamentLogic.csproj", "{463F0102-27B2-415E-9853-3947B8757E02}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{39AF603F-47CA-40F8-9163-500393359060}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39AF603F-47CA-40F8-9163-500393359060}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39AF603F-47CA-40F8-9163-500393359060}.Release|Any CPU.Build.0 = Release|Any CPU
-		{463F0102-27B2-415E-9853-3947B8757E02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{463F0102-27B2-415E-9853-3947B8757E02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{463F0102-27B2-415E-9853-3947B8757E02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{463F0102-27B2-415E-9853-3947B8757E02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

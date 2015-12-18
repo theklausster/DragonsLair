@@ -102,6 +102,7 @@
     <Compile Include="IntegrationsTest\MatchIntegrationTest.cs" />
     <Compile Include="IntegrationsTest\PlayerIntegrationTest.cs" />
     <Compile Include="IntegrationsTest\TeamIntegrationTest.cs" />
+    <Compile Include="IntegrationsTest\TestTournamentViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

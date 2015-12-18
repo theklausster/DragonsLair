@@ -71,7 +71,13 @@ namespace BackendDAL.Repositories
         {
             using (var context = new DragonLairContext())
             {
-                context.Tournaments.Remove(context.Tournaments.Find(id));
+
+
+                var tournament = context.Tournaments.Find(id);
+                //tournament.Groups.ForEach(a => a.Teams.ForEach(b => context.Teams.Remove(b)));
+                //tournament.Groups.ForEach(a => context.Groups.Remove(a));
+                //tournament.Matches.ForEach(a => context.Matches.Remove(a));
+                context.Tournaments.Remove(tournament);
                 context.SaveChanges();
             }
         }
@@ -82,12 +88,14 @@ namespace BackendDAL.Repositories
             {
                 context.Configuration.ProxyCreationEnabled = false;
 
-                Tournament tournament = context.Tournaments.Find(id);
-
-                context.Entry(tournament).Collection(a => a.Groups).Query().Include(b => b.Teams).Include(c => c.Teams.Select(d => d.Players)).Load();
-                context.Entry(tournament).Reference(a => a.Game).Query().Include(a => a.Genre).Load();
-                context.Entry(tournament).Reference(a => a.TournamentType).Load();
-                context.Entry(tournament).Collection(a => a.Matches).Query().Include(a=>a.AwayTeam).Include(a => a.HomeTeam).Load();
+                Tournament tournament = context.Tournaments.FirstOrDefault(a => a.Id == id);
+                if (tournament != null)
+                {
+                    context.Entry(tournament).Collection(a => a.Groups).Query().Include(b => b.Teams).Include(c => c.Teams.Select(d => d.Players)).Load();
+                    context.Entry(tournament).Reference(a => a.Game).Query().Include(a => a.Genre).Load();
+                    context.Entry(tournament).Reference(a => a.TournamentType).Load();
+                    context.Entry(tournament).Collection(a => a.Matches).Query().Include(a => a.AwayTeam).Include(a => a.HomeTeam).Load();
+                }
                 return tournament;
             }
         }
