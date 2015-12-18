@@ -10,7 +10,9 @@ namespace DragonLairFrontEnd.Models
 {
     public class TournamentViewModel
     {
-        
+        public string Error { get; set; }
+
+
         private WebApiService ServiceGateway = new WebApiService();
         public List<Tournament> Tournaments { get; set; }
         public Tournament Tournament { get; set; }
@@ -166,16 +168,29 @@ namespace DragonLairFrontEnd.Models
         public void AutoGenerateTeams()
         {
             List<Team> teams = new List<Team>();
-
+            Random random = new Random();
            switch(TournamentType.Type)
             {
                 case "1vs1":
-                    foreach (var item in SelectedPlayers)
+                    foreach (var player in SelectedPlayers)
                     {
-                        teams.Add(new Team() { Name = Tournament.Name+item.Name, Win = 0, Draw = 0, Loss = 0, Players = new List<Player>() { new Player() { Id = item.Id, Name = item.Name } } });
+                        teams.Add(new Team() { Name = Tournament.Name+player.Name, Win = 0, Draw = 0, Loss = 0, Players = new List<Player>() { new Player() { Id = player.Id, Name = player.Name } } });
                     }
                     GeneratedTeams = teams;
                 break;
+                case "2vs2":
+                    if (SelectedPlayers.Count%2 != 0)
+                    {
+                        break;
+                    }
+                    for (int i = 0; i < SelectedPlayers.Count ; i = i + 2)
+                    {
+                    
+                        teams.Add(new Team() { Name = Tournament.Name + SelectedPlayers[i].Name + SelectedPlayers[i+1].Name, Win = 0, Draw = 0, Loss = 0,
+                            Players = new List<Player>() { new Player() { Id = SelectedPlayers[i].Id, Name = SelectedPlayers[i].Name }, new Player() { Id = SelectedPlayers[i+1].Id, Name = SelectedPlayers[i+1].Name } } });
+                    }
+                    GeneratedTeams = teams;
+                    break;
             }
         }
 
