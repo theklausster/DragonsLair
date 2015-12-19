@@ -46,6 +46,7 @@ namespace DragonLairFrontEnd.Models
         public async Task PopulateDetailsData(int id)
         {
             Tournament = await ServiceGateway.GetAsync<Tournament>("api/Tournament/" + id);
+           
         }
 
         public async Task PopulateCreateData()
@@ -239,5 +240,14 @@ namespace DragonLairFrontEnd.Models
     }
 
 
+        public void SortTeams(List<Group> groups)
+        {
+            foreach (var group in groups)
+            {
+                group.Teams.OrderBy(a => a.Win);
+            }
+           
+
+        }
     }
 }

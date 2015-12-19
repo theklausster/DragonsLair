@@ -4,10 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Player Details</h2>
-
-<div class="jumbotron">
-    <div class="container">
+   <hr/>
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Name)
@@ -28,9 +25,9 @@
             </dd>
         </dl>
         <br/>
-        <p class="btn-group-sm">
+        <p>
             @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-info" })
             @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info" })
         </p>
-    </div>
-</div>
+    
+

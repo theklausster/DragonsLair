@@ -34,7 +34,7 @@
                                     </td>
                                     <td class="col-md-6">
                                         <div class="btn-group-xs">
-                                            @Html.ActionLink("Remove", "Remove", new { teamId = team.Id }, new { @Class = "btn btn-danger" })
+                                            @Html.ActionLink("Remove", "Remove", new { teamId = team.Id }, new { @Class = "btn btn-warning" })
                                         </div>
                                     </td>
                                 </tr>
@@ -58,7 +58,7 @@
                                        </td>
                                     <td class="col-md-6">
                                         <div class="btn-group-xs">
-                                            @Html.ActionLink("ADD", "ADD", new {teamId = team.Id }, new { @Class = "btn btn-success" })
+                                            @Html.ActionLink("ADD", "ADD", new {teamId = team.Id }, new { @Class = "btn btn-info" })
                                         </div>
                                     </td>
                                 </tr>
@@ -74,14 +74,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-info" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-info" })
 </div>
 
 @section Scripts {

@@ -35,6 +35,7 @@ namespace DragonLairFrontEnd.Controllers
         public async Task<ActionResult> Details(int id)
         {
             await TournamentViewModel.PopulateDetailsData(id);
+            TournamentViewModel.SortTeams(TournamentViewModel.Tournament.Groups);
             return View(TournamentViewModel);
         }
 

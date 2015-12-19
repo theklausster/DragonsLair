@@ -18,7 +18,7 @@
                     @Html.DisplayFor(modelItem => item.Name) 
                 </td>
                 <td>
-                    @Html.ActionLink("Add Player", "Add", "Team", new { playerId = item.Id }, new { @class = "btn btn-success btn-sm" })
+                    @Html.ActionLink("Add Player", "Add", "Team", new { playerId = item.Id }, new { @class = "btn btn-success " })
                 </td>
             </tr>
         }
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Name) 
             </td>
             <td>
-                @Html.ActionLink("Remove Player", "Remove", "Team", new { playerId = item.Id }, new { @class = "btn btn-success btn-sm" })
+                @Html.ActionLink("Remove Player", "Remove", "Team", new { playerId = item.Id }, new { @class = "btn btn-success" })
             </td>
         </tr>
 
