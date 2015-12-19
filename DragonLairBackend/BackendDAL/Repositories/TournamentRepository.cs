@@ -16,7 +16,6 @@ namespace BackendDAL.Repositories
         DALFacade facade = new DALFacade();
         public Tournament Create(Tournament entity)
         {
-
             var matches =  entity.Matches;
             entity.Matches = null;
             using (var context = new DragonLairContext())
@@ -62,7 +61,6 @@ namespace BackendDAL.Repositories
                 
                 context.SaveChanges();
             }
-
 
             return entity;
         }
