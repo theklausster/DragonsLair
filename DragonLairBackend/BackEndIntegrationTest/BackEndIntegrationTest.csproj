@@ -76,10 +76,8 @@
     <Compile Include="IntegrationTest\GameIntegrationTest.cs" />
     <Compile Include="IntegrationTest\GenreIntegrationTest.cs" />
     <Compile Include="IntegrationTest\GroupIntegrationTest.cs" />
-    <Compile Include="IntegrationTest\MatchIntegrationTest.cs" />
     <Compile Include="IntegrationTest\PlayerIntegrationTest.cs" />
     <Compile Include="IntegrationTest\TeamIntegrationTest.cs" />
-    <Compile Include="IntegrationTest\TournamentIntegrationTest.cs" />
     <Compile Include="IntegrationTest\TournamentTypeIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

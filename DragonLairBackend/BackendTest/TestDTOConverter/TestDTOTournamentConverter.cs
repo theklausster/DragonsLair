@@ -85,6 +85,7 @@ namespace BackendTest.TestDTOConverter
             Group group2 = new Group() { Id = 1, Name = "Lars og Peter", Teams = teams1};
             List<Group> groups = new List<Group>() {group1, group2};
             Game game = new Game() { Id = 1, Name = "Warhammer", Genre = genre};
+            Match match = new Match() {Id = 1, AwayTeam = team1, HomeTeam = team2, Round = "blabla"};
             DTOTournamentConverter dtoTournamentConverter = new DTOTournamentConverter();
             Tournament tournament = new Tournament()
             {
@@ -93,7 +94,8 @@ namespace BackendTest.TestDTOConverter
                 StartDate = DateTime.Today,
                 TournamentType = tournamentType,
                 Groups = groups,
-                Game = game
+                Game = game,
+                Matches = new List<Match>() { match}
             };
             
             dtoTournament = dtoTournamentConverter.Convert(tournament);
