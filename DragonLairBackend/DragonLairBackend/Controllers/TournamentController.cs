@@ -24,10 +24,10 @@ namespace DragonLairBackend.Controllers
             tournamentRepository = facade.GetTournamentRepository();
         }
         // GET: api/Tournament
-        public IEnumerable<Tournament> Get()
+        public IEnumerable<DTOTournament> Get()
         {
-            //List<DTOTournament> dtoTournaments = new List<DTOTournament>(dtoTournamentConverter.Convert(tournamentRepository.ReadAll()));
-            return tournamentRepository.ReadAll();
+            List<DTOTournament> dtoTournaments = new List<DTOTournament>(dtoTournamentConverter.Convert(tournamentRepository.ReadAll()));
+            return dtoTournaments;
 
         }
 
