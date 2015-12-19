@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace FrontEndIntegrationTest.IntegrationsTest
 {
     [TestFixture]
-    class TestTournamentViewModel
+    public class TestTournamentViewModel
     {
         private Tournament Tournament;
         private TournamentViewModel TournamentViewModel;
