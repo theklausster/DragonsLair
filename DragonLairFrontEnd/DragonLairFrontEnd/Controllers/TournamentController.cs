@@ -99,7 +99,9 @@ namespace DragonLairFrontEnd.Controllers
             }
             catch
             {
-                return View();
+                string error = "Something went wrong. Try to create a 2vs2 with even players";
+                TournamentViewModel.Error = error;
+                return RedirectToAction("Create");
             }
         }
 

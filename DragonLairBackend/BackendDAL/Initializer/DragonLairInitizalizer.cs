@@ -28,7 +28,8 @@ namespace BackendDAL.Initializer
         private Tournament tournament;
         private Team team;
         private Team team2;
-        private TournamentType tournamentType;
+        private TournamentType tournamentType1;
+        private TournamentType tournamentType2;
         private Genre genre;
         private Game game1;
         private Match match;
@@ -38,7 +39,8 @@ namespace BackendDAL.Initializer
 
             genre = new Genre() { Name = "Roleplaying" };
             game1 = new Game() { Name = "Wars", Genre = genre };
-            tournamentType = new TournamentType() { Type = "1vs1" };
+            tournamentType1 = new TournamentType() { Type = "1vs1" };
+            tournamentType2 = new TournamentType() { Type = "2vs2" };
             player1 = new Player() { Name = "Søren" };
             player2 = new Player() { Name = "Mark" };
             player3 = new Player() { Name = "René" };
@@ -59,7 +61,7 @@ namespace BackendDAL.Initializer
             group1 = new Group() { Name = "Group", Teams = new List<Team>() { team, team2 } };
             match = new Match() { Round = 1.ToString(), HomeTeam = team, AwayTeam = team2, Winner = null, Tournament = tournament };
 
-            tournament = new Tournament() { Name = "tournament", Game = game1, Groups = new List<Group> { group1 }, TournamentType = tournamentType, StartDate = DateTime.Today, Matches = new List<Match>() { match} };
+            tournament = new Tournament() { Name = "tournament", Game = game1, Groups = new List<Group> { group1 }, TournamentType = tournamentType1, StartDate = DateTime.Today, Matches = new List<Match>() { match} };
         
         }
 
@@ -67,7 +69,8 @@ namespace BackendDAL.Initializer
         {
             context.Genres.Add(genre);
             context.Games.Add(game1);
-            context.TournamentTypes.Add(tournamentType);
+            context.TournamentTypes.Add(tournamentType1);
+            context.TournamentTypes.Add(tournamentType2);
             context.Players.Add(player1);
             context.Players.Add(player2);
             context.Players.Add(player3);
