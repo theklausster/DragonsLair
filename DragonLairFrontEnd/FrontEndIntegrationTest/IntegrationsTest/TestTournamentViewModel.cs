@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace TestTournamentLogic
+namespace FrontEndIntegrationTest.IntegrationsTest
 {
     [TestFixture]
     class TestTournamentViewModel
